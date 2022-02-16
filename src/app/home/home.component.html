@@ -1,0 +1,138 @@
+<!-- Search -->
+<div class="container-fluid mt-5 p-2">
+	<div class="row mt-4" style="width: -webkit-fit-content;">
+		<div class="col-10 col-xs-8">
+			<input
+				id="zipCodeSearch" 
+				class="my-2 my-sm-0" 
+				
+				type="search" 
+				placeholder="Zip Code"
+				aria-label="Zip Code" 
+				style="padding-left: 5px; padding-right:1px; width: 75vw;"
+			>
+		</div>
+		<div class="col-2 col-xs-4" style="padding-right: 0px;">
+			<button id="search" 
+				class="btn btn-success 
+					my-2 
+					my-sm-0 
+					search_button_icon"
+			>
+				<i class="bi bi-search" (click)="search('zipCode');"></i>
+			</button>
+		</div>
+	</div>
+</div>
+<!-- Search -->
+
+
+
+
+
+	<!-- BEGIN BODY BEGIN BODY BEGIN BODY BEGIN BODY BEGIN BODY BEGIN BODY -->
+	<div id="body" class="container-fluid" style="scroll-behavior: auto;">
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			<!-- FRONT PAGE MARKETING VERBAGE -->
+			<div class="row front_page_marketing_row">
+				<div class="front_page_marketing_verbage col-xs-12 p-4">
+	
+	
+					<!-- <h1>INVITE. COOK. EARN.</h1> -->				
+					<h2>Create your own online kitchen today.</h2>
+					<p class="lead">
+						At <span id="mypersonalkitchen">mypersonalkitchen.com</span> cooks can show the world their culinary specialties, connect with family, friends, groups, clubs, etc. And sell food in a safe, secure and even private environment while earning cash.
+					</p>
+					<div class="row">
+						<!-- <div class="col-6 text-center"><a class="btn btn-success btn-lg" ng-click="$ctrl.goState('howitworks')">How it works</a></div> -->
+						<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+							<a
+								id="getStartedToday"
+								class="btn btn-success mpkButton btn-lg py-2"
+								routerLink="signup"
+							>
+								Get Started Today
+							</a>
+							<br />
+							<br />
+							<a
+								id="signin"
+								class="btn btn-success mpkButton btn-lg py-2"
+								routerLink="signin"
+							>
+								Sign In
+							</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!-- FRONT PAGE MARKETING VERBAGE -->
+	
+	
+	
+			<!-- Container where we'll display the user details -->
+			<div>
+				<div class="quickstart-user-details-container">
+					<input 
+						id="quickstart-sign-in"
+						type="submit" 
+						class="btn btn-primary btn-block btn-lg" 
+						value="Login"
+						style="display: none;"
+					/><br />
+	
+					<!--Status: <span id="quickstart-sign-in-status"></span>-->
+	
+					<div 
+						id="quickstart-account-details" 
+						style="display: none; color: #fff;">
+					</div>
+				</div>
+			</div>
+			<!-- Container where we'll display the user details -->
+	
+	
+	
+			<div class="container-fluid mt-1 p-2">
+				<div class="row p-1">
+					<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+						<a id="demo" class="btn btn-success mpkButton btn-lg my-2 my-sm-0 py-2" 
+							ui-sref="kitchen({ kitchen: 207 })" 
+							style="min-width: 50px; max-width: 320px;">
+							Demo
+						</a>
+					</div>
+				</div>
+			</div>
+	
+			<!-- FRONT PAGE INFO CARDS -->
+		<!-- 			<div class="row pt-2">
+				<div class="col-xs-12col-sm-6 col-md-4 col-lg-3 bg-success m-2 p-3 mx-auto" 
+					style="min-width: 320px; max-width: 320px; border-radius: 15px;">
+					<h2>FOOD</h2>
+					<p class="lead text-white">Whether its Abuela’s pupusa’s, mom’s mouthwatering sweet potato pie, or your famous homemade chicken breakfast sandwiches, mPK  understands the need for a platform from which your culinary masterpieces can shine—all while you do what you love—cook.</p>
+	
+					<strong>
+						Add food to sell as sides or combine items to create full meals or platters.
+					</strong>
+				</div>
+			</div> -->
+			<!-- FRONT PAGE INFO CARDS -->
+	
+		</div>
+		<!-- END BODY  END BODY  END BODY  END BODY  END BODY  END BODY  -->
+	

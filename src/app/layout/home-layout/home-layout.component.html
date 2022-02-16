@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-sm navbar-dark btn-success">
+	<div class="container">
+		<a class="navbar-brand">My Personal Kitchen</a>
+		<button 
+			class="navbar-toggler" 
+			type="button" 
+			data-bs-toggle="collapse" 
+			data-bs-target="#navDropDown" 
+			aria-controls="navDropDown" 
+			aria-expanded="false" 
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navDropDown">
+			<ul class="nav navbar-nav ">
+				<li *ngIf="!isLoggedIn"
+					class="navbar-nav ms-auto" 
+					data-bs-toggle="collapse" 
+					data-bs-target=".navbar-collapse.show">
+					<a class="nav-item nav-link"
+						routerLink="signup">
+						Sign Up
+					</a>
+				</li>
+				<li *ngIf="!isLoggedIn"
+					class="navbar-nav ms-auto" 
+					data-bs-toggle="collapse" 
+					data-bs-target=".navbar-collapse.show">
+					<a class="nav-item nav-link"
+						routerLink="signin">
+						Sign In
+					</a>
+				</li>
+				<li *ngIf="isLoggedIn"
+					class="navbar-nav ms-auto"
+					style="align-items: flex-end"
+				>
+					<a id="logout" class="nav-item nav-link" 
+						(click)="signOut()" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Sign Out</a>
+					<a id="returnToDashboard" class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"  
+						routerLink="cookDashboard"
+					>Return to Dashboard</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<router-outlet></router-outlet>
