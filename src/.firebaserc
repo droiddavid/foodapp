@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "my-personal-kitchen": {
+      "hosting": {
+        "angularmpk": [
+          "my-personal-kitchen"
+        ]
+      }
+    }
+  }
+}

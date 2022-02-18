@@ -1,0 +1,265 @@
+
+	<!-- body -->
+	<div class="body">
+		<div class="wrapper">
+		
+			<div class="company-info">
+				<h3>Sign Up</h3>
+				<span>Start your journey here!</span>
+			</div>
+		
+			<div class="contact">
+		
+				<!-- toast -->
+				<div #toastElement 
+					id="toastElement" 
+					class="toast" 
+					role="alert" 
+					aria-live="assertive" aria-atomic="true"
+				>					
+					<div class="toast-header">
+						<strong class="toast_text mr-auto">Notification</strong>
+					</div>
+			
+					<div class="toast-body toast_text"></div>
+				</div>
+
+
+
+				<form [formGroup]="form" (ngSubmit)="onSubmit()">
+		
+					<!-- begin username -->
+					<div class="row">
+						<div class="col">
+							<!-- label -->
+							<label for="username">Email Address</label>
+							<!-- input -->
+							<input 
+								type="email" 
+								[(ngModel)]="_username"
+								formControlName="username"
+								placeholder="Email Address"
+								autocomplete="username"
+							/>
+						</div>
+					</div>
+					<!-- end username-->
+		
+		
+					<!-- begin email -->
+					<div class="row">
+						<div class="col">
+							<!-- label
+							<label for="email">Email Address</label>
+								-->
+							<!-- input -->
+							<input #email
+								id="email" 
+								name="email"
+								type="email"
+								[(ngModel)]="_email"
+								formControlName="email"
+								placeholder="Confirm Email Address"
+								autocomplete="email"
+								(blur)="validateEmail(email)"
+							>
+						</div>
+					</div>
+					<!-- end email -->
+		
+		
+					<!-- begin password - pwd regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$" -->
+					<div class="row">
+						<div class="col">
+							<!-- label
+							<label for="password">Password</label>
+			-->
+							<!-- input -->
+							<input #password
+								id="password" 
+								type="password" 
+								name="password"
+								[(ngModel)]="_password"
+								formControlName="password"
+								pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
+								placeholder="Password" 
+								required="required"
+								title="Min 8, max 10 characters, at least 1 uppercase, 1 lowercase letter, 1 number and 1 special character."
+								autocomplete="new-password"
+								(blur)="hide_input_error_messages()"
+							>
+		
+							<!-- eye icon -->
+							<span id="togglePasswordVisibility" class="d-inline large ml-2" (click)="togglePasswordVisibility();">
+								<fa-icon 
+									id="showPasswordEye" 
+									class="success" 
+									[ngStyle]="{'color':'green'}"
+									[icon]="faEye">
+								</fa-icon>
+								<span id="showHidePasswordText">{{ showHidePassword }} Password</span>
+							</span>
+		
+							<!-- validators -->
+							<div *ngIf="control('password')?.invalid && (control('password')?.dirty || control('password')?.touched)">
+								<div *ngIf="control('password')?.errors?.['maxlength']">
+									<p class="alert alert-danger">Must not exceed 20 characters.</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['minlength']">
+									<p class="alert alert-danger">Must be at least 8 characters.</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['required']">
+									<p class="alert alert-danger">Password is required!</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 uppercase required.
+									</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 lowercase required.
+									</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 number required.
+									</p>
+								</div>
+								<div *ngIf="control('password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 special character required.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end password -->
+		
+		
+					<!-- begin confirm_password -->
+					<div class="row">
+						<div class="col">
+							<!-- label
+							<label for="confirm_password">Confirm Password</label>
+								-->
+							<!-- validation check mark -->
+							<span class="input-group-addon">
+								<i class="fa fa-check"></i>
+							</span>
+							
+							<!-- input -->
+							<input id="confirm_password" 
+								type="password" 
+								name="confirm_password"
+								formControlName="confirm_password"
+								[(ngModel)]="_confirm_password"
+								(blur)="confirmPasswordMatch();"
+								pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
+								placeholder="Confirm Password" 
+								required="required" 
+								autocomplete="new-password"
+							>
+		
+							<!-- icon (visiblity) -->
+							<span id="toggleConfirmPasswordVisibility"
+								class="d-inline large ml-2"
+								(click)="toggleConfirmPasswordVisibility();"
+							>
+								<fa-icon
+									id="showConfirmPasswordEye"
+									class="success"
+									[icon]="faEye"
+									[ngStyle]="{'color':'green'}"
+									aria-hidden="true"
+								>
+								</fa-icon>
+								<span id="showHideConfirmPasswordText">{{ showHideConfirmPassword }} Password</span>
+							</span>
+		
+		
+		
+							<!-- confirm password validators -->
+							<div *ngIf="control('confirm_password')?.invalid && (control('confirm_password')?.dirty || control('confirm_password')?.touched)">
+								<div *ngIf="control('confirm_password')?.errors?.['maxlength']">
+									<p class="alert alert-danger">Must not exceed 20 characters.</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['minlength']">
+									<p class="alert alert-danger">Must be at least 8 characters.</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['required']">
+									<p class="alert alert-danger">Password is required!</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 uppercase required.
+									</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 lowercase required.
+									</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 number required.
+									</p>
+								</div>
+								<div *ngIf="control('confirm_password')?.errors?.['pattern']">
+									<p class="alert alert-danger">
+										1 special character required.
+									</p>
+								</div>
+							</div>
+							<!-- confirm password -->
+						</div>
+					</div>
+					<!-- end confirm_passwrod -->
+		
+		
+					<!-- begin terms_privacy checkbox -->
+					<div style="display: grid; grid-template-columns: 1fr 2fr; grid-template-rows: 1fr;">
+						<div style="text-align: center; padding: 1rem;">
+							<input 
+								id="terms_privacy" 
+								name="terms_privacy"
+								type="checkbox" 
+								required="required"
+								(change)="terms_privacy_changed($event)"
+								value="terms"
+							/>
+						</div>
+						<div>
+							I accept the 
+								<a href="#">Terms of Use</a> &amp; 
+								<a href="#">Privacy Policy</a>
+						</div>					
+					</div>
+					<!-- end terms_privacy checkbox -->
+		
+		
+					<!-- begin register button -->
+					<div>
+						<!-- button -->
+						<button 
+							id="quickstart-sign-up" 
+							name="signup" 
+							type="submit" 
+							class="btn btn-success mpkButton btn-lg btn_register"
+							[disabled]="!isValid"
+						>
+							Register
+						</button>
+					</div>
+					<!-- end register button -->
+		
+		
+					<!-- begin login link -->
+					<div>
+						Already have an account? <a id="goToLogin" (click)="go('login')">Login here</a>
+					</div>
+					<!-- end login link -->
+				</form>
+			</div>
+		</div>
+	</div>

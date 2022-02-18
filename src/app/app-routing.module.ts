@@ -24,7 +24,7 @@ const routes: Routes = [
 	},
 	//App Route
 	{
-		path: '',
+		path: 'dashboard',
 		component: DashboardLayoutComponent,
 		children: [
 			{
@@ -41,7 +41,7 @@ const routes: Routes = [
 
 	//Auth Route
 	{
-		path: '',
+		path: 'auth',
 		component: AuthLayoutComponent,
 		children: [
 			{

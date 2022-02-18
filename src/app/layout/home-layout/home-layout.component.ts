@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -10,14 +11,14 @@ export class HomeLayoutComponent implements OnInit {
 	isLoggedIn: boolean = false;
 
 
-	constructor() { }
+	constructor(private globals: GlobalService) { }
 
 
 	ngOnInit(): void {
 		let temp:any = localStorage.getItem("isLoggedIn");
 
 		if (temp !== null) {
-			//this.isLoggedIn = JSON.parse(this.globals.decode(temp));
+			this.isLoggedIn = JSON.parse(this.globals.decode(temp));
 		}
 	}
 
@@ -25,11 +26,15 @@ export class HomeLayoutComponent implements OnInit {
 	signOut () {	
 		this.isLoggedIn = false;
 		localStorage.clear();
-		// localStorage.setItem(
-		// 	"isLoggedIn", 
-		// 	this.globals.encode(
-		// 		JSON.stringify({"isLoggedIn":this.isLoggedIn})
-		// 	)
-		// );
+		localStorage.setItem(
+			"isLoggedIn", 
+			this.globals.encode(
+				JSON.stringify(
+					{
+						"isLoggedIn" : this.isLoggedIn
+					}
+				)
+			)
+		);
 	}
 }
