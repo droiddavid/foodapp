@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
 
-  constructor() { }
+	//Http Headers
+	static httpOptions = {
+		headers: new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+			'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+		})
+	}
+
+	constructor() { }
 
 
 	/* TOASTS */

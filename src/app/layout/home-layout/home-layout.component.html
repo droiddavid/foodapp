@@ -44,7 +44,7 @@
 						<a id="returnToDashboard" class="nav-item nav-link" 
 							data-bs-toggle="collapse" 
 							data-bs-target=".navbar-collapse.show"  
-							routerLink="cookDashboard"
+							routerLink="dashboard"
 						>Return to Dashboard</a>
 					</li>
 				</ul>
@@ -54,9 +54,13 @@
 
 	<router-outlet></router-outlet>
 
-	<nav class="navbar navbar-expand-sm navbar-dark btn-success sticky-bottom">
-		<div class="container">
-			<a class="navbar-brand">My Personal Kitchen</a>
-		</div>
+
+	<!-- nav footer -->
+	<nav id="mpkFooter" class="navbar mpkFooter fixed-bottom btn-success">
+		<p class="footerItem footerItemGrid">
+			<a class="footerItemGridItem" href="#">Terms</a>
+			<a class="footerItemGridItem" href="#" >Privacy</a>
+		</p>
+		<p class="footerItem">Copyright &copy; 2015 My Personal Kitchen</p>
 	</nav>
 </div>

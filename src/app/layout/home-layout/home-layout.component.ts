@@ -11,14 +11,14 @@ export class HomeLayoutComponent implements OnInit {
 	isLoggedIn: boolean = false;
 
 
-	constructor(private globals: GlobalService) { }
+	constructor() { }
 
 
 	ngOnInit(): void {
 		let temp:any = localStorage.getItem("isLoggedIn");
 
 		if (temp !== null) {
-			this.isLoggedIn = JSON.parse(this.globals.decode(temp));
+			this.isLoggedIn = JSON.parse(GlobalService.decode(temp));
 		}
 	}
 
@@ -28,7 +28,7 @@ export class HomeLayoutComponent implements OnInit {
 		localStorage.clear();
 		localStorage.setItem(
 			"isLoggedIn", 
-			this.globals.encode(
+			GlobalService.encode(
 				JSON.stringify(
 					{
 						"isLoggedIn" : this.isLoggedIn

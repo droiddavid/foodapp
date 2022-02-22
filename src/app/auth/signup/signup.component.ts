@@ -7,22 +7,16 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-
-
 export class SignupComponent implements OnInit {
-
 	@ViewChild('toastElement') toastElement!:ElementRef;
-
 
 	//HTML Form
 	form: FormGroup;
-
 
 	//HTML Elements
 	_username!: string;
@@ -91,25 +85,25 @@ export class SignupComponent implements OnInit {
 
 
 	ngDoCheck() {
-		let _navbar_header = document.getElementById("navbar");
-		let _navbar_footer = document.getElementById("mpkFooter");
-		let body = document.getElementsByClassName("body")[0]; //returns div.body from <div class="body"...
+		// let _navbar_header = document.getElementById("navbar");
+		// let _navbar_footer = document.getElementById("mpkFooter");
+		// let body = document.getElementsByClassName("body")[0]; //returns div.body from <div class="body"...
 		
-		/* give the body a base height */
-		body.setAttribute("style", "height: 100vh;");
+		// /* give the body a base height */
+		// body.setAttribute("style", "height: 100vh;");
 
-		//I made up those hard coded numbers.
-		let newBodyTop = body.clientTop + _navbar_header!.clientHeight;
-		let newHeight = body.clientHeight - (newBodyTop + _navbar_footer!.clientHeight);
+		// //I made up those hard coded numbers.
+		// let newBodyTop = body.clientTop + _navbar_header!.clientHeight;
+		// let newHeight = body.clientHeight - (newBodyTop + _navbar_footer!.clientHeight);
 
-		body.setAttribute("style", 
-			"position: relative; top: " + newBodyTop + "px; " 
-			+ "height: " + newHeight + "px; " 
-			+ "padding-left: .5rem; " 
-			+ "padding-right: .5rem; " 
-			+ "padding-top: .5rem; "
-			+ "margin-right: 0.5rem;"
-		);
+		// body.setAttribute("style", 
+		// 	"position: relative; top: " + newBodyTop + "px; " 
+		// 	+ "height: " + newHeight + "px; " 
+		// 	+ "padding-left: .5rem; " 
+		// 	+ "padding-right: .5rem; " 
+		// 	+ "padding-top: .5rem; "
+		// 	+ "margin-right: 0.5rem;"
+		// );
 	}
 
 
@@ -244,7 +238,6 @@ export class SignupComponent implements OnInit {
 		//Firebase insert
 		await this.authService.SignUp(this._email, this._password)
 			.then((data) => {
-				
 				if(!data.user) return;
 				
 				this.authenticateUser(data.user);
@@ -280,7 +273,7 @@ export class SignupComponent implements OnInit {
 								"btn-success", 
 								this.toastElement.nativeElement.id
 							);
-							this.router.navigate(['/signin']);
+							this.router.navigate(['home/signin']);
 						}); //end .subscribe
 					}
 				/* ************************************************/
@@ -319,7 +312,7 @@ export class SignupComponent implements OnInit {
 			return null;
 		}
 
-		let isMatched = Validation.match("username", "email");
+		let isMatched = GlobalService.match("username", "email");
 		console.log('isMatched: ' + isMatched);
 		console.table([isMatched]);
 		return isMatched;

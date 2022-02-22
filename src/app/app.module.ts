@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 //Firebase services
 import { AngularFireModule } from '@angular/fire/compat';
@@ -15,6 +16,7 @@ import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-la
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { UserComponent } from './components/user/user.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -32,8 +34,9 @@ import { UserComponent } from './components/user/user.component';
     /*AngularFireAnalyticsModule,*/
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FontAwesomeModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

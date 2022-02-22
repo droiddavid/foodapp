@@ -1,0 +1,7 @@
+{
+	"/": {
+		 "target": "https://morning-reaches-11022.herokuapp.com/https://www.mypersonalkitchen.com",
+		 "secure": false,
+		 "logLevel": "debug"
+	}
+}

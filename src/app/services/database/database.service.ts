@@ -81,11 +81,15 @@ export class DatabaseService {
 
 	// GET
 	getData(table:string, fields:string, where:any): Observable<any> {
-		return this.http.post(this.select, JSON.stringify({
-			table:table,
-			fields:fields,
-			where:where
-		}))
+		return this.http.post(
+			this.select, 
+			JSON.stringify({
+				table:table,
+				fields:fields,
+				where:where
+			}),
+			this.httpOptions
+		)
 	}
 
 	delete(table:string, fieldName:string, fieldValue: string): Observable<any> {

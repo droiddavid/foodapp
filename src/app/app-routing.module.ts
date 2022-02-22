@@ -7,38 +7,23 @@ import { HomeLayoutComponent } from './layout/home-layout/home-layout.component'
 const routes: Routes = [
 
 	//Home Route
-	{
-		path: '',
-		component: HomeLayoutComponent,
-		children: [
-			{
+	{	path: '', component: HomeLayoutComponent,
+		children: [{
 				path: '',
 				redirectTo: '/home',
-				pathMatch: 'full'
-			},
-			{
+				pathMatch: 'full'},{
 				path: 'home',
-				loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-			}
-		]
+				loadChildren: () => import('./home/home.module').then(m => m.HomeModule)}]
 	},
 	//App Route
-	{
-		path: 'dashboard',
-		component: DashboardLayoutComponent,
-		children: [
-			{
-				path: '',
-				redirectTo: '/dashboard',
-				pathMatch: 'full'
-			},
-			{
+	{	path: '', component: DashboardLayoutComponent,
+		children: [{
 				path: 'dashboard',
-				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-			}
-		]
+				redirectTo: '/dashboard',
+				pathMatch: 'full'},{
+				path: 'dashboard',
+				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)}]
 	},
-
 	//Auth Route
 	{
 		path: 'auth',

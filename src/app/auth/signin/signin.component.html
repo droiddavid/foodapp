@@ -1,5 +1,154 @@
-<header>
-	<h3>Signin Page</h3>
-</header>
 
-<button (click)="goToDashboard()">Go To Dashboard</button>
+	<!-- body -->
+	<div class="body">
+		<h1 *ngIf="authenticationService.userData | async">Hello {{ (authenticationService.userData | async)?.email }}</h1>
+
+
+		<div *ngIf="!(authenticationService.userData | async)">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 pt-5">
+
+						<!-- toast -->
+						<div #toastElement 
+							id="toastElement" 
+							class="toast" 
+							role="alert" 
+							aria-live="assertive" aria-atomic="true"
+						>					
+							<div class="toast-header">
+								<strong class="toast_text mr-auto">Notification</strong>
+							</div>
+					
+							<div class="toast-body toast_text"></div>
+						</div>
+
+
+						<form #formData
+							class="form mt-4" 
+							[formGroup]="form" 
+							[ngStyle]="{'text-align':'-webkit-center'}" 
+							(ngSubmit)="onSubmit()"
+						>
+							<!-- icon -->
+							<div class="mb-4 text-center">
+								<fa-icon 
+									id="showPasswordEye" 
+									class="success" 
+									[ngStyle]="{'color':'green','font-size':'68px'}"
+									[icon]="faUser">
+								</fa-icon>
+							</div>
+
+
+							<h3 class="mb-4">Sign In to Your Account</h3>
+
+
+							<div class="form-group mb-4">
+								<input
+									id="email"
+									type="email"
+									name="email" 
+									[(ngModel)]="email"
+									formControlName="email"
+									class="form-control"
+									placeholder="Email" 
+									autocomplete="username" 
+									required="required"
+								/>
+							</div>
+
+
+							<div class="form-group mb-4">
+								<input
+									id="password" 
+									type="password" 
+									name="password"  
+									[(ngModel)]="password"
+									formControlName="password"
+									class="form-control" 
+									placeholder="Password"
+									autocomplete="current-password" 
+									required="required"
+								/>
+							</div>
+
+
+							<!--
+							<div class="form-group">
+								<label class="checkbox-inline"><input type="checkbox"> Remember me</label>
+							</div>
+							-->
+
+
+							<div class="form-group mb-4">
+								<input 
+									id="quickstart-sign-in"
+									type="submit" 
+									class="btn btn-success mpkButton btn-block btn-lg mb-4" 
+									value="Sign In"
+								/>
+							</div>
+						</form>
+
+
+						<div class="text-center">
+							<div class="form-group">
+								Forgot your password? <a (click)="openResetPasswordDialogBox()">Reset It</a>
+							</div>
+							<div class="form-group">
+								Don't have an account? <a routerLink="/signup">Sign Up</a>
+							</div>
+						</div>
+						<!--Status: <span id="quickstart-sign-in-status">{{ status }}</span>-->
+
+
+						<!-- The Modal -->
+						<div class="modal" id="resetPasswordDialogBox">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">Reset Password</h4>
+										<button 
+											type="button" 
+											class="btn-close" 
+											(click)="closePasswordDialogBox()">
+										</button>
+									</div>
+
+
+									<!-- Modal body -->
+									<div class="modal-body">
+										<label for="resetWithEmailAddress">Email Address</label>
+										<input #resetEmail 
+											id="resetWithEmailAddress" 
+											type="email" 
+											class="form-control" />
+									</div>
+
+
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-danger" 
+											(click)="sendPasswordReset(resetEmail)">
+											Send
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<button 
+			(click)="signOut()" 
+			*ngIf="authenticationService.userData | async"
+		>
+			Logout
+		</button>
+	</div>
