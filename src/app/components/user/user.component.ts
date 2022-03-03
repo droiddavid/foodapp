@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database/database.service';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -34,10 +33,8 @@ export class UserComponent implements OnInit {
 	userName?: string;
 
 
-	http?: HttpClient;
 	mode!: string;
-	constructor(private database: DatabaseService) { 
-	}
+	constructor(private database: DatabaseService) { }
 
 	ngOnInit(): void {}
 

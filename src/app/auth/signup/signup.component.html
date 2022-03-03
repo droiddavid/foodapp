@@ -1,5 +1,5 @@
 <!-- body -->
-<div class="body">
+<!-- <div class="body">
 	<div class="wrapper">
 	
 		<div class="company-info">
@@ -9,8 +9,8 @@
 	
 		<div class="contact">
 	
-			<!-- toast -->
-			<div #toastElement 
+			toast -->
+			<!-- <div #toastElement 
 				id="toastElement" 
 				class="toast" 
 				role="alert" 
@@ -26,13 +26,13 @@
 
 
 			<form [formGroup]="form" (ngSubmit)="onSubmit()">
-	
+	 -->
 				<!-- begin username -->
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col">
-						<!-- label -->
+						 label -->
 						<label for="username">Email Address</label>
-						<!-- input -->
+						<!-- input
 						<input 
 							type="email" 
 							[(ngModel)]="_username"
@@ -41,17 +41,17 @@
 							autocomplete="username"
 						/>
 					</div>
-				</div>
+				</div> -->
 				<!-- end username-->
 	
 	
-				<!-- begin email -->
+				<!-- begin email
 				<div class="row">
 					<div class="col">
-						<!-- label
+						label
 						<label for="email">Email Address</label>
 							-->
-						<!-- input -->
+						<!-- input
 						<input #email
 							id="email" 
 							name="email"
@@ -64,16 +64,16 @@
 						>
 					</div>
 				</div>
-				<!-- end email -->
+				end email -->
 	
 	
-				<!-- begin password - pwd regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$" -->
+				<!-- begin password - pwd regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
 				<div class="row">
 					<div class="col">
-						<!-- label
+						 label
 						<label for="password">Password</label>
 		-->
-						<!-- input -->
+						<!-- input 
 						<input #password
 							id="password" 
 							type="password" 
@@ -88,7 +88,7 @@
 							(blur)="hide_input_error_messages()"
 						>
 	
-						<!-- eye icon -->
+						 eye icon
 						<span id="togglePasswordVisibility" class="d-inline large ml-2" (click)="togglePasswordVisibility();">
 							<fa-icon 
 								id="showPasswordEye" 
@@ -99,7 +99,7 @@
 							<span id="showHidePasswordText">{{ showHidePassword }} Password</span>
 						</span>
 	
-						<!-- validators -->
+						validators
 						<div *ngIf="control('password')?.invalid && (control('password')?.dirty || control('password')?.touched)">
 							<div *ngIf="control('password')?.errors?.['maxlength']">
 								<p class="alert alert-danger">Must not exceed 20 characters.</p>
@@ -136,18 +136,18 @@
 				<!-- end password -->
 	
 	
-				<!-- begin confirm_password -->
+				<!-- begin confirm_password
 				<div class="row">
 					<div class="col">
-						<!-- label
+						 label
 						<label for="confirm_password">Confirm Password</label>
 							-->
-						<!-- validation check mark -->
+						<!-- validation check mark 
 						<span class="input-group-addon">
 							<i class="fa fa-check"></i>
 						</span>
 						
-						<!-- input -->
+						 input 
 						<input id="confirm_password" 
 							type="password" 
 							name="confirm_password"
@@ -160,7 +160,7 @@
 							autocomplete="new-password"
 						>
 	
-						<!-- icon (visiblity) -->
+						icon (visiblity)
 						<span id="toggleConfirmPasswordVisibility"
 							class="d-inline large ml-2"
 							(click)="toggleConfirmPasswordVisibility();"
@@ -178,7 +178,7 @@
 	
 	
 	
-						<!-- confirm password validators -->
+						confirm password validators 
 						<div *ngIf="control('confirm_password')?.invalid && (control('confirm_password')?.dirty || control('confirm_password')?.touched)">
 							<div *ngIf="control('confirm_password')?.errors?.['maxlength']">
 								<p class="alert alert-danger">Must not exceed 20 characters.</p>
@@ -210,13 +210,13 @@
 								</p>
 							</div>
 						</div>
-						<!-- confirm password -->
+						<!-- confirm password 
 					</div>
 				</div>
-				<!-- end confirm_passwrod -->
+				end confirm_passwrod 
 	
 	
-				<!-- begin terms_privacy checkbox -->
+				begin terms_privacy checkbox 
 				<div style="display: grid; grid-template-columns: 1fr 2fr; grid-template-rows: 1fr;">
 					<div style="text-align: center; padding: 1rem;">
 						<input 
@@ -234,12 +234,12 @@
 							<a href="#">Privacy Policy</a>
 					</div>					
 				</div>
-				<!-- end terms_privacy checkbox -->
+				 end terms_privacy checkbox -->
 	
 	
-				<!-- begin register button -->
+				<!-- begin register button 
 				<div>
-					<!-- button -->
+					button 
 					<button 
 						id="quickstart-sign-up" 
 						name="signup" 
@@ -250,15 +250,75 @@
 						Register
 					</button>
 				</div>
-				<!-- end register button -->
+				end register button 
 	
 	
-				<!-- begin login link -->
+				begin login link 
 				<div>
 					Already have an account? <a id="goToLogin" (click)="go('login')">Login here</a>
 				</div>
-				<!-- end login link -->
+				 end login link
 			</form>
+		</div>
+	</div>
+</div> -->
+
+
+
+<div class="body">
+	<div class="wrapper">
+		<div class="displayTable">
+			<div class="displayTableCell">
+				<div class="authBlock">
+				<h3>Sign Up</h3>
+				<div class="formGroup">
+					<input
+					type="email"
+					class="formControl"
+					placeholder="Email Address"
+					#userEmail
+					required
+					/>
+				</div>
+				<div class="formGroup">
+					<input
+					type="password"
+					class="formControl"
+					placeholder="Password"
+					#userPwd
+					required
+					/>
+				</div>
+				<div class="formGroup">
+					<input
+					type="button"
+					class="btn btnPrimary"
+					value="Sign Up"
+					(click)="authService.SignUp(userEmail.value, userPwd.value)"
+					/>
+				</div>
+				<div class="formGroup">
+					<span class="or"><span class="orInner">Or</span></span>
+				</div>
+				<!-- Continue with Google -->
+				<div class="formGroup">
+					<button
+					type="button"
+					class="btn googleBtn"
+					(click)="authService.GoogleAuth()"
+					>
+					<i class="fab fa-google-plus-g"></i>
+					Continue with Google
+					</button>
+				</div>
+				</div>
+				<div class="redirectToLogin">
+				<span
+					>Already have an account?
+					<span class="redirect" routerLink="/sign-in">Log In</span></span
+				>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

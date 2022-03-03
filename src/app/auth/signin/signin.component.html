@@ -1,16 +1,16 @@
 
 	<!-- body -->
-	<div class="body">
-		<h1 *ngIf="authenticationService.userData | async">Hello {{ (authenticationService.userData | async)?.email }}</h1>
+	<!-- <div class="body">
+		<h1 *ngIf="authService.userData | async">Hello {{ (authService.userData | async)?.email }}</h1>
 
 
-		<div *ngIf="!(authenticationService.userData | async)">
+		<div *ngIf="!(authService.userData | async)">
 			<div class="container">
 				<div class="row">
 					<div class="col-12 pt-5">
 
 						<!-- toast -->
-						<div #toastElement 
+						<!-- <div #toastElement 
 							id="toastElement" 
 							class="toast" 
 							role="alert" 
@@ -29,9 +29,9 @@
 							[formGroup]="form" 
 							[ngStyle]="{'text-align':'-webkit-center'}" 
 							(ngSubmit)="onSubmit()"
-						>
+						> -->
 							<!-- icon -->
-							<div class="mb-4 text-center">
+							<!-- <div class="mb-4 text-center">
 								<fa-icon 
 									id="showPasswordEye" 
 									class="success" 
@@ -71,7 +71,7 @@
 									autocomplete="current-password" 
 									required="required"
 								/>
-							</div>
+							</div> -->
 
 
 							<!--
@@ -81,7 +81,7 @@
 							-->
 
 
-							<div class="form-group mb-4">
+							<!-- <div class="form-group mb-4">
 								<input 
 									id="quickstart-sign-in"
 									type="submit" 
@@ -99,38 +99,38 @@
 							<div class="form-group">
 								Don't have an account? <a routerLink="/signup">Sign Up</a>
 							</div>
-						</div>
+						</div> -->
 						<!--Status: <span id="quickstart-sign-in-status">{{ status }}</span>-->
 
 
 						<!-- The Modal -->
-						<div class="modal" id="resetPasswordDialogBox">
+						<!-- <div class="modal" id="resetPasswordDialogBox">
 							<div class="modal-dialog modal-sm">
-								<div class="modal-content">
+								<div class="modal-content"> -->
 
 									<!-- Modal Header -->
-									<div class="modal-header">
+									<!-- <div class="modal-header">
 										<h4 class="modal-title">Reset Password</h4>
 										<button 
 											type="button" 
 											class="btn-close" 
 											(click)="closePasswordDialogBox()">
 										</button>
-									</div>
+									</div> -->
 
 
 									<!-- Modal body -->
-									<div class="modal-body">
+									<!-- <div class="modal-body">
 										<label for="resetWithEmailAddress">Email Address</label>
 										<input #resetEmail 
 											id="resetWithEmailAddress" 
 											type="email" 
 											class="form-control" />
-									</div>
+									</div> -->
 
 
 									<!-- Modal footer -->
-									<div class="modal-footer">
+									<!-- <div class="modal-footer">
 										<button type="button" class="btn btn-danger" 
 											(click)="sendPasswordReset(resetEmail)">
 											Send
@@ -142,13 +142,65 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> 
 
 
 		<button 
 			(click)="signOut()" 
-			*ngIf="authenticationService.userData | async"
+			*ngIf="authService.userData | async"
 		>
 			Logout
 		</button>
+	</div> -->
+
+
+
+<div class="body">
+	<div class="displayTable">
+		<div class="displayTableCell">
+			<div class="authBlock">
+
+				<form>
+					<h3>Sign In</h3>
+					<div class="formGroup">
+						<input type="text" class="formControl" placeholder="Username" #userName required>
+					</div>
+
+					<div class="formGroup">
+						<input type="password" class="formControl" placeholder="Password" #userPassword required>
+					</div>
+
+					<!-- Calling SignIn Api from AuthService -->
+					<div class="formGroup">
+						<input 
+							type="button" 
+							class="btn btnPrimary" 
+							value="Log in" 
+							(click)="authService.SignIn(userName.value, userPassword.value)">
+					</div>
+					<div class="formGroup">
+						<span class="or"><span class="orInner">Or</span></span>
+					</div>
+
+
+					<!-- Calling GoogleAuth Api from AuthService -->
+					<div class="formGroup">
+						<button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+							<i class="fab fa-google-plus-g"></i>
+								Log in with Google
+						</button>
+					</div>
+
+					<div class="forgotPassword">
+						<span routerLink="/forgot-password">Forgot Password?</span>
+					</div>
+				</form>
+				
+			</div>
+
+			<div class="redirectToLogin">
+				<span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+			</div>
+		</div>
 	</div>
+</div>

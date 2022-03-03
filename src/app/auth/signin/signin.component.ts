@@ -48,7 +48,7 @@ export class SigninComponent implements OnInit {
 
 
 	constructor(
-		public authenticationService: AuthService,
+		public authService: AuthService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private database: DatabaseService) {
@@ -77,10 +77,10 @@ export class SigninComponent implements OnInit {
 
 
 
-	ngOnInit(): void {};
+	ngOnInit(): void { };
 
 
-	ngDoCheck(): void {}
+	ngDoCheck(): void { }
 
 
 
@@ -89,7 +89,7 @@ export class SigninComponent implements OnInit {
 		let emailElement = document.querySelector("email");
 		let passwordElement = document.querySelector("password");
 
-		await this.authenticationService.SignIn(
+		await this.authService.SignIn(
 			JSON.parse(JSON.stringify(this.email)), 
 			JSON.parse(JSON.stringify(this.password))
 		)
@@ -140,7 +140,7 @@ export class SigninComponent implements OnInit {
 
 
 	signUp() {
-		this.authenticationService.SignUp(this.email.value, this.password.value);
+		this.authService.SignUp(this.email.value, this.password.value);
 		this.email.value = '';
 		this.password.value = '';
 	}
@@ -148,7 +148,7 @@ export class SigninComponent implements OnInit {
 
 
 	signOut() {
-		this.authenticationService.SignOut();
+		this.authService.SignOut();
 	}
 
 
@@ -162,7 +162,7 @@ export class SigninComponent implements OnInit {
 	async sendPasswordReset(email:HTMLInputElement) {;
 		this.resetPasswordDialogBox.style.display="none";
 
-		await this.authenticationService.ForgotPassword(email.value)
+		await this.authService.ForgotPassword(email.value)
 			.then(()=>{
 				GlobalService.showToast(
 					"A password reset request has been sent to your email.",

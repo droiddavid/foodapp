@@ -238,9 +238,9 @@ export class SignupComponent implements OnInit {
 		//Firebase insert
 		await this.authService.SignUp(this._email, this._password)
 			.then((data) => {
-				if(!data.user) return;
+				//if(!data.user) return;
 				
-				this.authenticateUser(data.user);
+				//this.authenticateUser(data.user);
 //				return data.user; //return firebase User
 			})
 	}

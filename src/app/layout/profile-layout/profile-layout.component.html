@@ -1,0 +1,58 @@
+<div class="page">
+	<!-- nav header -->
+	<nav id="navbar" class="navbar navbar-expand-sm navbar-dark fixed-top btn-success" style="float:left;">
+		<div class="container" style="flex-wrap: wrap;">			
+			<span routerLink="dashboard">
+				<fa-icon
+					class="icon_bs_left"
+					[icon]="faChevronLeft">
+				</fa-icon>
+			</span>
+
+			<span class="navTitle" 
+				id="title" 
+				routerLink="dashboard"
+			>
+				profile.company <!--{{ profile.company }}-->
+			</span>
+
+			<button type="button" class="navbar-toggler" 
+				data-bs-toggle="collapse" 
+				data-bs-target="#navbarCollapse">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<div class="navbar-nav">
+					<a routerLink="profilePrivate" class="nav-item nav-link">Privacy</a>
+					<a routerLink="emailAddresses" class="nav-item nav-link">Emails</a>
+					<a routerLink="addresses" class="nav-item nav-link">Locations</a>
+					<a routerLink="hours" class="nav-item nav-link">Hours</a>
+					<a routerLink="phoneNumbers" class="nav-item nav-link">Phones</a>
+					<a routerLink="photos" class="nav-item nav-link">Logos</a>
+				</div>
+
+				<div class="navbar-nav ml-auto">
+					<a class="navbar-brand" style="color: white;">
+						Profile
+					</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<!-- end nav header -->
+
+	<!-- body -->
+	<div id="body" #body class="body">
+		<router-outlet></router-outlet>
+	</div>
+
+	<!-- nav footer -->
+	<nav id="mpkFooter" class="navbar mpkFooter fixed-bottom btn-success">
+		<p class="footerItem footerItemGrid">
+			<a class="footerItemGridItem" href="#">Terms</a>
+			<a class="footerItemGridItem" href="#" >Privacy</a>
+		</p>
+		<p class="footerItem">Copyright &copy; 2015 My Personal Kitchen</p>
+	</nav>
+</div>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
+
+import { AuthService } from './../services/auth/auth.service';
 
 
 interface Menu {
@@ -38,6 +40,9 @@ class MenuItem implements Menu {
 })
 export class DashboardComponent implements OnInit {
 
+
+	@ViewChild('body') body!:ElementRef;
+
 	user: any;
 
 
@@ -49,8 +54,11 @@ export class DashboardComponent implements OnInit {
 
 
 	faHome = faHome;
+	userData:any;
+	
+	constructor(private authService: AuthService, private router: Router) { }
 
-	constructor(private router: Router) { }
+
 
 	ngOnInit(): any {
 		if (!(localStorage.getItem('user'))) {
@@ -64,7 +72,9 @@ export class DashboardComponent implements OnInit {
 		if (!(this.user) && localStorageUser) {
 			this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
 			this.displayMenu();
-		} }
+		}
+	}
+
 
 	goToAuth(): void {
 		this.router.navigate(['auth']);
@@ -93,8 +103,17 @@ export class DashboardComponent implements OnInit {
 
 
 	manage(page: string) {
-		localStorage['previous_state'] = "cookDashboard";
-		this.router.navigate(['/', 'dashboard', page]);
+		localStorage['previous_state'] = "dashboard";
+		this.router.navigate(['/', page]);
 	};
+
+
+	signOut() {
+		this.authService.SignOut();
+	}
+
+	getAuthUserData() {
+		this.userData = this.authService.userData;
+	}
 
 }

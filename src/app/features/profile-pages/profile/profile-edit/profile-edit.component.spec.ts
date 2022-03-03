@@ -1,22 +1,20 @@
-import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserComponent } from './user.component';
+import { ProfileEditComponent } from './profile-edit.component';
 
-describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
+describe('ProfileEditComponent', () => {
+  let component: ProfileEditComponent;
+  let fixture: ComponentFixture<ProfileEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserComponent ],
-	 imports: [HttpClientModule]
+      declarations: [ ProfileEditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserComponent);
+    fixture = TestBed.createComponent(ProfileEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,28 +1,57 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
-import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
+import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.component';
+
+//Auth Guard
+import { AuthGuard } from './shared/guard/auth.guard';
+
 
 const routes: Routes = [
 
 	//Home Route
 	{	path: '', component: HomeLayoutComponent,
-		children: [{
+		children: [
+			{
 				path: '',
 				redirectTo: '/home',
-				pathMatch: 'full'},{
+				pathMatch: 'full'
+			},
+			{
 				path: 'home',
-				loadChildren: () => import('./home/home.module').then(m => m.HomeModule)}]
+				loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+			}
+		]
 	},
 	//App Route
 	{	path: '', component: DashboardLayoutComponent,
-		children: [{
+		children: [
+			{
 				path: 'dashboard',
 				redirectTo: '/dashboard',
-				pathMatch: 'full'},{
+				pathMatch: 'full'
+			},
+			{
 				path: 'dashboard',
-				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)}]
+				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+			}
+		]
+	},
+	//Profile Route
+	{	path: '', component: ProfileLayoutComponent,
+		children: [
+			{
+				path: 'profile',
+				redirectTo: '/profile',
+				pathMatch: 'full'
+			},
+			{
+				path: 'profile',
+				loadChildren: () => import('./features/profile-pages/profile/profile.module').then(m => m.ProfileModule)
+			}
+		]
 	},
 	//Auth Route
 	{
