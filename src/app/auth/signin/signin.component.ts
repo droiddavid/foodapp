@@ -43,6 +43,7 @@ export class SigninComponent implements OnInit {
 
 	db?: DatabaseService;
 	isLoggedIn!: boolean;
+	userData: any;
 
 	resetPasswordDialogBox:any;
 
@@ -52,6 +53,10 @@ export class SigninComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private database: DatabaseService) {
+
+			if (this.authService.userData) {
+				this.userData = this.authService.userData;
+			}
 
 			this.form = this.formBuilder.group({
 				email: ['', [
@@ -178,5 +183,18 @@ export class SigninComponent implements OnInit {
 					this.toastElement.nativeElement.id
 				);
 			});
+	}
+
+
+	checkLoggedIn() {
+		return (this.authService.isLoggedIn) ? true : false;
+	}
+
+
+	goToSignUp() {
+		this.router.navigate(['/', 'home', 'signup']);
+	}
+	goToForgotPassword() {
+		this.router.navigate(['/', 'home', 'forgot-password']);
 	}
 }

@@ -1,188 +1,100 @@
-
-	<!-- body -->
-	<!-- <div class="body">
-		<h1 *ngIf="authService.userData | async">Hello {{ (authService.userData | async)?.email }}</h1>
-
-
-		<div *ngIf="!(authService.userData | async)">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 pt-5">
-
-						<!-- toast -->
-						<!-- <div #toastElement 
-							id="toastElement" 
-							class="toast" 
-							role="alert" 
-							aria-live="assertive" aria-atomic="true"
-						>					
-							<div class="toast-header">
-								<strong class="toast_text mr-auto">Notification</strong>
-							</div>
-					
-							<div class="toast-body toast_text"></div>
-						</div>
-
-
-						<form #formData
-							class="form mt-4" 
-							[formGroup]="form" 
-							[ngStyle]="{'text-align':'-webkit-center'}" 
-							(ngSubmit)="onSubmit()"
-						> -->
-							<!-- icon -->
-							<!-- <div class="mb-4 text-center">
-								<fa-icon 
-									id="showPasswordEye" 
-									class="success" 
-									[ngStyle]="{'color':'green','font-size':'68px'}"
-									[icon]="faUser">
-								</fa-icon>
-							</div>
-
-
-							<h3 class="mb-4">Sign In to Your Account</h3>
-
-
-							<div class="form-group mb-4">
-								<input
-									id="email"
-									type="email"
-									name="email" 
-									[(ngModel)]="email"
-									formControlName="email"
-									class="form-control"
-									placeholder="Email" 
-									autocomplete="username" 
-									required="required"
-								/>
-							</div>
-
-
-							<div class="form-group mb-4">
-								<input
-									id="password" 
-									type="password" 
-									name="password"  
-									[(ngModel)]="password"
-									formControlName="password"
-									class="form-control" 
-									placeholder="Password"
-									autocomplete="current-password" 
-									required="required"
-								/>
-							</div> -->
-
-
-							<!--
-							<div class="form-group">
-								<label class="checkbox-inline"><input type="checkbox"> Remember me</label>
-							</div>
-							-->
-
-
-							<!-- <div class="form-group mb-4">
-								<input 
-									id="quickstart-sign-in"
-									type="submit" 
-									class="btn btn-success mpkButton btn-block btn-lg mb-4" 
-									value="Sign In"
-								/>
-							</div>
-						</form>
-
-
-						<div class="text-center">
-							<div class="form-group">
-								Forgot your password? <a (click)="openResetPasswordDialogBox()">Reset It</a>
-							</div>
-							<div class="form-group">
-								Don't have an account? <a routerLink="/signup">Sign Up</a>
-							</div>
-						</div> -->
-						<!--Status: <span id="quickstart-sign-in-status">{{ status }}</span>-->
-
-
-						<!-- The Modal -->
-						<!-- <div class="modal" id="resetPasswordDialogBox">
-							<div class="modal-dialog modal-sm">
-								<div class="modal-content"> -->
-
-									<!-- Modal Header -->
-									<!-- <div class="modal-header">
-										<h4 class="modal-title">Reset Password</h4>
-										<button 
-											type="button" 
-											class="btn-close" 
-											(click)="closePasswordDialogBox()">
-										</button>
-									</div> -->
-
-
-									<!-- Modal body -->
-									<!-- <div class="modal-body">
-										<label for="resetWithEmailAddress">Email Address</label>
-										<input #resetEmail 
-											id="resetWithEmailAddress" 
-											type="email" 
-											class="form-control" />
-									</div> -->
-
-
-									<!-- Modal footer -->
-									<!-- <div class="modal-footer">
-										<button type="button" class="btn btn-danger" 
-											(click)="sendPasswordReset(resetEmail)">
-											Send
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> 
-
-
-		<button 
-			(click)="signOut()" 
-			*ngIf="authService.userData | async"
-		>
-			Logout
-		</button>
-	</div> -->
-
-
-
+<!-- body -->
 <div class="body">
-	<div class="displayTable">
-		<div class="displayTableCell">
-			<div class="authBlock">
+	<h1 *ngIf="isLoggedIn">Hello {{ userData.email }}</h1>
 
-				<form>
-					<h3>Sign In</h3>
-					<div class="formGroup">
-						<input type="text" class="formControl" placeholder="Username" #userName required>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12 pt-5">
+
+				<!-- toast -->
+				<div #toastElement 
+					id="toastElement" 
+					class="toast" 
+					role="alert" 
+					aria-live="assertive" aria-atomic="true"
+				>					
+					<div class="toast-header">
+						<strong class="toast_text mr-auto">Notification</strong>
+					</div>
+			
+					<div class="toast-body toast_text"></div>
+				</div>
+
+
+				<form #formData
+					class="form mt-4" 
+					[formGroup]="form" 
+					[ngStyle]="{'text-align':'-webkit-center'}" 
+					(ngSubmit)="onSubmit()"
+				>
+					<!-- icon -->
+					<div class="mb-4 text-center">
+						<fa-icon 
+							id="showPasswordEye" 
+							class="success" 
+							[ngStyle]="{'color':'green','font-size':'68px'}"
+							[icon]="faUser">
+						</fa-icon>
 					</div>
 
-					<div class="formGroup">
-						<input type="password" class="formControl" placeholder="Password" #userPassword required>
+
+					<h3 class="mb-4">Sign In to Your Account</h3>
+
+
+					<div class="form-group mb-4">
+						<input #userName
+							id="email"
+							type="email"
+							name="email" 
+							[(ngModel)]="email"
+							formControlName="email"
+							class="form-control"
+							placeholder="Email" 
+							autocomplete="username" 
+							required="required"
+						/>
 					</div>
 
-					<!-- Calling SignIn Api from AuthService -->
-					<div class="formGroup">
+
+					<div class="form-group mb-4">
+						<input #userPassword
+							id="password" 
+							type="password" 
+							name="password"  
+							[(ngModel)]="password"
+							formControlName="password"
+							class="form-control" 
+							placeholder="Password"
+							autocomplete="current-password" 
+							required="required"
+						/>
+					</div>
+
+
+
+					<div class="form-group">
+						<label class="checkbox-inline"><input type="checkbox"> Remember me</label>
+					</div>
+
+
+
+					<div class="form-group mb-4">
 						<input 
-							type="button" 
-							class="btn btnPrimary" 
-							value="Log in" 
-							(click)="authService.SignIn(userName.value, userPassword.value)">
+							id="quickstart-sign-in"
+							type="submit" 
+							class="btn btn-success mpkButton btn-block btn-lg mb-4" 
+							value="Sign In"
+						/>
+						<!-- Calling SignIn Api from AuthService
+						(click)="authService.SignIn(userName.value, userPassword.value)" -->
 					</div>
+					
 					<div class="formGroup">
 						<span class="or"><span class="orInner">Or</span></span>
 					</div>
-
-
+				
+				
 					<!-- Calling GoogleAuth Api from AuthService -->
 					<div class="formGroup">
 						<button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
@@ -190,17 +102,68 @@
 								Log in with Google
 						</button>
 					</div>
-
-					<div class="forgotPassword">
-						<span routerLink="/forgot-password">Forgot Password?</span>
-					</div>
 				</form>
-				
-			</div>
 
-			<div class="redirectToLogin">
-				<span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+
+				<div class="text-center">
+					<div class="form-group">
+						Forgot your password? <a (click)="openResetPasswordDialogBox()">Reset It</a>
+					</div>
+					<div class="forgotPassword">
+						<span (click)="goToForgotPassword()">Forgot Password?</span>
+					</div>
+					<div class="form-group">
+						Don't have an account? <a (click)="goToSignUp()">Sign Up</a>
+					</div>
+				</div>
+				<!--Status: <span id="quickstart-sign-in-status">{{ status }}</span>-->
+
+
+				<!-- The Modal -->
+				<div class="modal" id="resetPasswordDialogBox">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+
+							<!-- Modal Header -->
+							<div class="modal-header">
+								<h4 class="modal-title">Reset Password</h4>
+								<button 
+									type="button" 
+									class="btn-close" 
+									(click)="closePasswordDialogBox()">
+								</button>
+							</div>
+
+
+							<!-- Modal body -->
+							<div class="modal-body">
+								<label for="resetWithEmailAddress">Email Address</label>
+								<input #resetEmail 
+									id="resetWithEmailAddress" 
+									type="email" 
+									class="form-control" />
+							</div>
+
+
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" 
+									(click)="sendPasswordReset(resetEmail)">
+									Send
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</div> 
+
+
+	<button 
+		(click)="signOut()" 
+		*ngIf="userData"
+	>
+		Logout
+	</button>
 </div>

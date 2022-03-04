@@ -9,8 +9,16 @@ import { AuthService } from './../../services/auth/auth.service';
 })
 export class VerifyEmailComponent implements OnInit {
 
+	userData: any;
+
 	constructor(private authService: AuthService) { }
 
-	ngOnInit(): void { }
+	ngOnInit(): void {
+		this.userData = this.authService.userData;
+	}
+
+	sendVerificationMail() {
+		this.authService.SendVerificationMail();
+	}
 
 }

@@ -121,6 +121,9 @@ export class AuthService {
 			});
 	}
 
+	get isUserData(): any {
+		return this.userData;
+	}
 
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
