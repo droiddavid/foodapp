@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { DatabaseService } from './services/database/database.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Structural Modules and Compnents
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +40,8 @@ import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.c
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule,
   ],
   providers: [DatabaseService,  AuthService, { provide: LocationStrategy, useClass: HashLocationStrategy}],

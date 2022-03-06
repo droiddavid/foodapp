@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthService } from './../services/auth/auth.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -32,6 +32,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 		Router,
 		CommonModule,
 		AuthRoutingModule,
+		FormsModule,
 		ReactiveFormsModule,
 		FontAwesomeModule,
 		HttpClientModule,

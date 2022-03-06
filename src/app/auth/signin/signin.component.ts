@@ -7,6 +7,9 @@ import { GlobalService } from 'src/app/services/global.service';
 import { HttpClient } from '@angular/common/http';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { UserComponent } from 'src/app/components/user/user.component';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { User } from 'src/app/shared/user';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -22,7 +25,7 @@ export class SigninComponent implements OnInit {
 
 	//HTML Form
 	form: FormGroup;
-
+	user: any;
 
 	//FIELDS
 	email!: HTMLInputElement;
@@ -50,6 +53,8 @@ export class SigninComponent implements OnInit {
 
 	constructor(
 		public authService: AuthService,
+		public afAuth: AngularFireAuth,
+		public afs: AngularFirestore,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private database: DatabaseService) {
@@ -88,66 +93,74 @@ export class SigninComponent implements OnInit {
 	ngDoCheck(): void { }
 
 
+	async signin(email:string, password:string) {
+		const result = await this.afAuth.signInWithEmailAndPassword(email, password);
 
-	//Sign In
-	async onSubmit() {
-		let emailElement = document.querySelector("email");
-		let passwordElement = document.querySelector("password");
+		this.user = result.user;
+		debugger;
+		this.SetUserData(result.user);
+		this.Submit();
+	}
+	SetUserData(user: any) {
 
-		await this.authService.SignIn(
-			JSON.parse(JSON.stringify(this.email)), 
-			JSON.parse(JSON.stringify(this.password))
-		)
-			.then( () => {
-				let user: UserComponent = new UserComponent(this.database);
-
-				user.getUser(JSON.parse(JSON.stringify(this.email)))
-					.subscribe((response)=>{
-						let {emailAddress, id, lastLogin, lastUpdate, message, role,status
-						} = response.data[0];
-
-						let _user: any = {
-							"emailAddress": "", "id": "", "lastLogin": "",
-							"lastUpdate": "", "message": "", "role": "", "status": ""
-						};
-						if (emailAddress && id && lastLogin && lastUpdate && message && role && status) {
-							_user.emailAddress = emailAddress;
-							_user.id = id;
-							_user.lastLogin = lastLogin;
-							_user.lastUpdate = lastUpdate;
-							_user.message = message;
-							_user.role = role;
-							_user.status = status;
-						}
-						
-						if (_user) {
-							localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": true })));
-							localStorage.setItem("user", GlobalService.encode(JSON.stringify(_user)));
-						} else {
-							localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": false })));
-							localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
-						}
-
-						this.isLoggedIn = true;
-						localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));
-
-						this.router.navigate(['/', 'dashboard']);
-						return;
-					});
-			}
+		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+			`users/${user.uid}`
 		);
+		debugger;
+		const userData: User = {
+			uid: user.uid,
+			emailAddress: user.email,
+			displayName: user.displayName,
+			photoURL: user.photoURL,
+			emailVerified: user.emailVerified,
+		};
 
-		//Set the input field values to nothing.
-		emailElement?.setAttribute('value', '');
-		passwordElement?.setAttribute('value', '');
+		return userRef.set(userData, {
+			merge: true,
+		});
 	}
 
+	//Sign In
+	async Submit() {
+		debugger;
+		let user: UserComponent = new UserComponent(this.database);
 
+		user.getUser(this.user.email)
+			.subscribe((response)=>{
+				debugger;
+				let {emailAddress, id, lastLogin, lastUpdate, message, role,status
+				} = response.data[0];
 
-	signUp() {
-		this.authService.SignUp(this.email.value, this.password.value);
-		this.email.value = '';
-		this.password.value = '';
+				let _user: any = {
+					"emailAddress": "", "id": "", "lastLogin": "",
+					"lastUpdate": "", "message": "", "role": "", "status": ""
+				};
+				if (emailAddress && id && lastLogin && lastUpdate && message && role && status) {
+					_user.emailAddress = emailAddress;
+					_user.id = id;
+					_user.lastLogin = lastLogin;
+					_user.lastUpdate = lastUpdate;
+					_user.message = message;
+					_user.role = role;
+					_user.status = status;
+				}
+				
+				if (_user) {
+					localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": true })));
+					localStorage.setItem("user", GlobalService.encode(JSON.stringify(_user)));
+				} else {
+					localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": false })));
+					localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
+				}
+
+				debugger;
+
+				this.isLoggedIn = true;
+				localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));
+
+				this.router.navigate(['/', 'dashboard']);
+				return;
+			});
 	}
 
 

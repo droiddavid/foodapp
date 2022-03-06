@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database/database.service';
 
 @NgModule({
@@ -13,7 +13,9 @@ import { DatabaseService } from 'src/app/services/database/database.service';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ],
   providers: [FormBuilder, DatabaseService, HttpClient]
 })

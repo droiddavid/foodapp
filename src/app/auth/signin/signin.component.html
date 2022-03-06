@@ -22,11 +22,16 @@
 				</div>
 
 
-				<form #formData
-					class="form mt-4" 
+				<!-- <form #formData
+					class="form mt-4 formGroup" 
 					[formGroup]="form" 
 					[ngStyle]="{'text-align':'-webkit-center'}" 
 					(ngSubmit)="onSubmit()"
+				> -->
+				<div #formData
+					class="form mt-4 formGroup" 
+					[formGroup]="form" 
+					[ngStyle]="{'text-align':'-webkit-center'}" 
 				>
 					<!-- icon -->
 					<div class="mb-4 text-center">
@@ -46,8 +51,7 @@
 						<input #userName
 							id="email"
 							type="email"
-							name="email" 
-							[(ngModel)]="email"
+							name="email"
 							formControlName="email"
 							class="form-control"
 							placeholder="Email" 
@@ -62,7 +66,6 @@
 							id="password" 
 							type="password" 
 							name="password"  
-							[(ngModel)]="password"
 							formControlName="password"
 							class="form-control" 
 							placeholder="Password"
@@ -78,16 +81,14 @@
 					</div>
 
 
-
+ 
+					<!-- Calling SignIn Api from AuthService -->
 					<div class="form-group mb-4">
-						<input 
+						<button 
 							id="quickstart-sign-in"
-							type="submit" 
-							class="btn btn-success mpkButton btn-block btn-lg mb-4" 
-							value="Sign In"
-						/>
-						<!-- Calling SignIn Api from AuthService
-						(click)="authService.SignIn(userName.value, userPassword.value)" -->
+							class="btn btn-success mpkButton btn-block btn-lg mb-4"
+							(click)="signin(userName.value, userPassword.value)"
+						>Sign In</button>
 					</div>
 					
 					<div class="formGroup">
@@ -102,7 +103,7 @@
 								Log in with Google
 						</button>
 					</div>
-				</form>
+				</div>
 
 
 				<div class="text-center">

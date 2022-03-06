@@ -42,12 +42,11 @@ export class AuthService {
 
 
 	/* Sign in */
-	xSignIn(email: string, password: string) {
-		//debugger;
+	SignIn(email: string, password: string) {
 		return this.angularFireAuth.signInWithEmailAndPassword(String(email), String(password));
 	}
 	// Sign in with email/password
-	async SignIn(email: string, password: string) {
+	async xSignIn(email: string, password: string) {
 		try {
 			const result = await this.afAuth
 				.signInWithEmailAndPassword(email, password);
@@ -57,6 +56,7 @@ export class AuthService {
 			});
 			this.SetUserData(result.user);
 		} catch (error) {
+			return error;
 			//window.alert(error.message);
 		}
 	}
@@ -121,9 +121,6 @@ export class AuthService {
 			});
 	}
 
-	get isUserData(): any {
-		return this.userData;
-	}
 
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
@@ -131,6 +128,7 @@ export class AuthService {
 		let user:any = null;
 
 		let temp:any = localStorage.getItem("user");
+		debugger;
 		if (temp !== null) {
 			user = JSON.parse(GlobalService.decode(temp));
 			user.emailVerified = true;
@@ -171,6 +169,7 @@ export class AuthService {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`
 		);
+		debugger;
 		const userData: User = {
 			uid: user.uid,
 			emailAddress: user.email,
