@@ -1,6 +1,14 @@
 <div class="page">
 	<!-- nav header -->
-	<nav id="navbar" class="navbar navbar-expand-sm navbar-dark fixed-top btn-success" style="float:left;">
+	<nav 
+		#navbar 
+		id="navbar" 
+		class="navbar 
+			navbar-expand-sm 
+			navbar-dark 
+			sticky-top 
+			btn-success"
+	>
 		<div class="container" style="flex-wrap: wrap;">			
 			<span routerLink="dashboard">
 				<fa-icon
@@ -13,7 +21,7 @@
 				id="title" 
 				routerLink="dashboard"
 			>
-				profile.company <!--{{ profile.company }}-->
+				{{ Profile.company }}
 			</span>
 
 			<button type="button" class="navbar-toggler" 
@@ -43,12 +51,15 @@
 	<!-- end nav header -->
 
 	<!-- body -->
-	<div id="body" #body class="body">
+	<div #body id="body" class="body">
 		<router-outlet></router-outlet>
 	</div>
 
 	<!-- nav footer -->
-	<nav id="mpkFooter" class="navbar mpkFooter fixed-bottom btn-success">
+	<nav 
+		#mpkFooter 
+		id="mpkFooter" 
+		class="navbar mpkFooter sticky-bottom btn-success">
 		<p class="footerItem footerItemGrid">
 			<a class="footerItemGridItem" href="#">Terms</a>
 			<a class="footerItemGridItem" href="#" >Privacy</a>

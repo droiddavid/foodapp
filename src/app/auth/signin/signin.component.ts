@@ -97,7 +97,7 @@ export class SigninComponent implements OnInit {
 		const result = await this.afAuth.signInWithEmailAndPassword(email, password);
 
 		this.user = result.user;
-		debugger;
+
 		this.SetUserData(result.user);
 		this.Submit();
 	}
@@ -106,7 +106,6 @@ export class SigninComponent implements OnInit {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`
 		);
-		debugger;
 		const userData: User = {
 			uid: user.uid,
 			emailAddress: user.email,
@@ -122,12 +121,10 @@ export class SigninComponent implements OnInit {
 
 	//Sign In
 	async Submit() {
-		debugger;
 		let user: UserComponent = new UserComponent(this.database);
 
 		user.getUser(this.user.email)
 			.subscribe((response)=>{
-				debugger;
 				let {emailAddress, id, lastLogin, lastUpdate, message, role,status
 				} = response.data[0];
 
@@ -153,7 +150,6 @@ export class SigninComponent implements OnInit {
 					localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
 				}
 
-				debugger;
 
 				this.isLoggedIn = true;
 				localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));

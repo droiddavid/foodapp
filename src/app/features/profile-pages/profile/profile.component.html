@@ -1,73 +1,66 @@
-<div id="body" class="body">
-
-	<!-- main element for Google's javascript validations. -->
-	<main class="main">
-		<div class="ui_body">
+<!-- main element for Google's javascript validations. -->
+<main class="main">
+	<div class="ui_body">
 
 
-			<div id="ui_verbage" class="row">
-				<div class="col-12">
-					<h3>Profile</h3>
-					<p style="font-weight: 600;">
-						This information is about your profile.  Fill it in.
-					</p>
-				</div>
-			</div><!-- ui_verbage -->
-		
-		
-			<div class="ui_outer row">
+		<div id="ui_verbage" class="row">
+			<div class="col-12">
+				<h3>Profile - {{ Profile.company }}</h3>
+				<p style="font-weight: 600;">
+					This information is about your profile.  Fill it in.
+				</p>
+			</div>
+		</div><!-- ui_verbage -->
+	
+	
+		<div class="ui_outer row">
 
-				<!-- BEGIN QUICK START INNER INTERFACE SECTION -->
-				<div id="ui_inner" class="col-12">
-				
-					<!-- toast -->
-					<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-				
-						<div class="toast-header">
-							<strong class="toast_text mr-auto">Notification</strong>
-						</div>
-				
-						<div class="toast-body toast_text"></div>
+			<!-- BEGIN QUICK START INNER INTERFACE SECTION -->
+			<div id="ui_inner" class="col-12">
+			
+				<!-- toast -->
+				<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			
+					<div class="toast-header">
+						<strong class="toast_text mr-auto">Notification</strong>
 					</div>
+			
+					<div class="toast-body toast_text"></div>
+				</div>
 
-					<div class="row">
-						<div class="col">							
-							
-							<div id="profileUI" style="color: black; text-align: left;">
-								<div><strong>First:</strong> {{ Profile.firstName }}</div>
-								<div><strong>Last:</strong> {{ Profile.lastName }}</div> 
-								<div><strong>Company:</strong> {{ Profile.company }}</div>
-								<div><strong>Description:</strong> {{ Profile.description }}</div>
-								<div><strong>Message:</strong> {{ Profile.message }}</div>
-								<!-- <div><strong>Tags:</strong> {{ tagsString }}</div> -->
-								<div><strong>Delivery?:	</strong>{{ Profile.hasDelivery }}</div>
-								<div><strong>Delivery Range: </strong>{{ Profile.deliveryRange }}</div>
-								<div><strong>Country: </strong>{{ Profile.country }}</div>
+				<div class="row">
+					<div class="col">							
+						
+						<div id="profileUI" style="color: black; text-align: left;">
+							<div><strong>First:</strong> {{ Profile.firstName }}</div>
+							<div><strong>Last:</strong> {{ Profile.lastName }}</div> 
+							<div><strong>Company:</strong> {{ Profile.company }}</div>
+							<div><strong>Description:</strong> {{ Profile.description }}</div>
+							<div><strong>Message:</strong> {{ Profile.message }}</div>
+							<!-- <div><strong>Tags:</strong> {{ tagsString }}</div> -->
+							<div><strong>Delivery?:	</strong>{{ Profile.hasDelivery }}</div>
+							<div><strong>Delivery Range: </strong>{{ Profile.deliveryRange }}</div>
+							<div><strong>Country: </strong>{{ Profile.country }}</div>
 
-								<!-- Save or Cancel -->
-								<div id="editButton" class="row" style="margin-top: 1.75rem;">
-									<div class="col-12 text-center text-white">
-										<div id="footer_spacing" 
-											class="align-middle"
-											routerLink="profileEdit"
-											style="padding: 1rem;">
-											<button class="btn btn-success">Edit</button>
-										</div>
-									</div>
+							<!-- Save or Cancel -->
+							<div id="editButton" class="row" style="margin-top: 1.75rem;">
+								<div class="col-12 text-center text-white">
+									<button routerLink="profileEdit" class="btn btn-success mpkButton btn-block btn-lg mb-4"
+										>Edit
+									</button>
 								</div>
 							</div>
+						</div>
 
-						</div><!-- col -->
+					</div><!-- col -->
 
-					</div><!-- row -->
+				</div><!-- row -->
 
-				</div><!-- ui_inner -->
-				<!-- END QUICK START INNER INTERFACE SECTION -->
+			</div><!-- ui_inner -->
+			<!-- END QUICK START INNER INTERFACE SECTION -->
 
-			</div><!-- ui_outer -->
+		</div><!-- ui_outer -->
 
-		</div><!-- ui_body -->
+	</div><!-- ui_body -->
 
-	</main>
-
-</div>
+</main>

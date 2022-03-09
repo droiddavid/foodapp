@@ -123,18 +123,23 @@ export class AuthService {
 
 
 	// Returns true when user is looged in and email is verified
-	get isLoggedIn(): boolean {
+	get isLoggedIn(): any {
 
-		let user:any = null;
+		try {
+			let user:any = null;
 
-		let temp:any = localStorage.getItem("user");
-		debugger;
-		if (temp !== null) {
-			user = JSON.parse(GlobalService.decode(temp));
-			user.emailVerified = true;
+			let temp:any = localStorage.getItem("user");
+
+			if (temp !== null) {
+				user = JSON.parse(GlobalService.decode(temp));
+				user.emailVerified = true;
+			}
+
+			return user !== null && user.emailVerified !== false ? true : false;
+		} catch(Error: any) {
+			return Error;
 		}
 
-		return user !== null && user.emailVerified !== false ? true : false;
 	}
    
 
@@ -169,7 +174,7 @@ export class AuthService {
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`
 		);
-		debugger;
+
 		const userData: User = {
 			uid: user.uid,
 			emailAddress: user.email,

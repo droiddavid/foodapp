@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
@@ -19,7 +22,8 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 	imports: [
 		CommonModule,
 		ProfileRoutingModule,
-		HttpClientModule
+		HttpClientModule,
+		ReactiveFormsModule,
 	]
 })
 export class ProfileModule { }

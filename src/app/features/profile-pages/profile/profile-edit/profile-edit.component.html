@@ -10,7 +10,7 @@
 				<div class="col-12">
 					<h3>Profile</h3>
 					<p style="font-weight: 600;">
-						This information is about your profile.  Fill it in.
+						Edit your profile information.
 					</p>
 				</div>
 			</div><!-- ui_verbage -->
@@ -34,9 +34,9 @@
 					<div class="row">
 						<div class="col">							
 							
-							<!-- <form
+							<form
 								class="form mt-4" 
-								[formGroup]="form" 
+								[formGroup]="editForm" 
 								[ngStyle]="{'text-align':'-webkit-center'}" 
 								(ngSubmit)="onSubmit()"
 							>
@@ -47,152 +47,140 @@
 								<hr>
 								<!-- First name and Last name -->
 								<!-- First Name -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input type="text"
 											id="firstName" 
 											name="firstName"
 											class="form-control"
 											autofocus 
-											[(ngModel)]="Profile.firstName"
 											formControlName="firstName"
 											placeholder="First name..."
 										>
 									</div>
-								</div> -->
+								</div>
 								<!-- Last Name -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="lastName" name="lastName" type="text" class="form-control" 
-										[(ngModel)]="Profile.lastName"
 										formControlName="lastName" 
 										placeholder="Last name..."
 										oninput="this.className = ''" required="required">
 									</div>
-								</div> -->
+								</div>
 								<!-- Company -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="company" name="company" type="text" class="form-control" 
-										[(ngModel)]="Profile.company"
 										formControlName="company"
 										placeholder="Company Name" 
 										oninput="this.className = ''" required="required">
 									</div>
-								</div> -->
-								<!-- Display Name
+								</div>
+								<!-- Display Name -->
 								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="displayName" name="displayName" type="text" class="form-control" 
-										[(ngModel)]="Profile.displayName"
 										placeholder="Display Name"
 										oninput="this.className = ''">
 									</div>
-								</div> -->
-								<!-- Website
+								</div>
+								<!-- Website -->
 								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="website" name="website" type="text" class="form-control" 
-										[(ngModel)]="Profile.website"
 										placeholder="Website"
 										oninput="this.className = ''">
 									</div>
-								</div> -->
+								</div>
 								<!-- Description -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<label for="description">Description</label>
 									<div class="input-group">
 										<textarea
 											id="description" name="description" class="form-control description"
-											[(ngModel)]="Profile.description"
 											formControlName="description"
 											rows="6"
 											oninput="this.className = ''"
 										>
 										</textarea>
 									</div>
-								</div> -->
+								</div>
 								<!-- Message -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<label for="message">Message</label>
 									<div class="input-group">
 										<input 
 										id="message" name="message" type="text" class="form-control" 
-										[(ngModel)]="Profile.message"
 										formControlName="message"
 										placeholder="Welcome to my kitchen where you'll find..."
 										oninput="this.className = ''">
 									</div>
-								</div> -->
+								</div>
 								<!-- Tags -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<label for="tags">Tags [Use commas to tag your menu items.]</label>
 									<div class="input-group">
 										<input 
 										id="tags" name="tags" type="text" class="form-control" 
-										[(ngModel)]="Profile.tags"
 										formControlName="tags"
 										placeholder="(Chicken, Soul Food, Open Late, etc.)"
 										oninput="this.className = ''">
 									</div>
-								</div> -->
+								</div>
 								<!-- Has Delivery -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="hasDelivery" name="hasDelivery" type="checkbox" 
-										ng-click="$ctrl.checkHasDelivery();"
+										(click)="checkHasDelivery();"
 										ng-checked="Profile_hasDelivery"
-										[(ngModel)]="Profile.hasDelivery"
 										formControlName="hasDelivery"
 										oninput="this.className = ''">Will you deliver?<br />
 										<span style="color: grey;">My Personal Kitchen does not offer delivery.</span>
 									</div>
-								</div> -->
+								</div>
 								<!-- Delivery Range -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="deliveryRange" name="deliveryRange" type="text" class="form-control" 
-										[(ngModel)]="Profile.deliveryRange"
 										formControlName="deliveryRange"
 										placeholder="Delivery Range"
 										oninput="this.className = ''">
 									</div>
-								</div> -->
+								</div>
 								<!-- Country -->
-								<!-- <div class="form-group">
+								<div class="form-group">
 									<div class="input-group">
 										<input 
 										id="country" name="country" type="text" class="form-control" 
-										[(ngModel)]="Profile.country"
 										formControlName="country"
 										placeholder="Country"
 										oninput="this.className = ''">
 									</div>
-								</div> -->
+								</div>
 							
 								<!-- Save button -->
-								<!-- <div id="form-buttons" class="form-group">
+								<div id="form-buttons" class="form-group">
 									<button id="btnSaveProfile"
 										type="submit" class="btn btn-primary btn-lg" 
 										ng-click="$ctrl.save();" 
 										ng-show="$ctrl.initialized === false"
-									>Save</button> -->
+									>Save</button>
 							
-									<!-- <button 
+									<button 
 										type="submit" 
 										class="btn btn-success btn-lg"
 									>
 										Update
 									</button>
-								</div> -->
-								<!-- <span>{{ $ctrl.initialized }}</span> -->
-							<!--</form> -->
+								</div>
+							</form>
 
 						</div><!-- col -->
 

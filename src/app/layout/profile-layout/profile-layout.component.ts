@@ -1,5 +1,5 @@
 import { DatabaseService } from './../../services/database/database.service';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
 
@@ -9,9 +9,12 @@ import { GlobalService } from 'src/app/services/global.service';
   templateUrl: './profile-layout.component.html',
   styleUrls: ['./profile-layout.component.css']
 })
-export class ProfileLayoutComponent implements OnInit, AfterViewInit {
+export class ProfileLayoutComponent implements OnInit, DoCheck {
 
 	@ViewChild('body') body!: ElementRef;
+	@ViewChild('navbar') navbar!: ElementRef;
+	@ViewChild('mpkFooter') mpkFooter!: ElementRef;
+
 
 	user: any;
 	Profile: any;
@@ -21,47 +24,92 @@ export class ProfileLayoutComponent implements OnInit, AfterViewInit {
 	constructor(private database: DatabaseService) { }
 
 	ngOnInit(): any {
-		
-		if (!(localStorage.getItem('user'))) {
-			return {
-				"name": "Error",
-				"message": "Cannot find user in local storage."}
+
+		/** Declare local variables  */
+		let _localStorageUser: string | null;
+		let _localStorageProfile: string | null;
+
+
+		/* If there is no user, then return new Error */
+		if (!localStorage.getItem('user')) {
+			return new Error("Cannot find user in local storage.");
 		}
 
-		let localStorageUser: string | null = localStorage.getItem('user');
 
-		if (!(this.user) && localStorageUser) {
+		/* Get the user object from localStorage */
+		_localStorageUser = localStorage.getItem('user');
+		if (!this.user && _localStorageUser) {
 			this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
-			debugger;
 		}
-		this.database.getData("profiledata", "userId", this.user.id)
-			.subscribe(data => {
-				this.Profile = data;
+
+
+		/* Get the user's profile from localStorage */
+		_localStorageProfile = localStorage.getItem('profile');
+		if (this.user && _localStorageUser && !_localStorageProfile) {
+			this.database.getData("profiledata", "userId", this.user.id)
+				.subscribe(data => {
+					this.Profile = data.data[0];
+					
+					localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
+				})
+		}
+	}
+
+	
+	ngDoCheck(): any {
+
+		/* Declare local variables */
+		let _localStorageUser: string | null;
+		let _localStorageProfile: string | null;
+
+
+		/* If there is no user, then return new Error */
+		if (!localStorage.getItem('user')) {
+			return new Error("Cannot find user in local storage.");
+		}
+
+
+		/* Get the user object from localStorage */
+		_localStorageUser = localStorage.getItem('user');
+		if (!this.user && _localStorageUser) {
+			let lsUser = localStorage.getItem('user')!;
+			if (lsUser) {
+				let decodedUser = GlobalService.decode(lsUser);
+				if (decodedUser) {
+					this.user = JSON.parse(decodedUser);		
+				}
+			}
+		}
+
+
+		/* Get the user's profile from localStorage */
+		_localStorageProfile = localStorage.getItem('profile');
+		if (this.user && _localStorageUser && !_localStorageProfile) {
+			this.database.getData("profiledata", "userId", this.user.id)
+				.subscribe(data => {
+					this.Profile = data.data[0];
+					
+					localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
+				})
+		} else {
+			//The localStorage profile exists
+			let profile = localStorage.getItem('profile')!;
+
+			if (profile) {
 				debugger;
-			})
-	}
+				//Decode the profile into JSON.
+				let decodedProfile = GlobalService.decode(profile);
+				if (decodedProfile) {
+					//Assign the JSON object to the Profile object.
+					this.Profile = JSON.parse(decodedProfile);
 
-	ngAfterViewInit(): any {
-		let _navbar_header = document.getElementById("navbar");
-		let _navbar_footer = document.getElementById("mpkFooter");
-		//let body = document.getElementsByClassName("body")[0]; //returns div.body from <div class="body"...
+					//Deconstruct for the company name only.
+					let { company } = this.Profile;
 
-		if (_navbar_header!== null) {
-		
-			/* give the body a base height */
-			this.body.nativeElement.style.height = "100vh";
-
-			//I made up those hard coded numbers.
-			let newBodyTop = this.body.nativeElement.style.clientTop + _navbar_header!.clientHeight + 4;
-			let newHeight = this.body.nativeElement.clientHeight - (newBodyTop + _navbar_footer!.clientHeight) + 9;
-
-			this.body.nativeElement.setAttribute("style", 
-				"position: relative; "
-				+ "top: " + newBodyTop + "px; " 
-				+ "height: " + newHeight + "px; "
-				+ "border: 3px solid red;"
-			);
+					//Reassign the Profile object with the deconstructed object.
+					this.Profile = { company };
+				}
+			}
 		}
 	}
-
 }
