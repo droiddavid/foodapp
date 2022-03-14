@@ -21,4 +21,8 @@ describe('HomeLayoutComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
+
+	it('should have isLoggedIn as false.', () => {
+		expect(component.isLoggedIn).not.toBeTruthy();
+	});
 });

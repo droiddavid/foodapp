@@ -84,27 +84,7 @@ export class SignupComponent implements OnInit {
 	ngOnInit(): void {}
 
 
-	ngDoCheck() {
-		// let _navbar_header = document.getElementById("navbar");
-		// let _navbar_footer = document.getElementById("mpkFooter");
-		// let body = document.getElementsByClassName("body")[0]; //returns div.body from <div class="body"...
-		
-		// /* give the body a base height */
-		// body.setAttribute("style", "height: 100vh;");
-
-		// //I made up those hard coded numbers.
-		// let newBodyTop = body.clientTop + _navbar_header!.clientHeight;
-		// let newHeight = body.clientHeight - (newBodyTop + _navbar_footer!.clientHeight);
-
-		// body.setAttribute("style", 
-		// 	"position: relative; top: " + newBodyTop + "px; " 
-		// 	+ "height: " + newHeight + "px; " 
-		// 	+ "padding-left: .5rem; " 
-		// 	+ "padding-right: .5rem; " 
-		// 	+ "padding-top: .5rem; "
-		// 	+ "margin-right: 0.5rem;"
-		// );
-	}
+	ngDoCheck() {}
 
 
 	logout() {
@@ -259,7 +239,7 @@ export class SignupComponent implements OnInit {
 				//The user does not already exist.
 				if (response.data.length === 0) {
 					//insert into DB
-					this.database.addData({
+					this.database.insert({
 						"emailAddress": this._email,
 						"lastLogin": new Date(), "lastUpdate": Date.now(),
 						"message": 'Tell us something about yourself.',

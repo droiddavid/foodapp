@@ -14,7 +14,7 @@ import { UserComponent } from 'src/app/components/user/user.component';
 export class DatabaseService {
 
 	select: string = environment.database.baseUrl + environment.database.select;
-	insert: string = environment.database.baseUrl + environment.database.insert;
+	_insert: string = environment.database.baseUrl + environment.database.insert;
 	_delete: string = environment.database.baseUrl + environment.database.delete;
 	deleteIn: string = environment.database.baseUrl + environment.database.deleteIn;
 	fileMover: string = environment.database.baseUrl + environment.database.fileMover;
@@ -40,7 +40,7 @@ export class DatabaseService {
 	//POST
 	createUser(data: any): Observable<UserComponent> {
 		return this.http.post<UserComponent>(
-			this.insert,
+			this._insert,
 			JSON.stringify(data), 
 			this.httpOptions
 		)
@@ -109,9 +109,9 @@ export class DatabaseService {
 	}
 
 	//POST - INSERT
-	addData(data: any): Observable<any> {
+	insert(data: any): Observable<any> {
 		return this.http.post<any>(
-			this.insert,
+			this._insert,
 			JSON.stringify(data), 
 			this.httpOptions
 		)

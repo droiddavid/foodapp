@@ -1,32 +1,24 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.css']
 })
-export class ProfileEditComponent implements OnInit, DoCheck {
+export class ProfileEditComponent implements OnInit {
 
 	user: any;
-	Profile: any = {
-		"firstName": undefined,
-		"lastName": undefined,
-		"company": undefined,
-		"displayName": undefined,
-		"website": undefined,
-		"description": undefined,
-		"message": undefined,				
-		"tags": undefined,
-		"hasDelivery": undefined,
-		"deliveryRange": undefined,
-		"country": undefined
-	}
+	Profile!: ProfileComponent;
 	editForm!: FormGroup;
 
-	constructor(private database: DatabaseService, private formBuilder: FormBuilder) {
+	constructor(
+		private database: DatabaseService, 
+		private formBuilder: FormBuilder,
+		private router: Router) {
 
 		this.editForm = this.formBuilder.group({
 			firstName: 	['', [ Validators.required ]],
@@ -43,60 +35,86 @@ export class ProfileEditComponent implements OnInit, DoCheck {
 		})
 	}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): any {
+		if(this.Profile === undefined) {
+			this.Profile = new ProfileComponent(this.database, this.router);
 
+			/** Declare local variables  */
+			let _localStorageUser: string | null;
+			let _localStorageProfile: string | null;
 
-	ngDoCheck(): any {
-
-		/* Declare local variables */
-		let _localStorageUser: string | null;
-		let _localStorageProfile: string | null;
-
-
-		/* If there is no user, then return new Error */
-		if (!localStorage.getItem('user')) {
-			return new Error("Cannot find user in local storage.");
-		}
-
-
-		/* Get the user object from localStorage */
-		_localStorageUser = localStorage.getItem('user');
-		if (!this.user && _localStorageUser) {
-			let lsUser = localStorage.getItem('user')!;
-			if (lsUser) {
-				let decodedUser = GlobalService.decode(lsUser);
-				if (decodedUser) {
-					this.user = JSON.parse(decodedUser);		
-				}
+			/* If there is no user, then return new Error */
+			if (!localStorage.getItem('user')) {
+				return new Error("Cannot find user in local storage.");
 			}
-		}
 
+			/* Get the user object from localStorage */
+			_localStorageUser = localStorage.getItem('user');
+			if (!this.user && _localStorageUser) {
+				this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
+			}
 
-		/* Get the user's profile from localStorage */
-		_localStorageProfile = localStorage.getItem('profile');
-		if (this.user && _localStorageUser && !_localStorageProfile) {
-			this.database.getData("profiledata", "userId", this.user.id)
-				.subscribe(data => {
-					this.Profile = data.data[0];
-					
-					localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
-				})
-		} else {
-			//The localStorage profile exists
-			let profile = localStorage.getItem('profile')!;
+			/* Get the user's profile from localStorage */
+			_localStorageProfile = localStorage.getItem('profile');
+			if (this.user && _localStorageUser && (_localStorageProfile === undefined)) {
+				this.database.getData("profiledata", "userId", this.user.id)
+					.subscribe(data => {
+						if(data) {
+							if (data.data) {
+								if(data.data[0]) {
+									this.Profile = data.data[0];
+									this.editForm.get('firstName')!.setValue(this.Profile.firstName);
 
-			if (profile) {
-				//Decode the profile into JSON.
-				let decodedProfile = GlobalService.decode(profile);
-				if (decodedProfile) {
-					//Assign the JSON object to the Profile object.
-					this.Profile = JSON.parse(decodedProfile);
+									localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
+								}
+							}
+						}
+					})
+			} else {
+				this.Profile = JSON.parse(GlobalService.decode(localStorage.getItem('profile')!));
+				
+				for (let [ key, value ] of Object.entries(this.Profile)) {
+					let k = (key === 'id' || key === 'displayName' || key === 'website' || key === 'image' || key === 'isPublic' || key === 'userId' || key === 'email');
+					if (k) continue; else {
+						this.editForm.get(key)!.setValue(value);
+					}
 				}
 			}
 		}
 	}
 
-	onSubmit(): any {}
+
+
+	onSubmit(): any {
+		debugger;
+		let editformvalue = this.editForm;
+		console.table([editformvalue]);
+		debugger;
+	}
 	checkHasDelivery(): any {}
+
+	save(): any {
+		/* ************************************************/
+		//The user does not already exist.
+		// if (response.data.length === 0) {
+		// 	//insert into DB
+		// 	this.database.insert({
+		// 		"emailAddress": this._email,
+		// 		"lastLogin": new Date(), "lastUpdate": Date.now(),
+		// 		"message": 'Tell us something about yourself.',
+		// 		"role": 2,
+		// 		"status": 1,
+		// 		"table": 'users'
+		// 	})
+		// 		.subscribe(() => {
+		// 			GlobalService.showToast(
+		// 				"User added successfully.",
+		// 				"btn-success", 
+		// 				this.toastElement.nativeElement.id
+		// 			);
+		// 			this.router.navigate(['home/signin']);
+		// 		}); //end .subscribe
+		// }
+		/* ************************************************/
+	}
 }

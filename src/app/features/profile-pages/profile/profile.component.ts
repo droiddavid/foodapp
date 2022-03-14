@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from './../../../services/global.service';
@@ -10,6 +11,20 @@ import { GlobalService } from './../../../services/global.service';
 export class ProfileComponent implements OnInit, DoCheck {
 
 	@ViewChild('body') body!: ElementRef;
+
+	
+	firstName!: string;
+	lastName!: string; 
+	company!: string;
+	description!: string;
+	message!: string;
+	tagsString!: string;
+	hasDelivery!: boolean;
+	deliveryRange!: number;
+	country!: string;
+	displayName!: string;
+	website!: string;
+
 
 
 	Profile = {
@@ -26,12 +41,11 @@ export class ProfileComponent implements OnInit, DoCheck {
 
 
 	user: any;
+	
+	
+	constructor(private database: DatabaseService, private router: Router) { }
 
-	constructor(private database: DatabaseService) { }
-
-	ngOnInit(): any {}
-
-	ngDoCheck(): any {
+	ngOnInit(): any {
 
 		/* Declare local variables */
 		let _localStorageUser: string | null;
@@ -59,14 +73,20 @@ export class ProfileComponent implements OnInit, DoCheck {
 
 		/* Get the user's profile from localStorage */
 		_localStorageProfile = localStorage.getItem('profile');
+		debugger;
 		if (this.user && _localStorageUser && !_localStorageProfile) {
 			this.database.getData("profiledata", "userId", this.user.id)
 				.subscribe(data => {
-					this.Profile = data.data[0];
-					
-					localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
+					debugger;
+					if (data && data.data && data.data.length > 0) {
+						this.Profile = data.data[0];
+						localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
+					} else {
+						this.router.navigate(['/', 'profile', 'profileAdd']);
+					}
 				})
 		} else {
+			debugger;
 			//The localStorage profile exists
 			let profile = localStorage.getItem('profile')!;
 
@@ -80,6 +100,8 @@ export class ProfileComponent implements OnInit, DoCheck {
 			}
 		}
 	}
+
+	ngDoCheck(): any {}
 
 	displayEditForm(): void {
 		console.log("displaying edit form");
