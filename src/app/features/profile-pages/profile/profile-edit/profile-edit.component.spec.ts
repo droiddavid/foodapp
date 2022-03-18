@@ -27,7 +27,6 @@ describe('ProfileEditComponent', () => {
 		let x: boolean = true;
 		expect(x).toBeTruthy();
 		//pending();
-		// debugger;
 		// component.lsUser = localStorage.getItem('user')!;
 		// expect(component).toBeTruthy();
 	});

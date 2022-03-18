@@ -32,12 +32,41 @@
 
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class="navbar-nav">
-					<a routerLink="profilePrivate" class="nav-item nav-link">Privacy</a>
-					<a routerLink="emailAddresses" class="nav-item nav-link">Emails</a>
-					<a routerLink="addresses" class="nav-item nav-link">Locations</a>
-					<a routerLink="hours" class="nav-item nav-link">Hours</a>
-					<a routerLink="phoneNumbers" class="nav-item nav-link">Phones</a>
-					<a routerLink="photos" class="nav-item nav-link">Logos</a>
+					<a routerLink="profile/profilePrivate" 
+						class="nav-item nav-link navbar-toggler" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Privacy</a>
+
+					<a routerLink="profile/emailAddresses" 
+						class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Emails</a>
+
+					<a routerLink="profile/addresses" 
+						class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Locations</a>
+
+					<a routerLink="profile/hours" 
+						class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Hours</a>
+
+					<a routerLink="profile/phoneNumbers" 
+						class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Phones</a>
+
+					<a routerLink="profile/photos" 
+						class="nav-item nav-link" 
+						data-bs-toggle="collapse" 
+						data-bs-target=".navbar-collapse.show"
+					>Logos</a>
 				</div>
 
 				<div class="navbar-nav ml-auto">

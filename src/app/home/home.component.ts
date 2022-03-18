@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
 		
 		// 			for (let i=0; i<this.cooks.length; i++) {
 		// 				let cook = this.cooks[i];
-		// 				//debugger;
 		// 				if ( cook.hasOwnProperty("profile_image") ) {
 		// 					if ( cook.profile_image.length > 0 ) {
 		// 						let _directory = 'images/' + cook.directory;
@@ -83,7 +82,6 @@ export class HomeComponent implements OnInit {
 	hoursData!:Array<any>;
 	phoneNumberData!:Array<any>;
 	// processing():any {
-	// 	debugger;
 	// 	this.cooks = this.globals.selectDistinct(this.publicCooksData, "userId");
 	// 	this.emailData = this.globals.selectDistinct(this.publicCooksData, "emails_email");
 	// 	this.hoursData = this.globals.selectDistinct(this.publicCooksData, "hours_date");
@@ -147,14 +145,13 @@ export class HomeComponent implements OnInit {
 	// 	});
 	// }
 	parseCookTags() {
-		/* Parse each cook's tags array and get each cooks image file */
+		/* Parse each cook's tagsString array and get each cooks image file */
 		for (let i=0; i<this.cooks.length; i++) {
-			let tags:any;
-			if (tags) { //tags json string array to array
-				tags = this.convertToArray(tags);					
+			let tagsString:any;
+			if (tagsString) { //tagsString json string array to array
+				tagsString = this.convertToArray(tagsString);					
 			}
 		} //for each cook
-		debugger;	
 	}
 	convertToArray ( jsonString:string ) {
 		let temp = undefined;

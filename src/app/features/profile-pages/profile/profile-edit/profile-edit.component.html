@@ -38,7 +38,7 @@
 								class="form mt-4" 
 								[formGroup]="editForm" 
 								[ngStyle]="{'text-align':'-webkit-center'}" 
-								(ngSubmit)="onSubmit()"
+								(ngSubmit)="edit()"
 							>
 								<div style="color: black;">
 									<h2>About You</h2>
@@ -121,13 +121,13 @@
 										oninput="this.className = ''">
 									</div>
 								</div>
-								<!-- Tags -->
+								<!-- tagsString -->
 								<div class="form-group">
-									<label for="tags">Tags [Use commas to tag your menu items.]</label>
+									<label for="tagsString">Tags [Use commas to tag your menu items.]</label>
 									<div class="input-group">
 										<input 
-										id="tags" name="tags" type="text" class="form-control" 
-										formControlName="tags"
+										id="tagsString" name="tagsString" type="text" class="form-control" 
+										formControlName="tagsString"
 										placeholder="(Chicken, Soul Food, Open Late, etc.)"
 										oninput="this.className = ''">
 									</div>

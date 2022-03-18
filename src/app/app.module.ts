@@ -23,6 +23,9 @@ import { HomeLayoutComponent } from './layout/home-layout/home-layout.component'
 import { UserComponent } from './components/user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.component';
+import { RouterModule } from '@angular/router';
+
+
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.c
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,

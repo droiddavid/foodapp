@@ -35,7 +35,7 @@ export class ProfileAddComponent implements OnInit {
 			website: 		['', [ Validators.required ]],
 			description: 	['', [ Validators.maxLength(4096) ]],
 			message: 		['', [ Validators.required ]],
-			tags: 		['', [ Validators.required ]],
+			tagsString: 		['', [ Validators.required ]],
 			hasDelivery: 	['', [ Validators.required ]],
 			deliveryRange: ['', [ Validators.required ]],
 			country: 		['', [ Validators.required ]]
@@ -99,7 +99,7 @@ export class ProfileAddComponent implements OnInit {
 						"hasDelivery": this.addForm.controls['hasDelivery'].value,
 						"lastName": this.addForm.controls['lastName'].value,
 						"message": this.addForm.controls['message'].value,
-						"tags": JSON.stringify(this.addForm.controls['tags'].value),
+						"tagsString": JSON.stringify(this.addForm.controls['tagsString'].value),
 						"userId": this.user.id
 					}
 					this.database.insert(_profile)
@@ -115,7 +115,7 @@ export class ProfileAddComponent implements OnInit {
 							let {
 								company, country, deliveryRange, 
 								description, firstName, hasDelivery, 
-								lastName, message, tags,
+								lastName, message, tagsString,
 							} = _profile;
 
 
@@ -125,7 +125,7 @@ export class ProfileAddComponent implements OnInit {
 									JSON.stringify({
 										company, country, deliveryRange, 
 										description, firstName, hasDelivery, 
-										lastName, message, tags,
+										lastName, message, tagsString,
 									})
 								)
 							);

@@ -56,14 +56,63 @@ export class ProfileLayoutComponent implements OnInit {
 					if (data) {
 						if (data.data) {
 							if (data.data[0]) {
-								this.Profile = data.data[0];
-								debugger;
+								//this.Profile = data.data[0];
+
+								//Update the Profile private fields.
+								this.Profile.updateFields(data.data[0]);
+
+								//Create a json object of the Profile fields.
+								this.Profile.jsonProfile = {
+									"firstName": this.Profile.firstName, 
+									"lastName": this.Profile.lastName, 
+									"company": this.Profile.company,
+									"description": this.Profile.description, 
+									"message": this.Profile.message, 
+									"tagsString": this.Profile.tagsString, 
+									"hasDelivery": this.Profile.hasDelivery,
+									"deliveryRange": this.Profile.deliveryRange, 
+									"country": this.Profile.country, 
+									"displayName": this.Profile.displayName, 
+									"website": this.Profile.website,
+									"userId": this.Profile.userId
+								};
+
+								//Save the profile as a json object to localStorage
+								localStorage.setItem(
+									"profile", 
+									GlobalService.encode(
+										JSON.stringify(this.Profile.jsonProfile)
+									)
+								);
 							}
 						}
 					} else {
-						this.Profile = data.data[0];
-						localStorage.setItem("profile", GlobalService.encode(JSON.stringify(this.Profile)));
-						debugger;
+						//Update the Profile private fields.
+						this.Profile.updateFields(data.data[0]);
+
+						//Create a json object of the Profile fields.
+						this.Profile.jsonProfile = {
+							"firstName": this.Profile.firstName, 
+							"lastName": this.Profile.lastName, 
+							"company": this.Profile.company,
+							"description": this.Profile.description, 
+							"message": this.Profile.message, 
+							"tagsString": this.Profile.tagsString, 
+							"hasDelivery": this.Profile.hasDelivery,
+							"deliveryRange": this.Profile.deliveryRange, 
+							"country": this.Profile.country, 
+							"displayName": this.Profile.displayName, 
+							"website": this.Profile.website,
+							"userId": this.Profile.userId
+						};
+
+						//Save the profile as a json object to localStorage
+						localStorage.setItem(
+							"profile", 
+							GlobalService.encode(
+								JSON.stringify(this.Profile.jsonProfile)
+							)
+						);
 					}
 				})
 		}
