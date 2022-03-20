@@ -1,0 +1,87 @@
+
+
+				<!-- toast -->
+				<div #toastElement 
+					id="toastElement" 
+					class="toast" 
+					role="alert" 
+					aria-live="assertive" aria-atomic="true"
+				>					
+					<div class="toast-header">
+						<strong class="toast_text mr-auto">Notification</strong>
+					</div>
+			
+					<div class="toast-body toast_text"></div>
+				</div>
+
+			<!--<div id="emailsForm" class="card">-->
+				<div id="emailsForm" class="signup-form" style="border-top-left-radius: 25px; border-top-right-radius: 25px; color: black;">
+
+					<h2 id="formTitle_AddEmail">Add Email</h2>
+	
+					<p>Add new email addresses to your kitchen.</p>
+	
+					<hr>
+	
+					<div class="row">
+						<div class="col-12">
+							<input #email
+								id="email" type="email"  
+								placeholder="Email" 
+								required="required" 
+								autocomplete="email"
+								style="margin-bottom: 1rem;"
+							/>
+						</div>
+					</div>
+	
+					<div class="row">
+						<div class="col-12">
+							<select #emailType 
+								id="emailType" 
+								class="mdb-select md-form mb-4 initialized" 
+								ng-model="$ctrl.Email.emailType"
+								style="border: 1px solid darkgreen; border-radius: 25px; padding: 1rem; width: 100%;"
+							>
+								<option value="" disabled selected>
+									Choose your option
+								</option>
+								<option value="business">Business</option>
+								<option value="faq">FAQ</option>
+								<option value="home">Home</option>
+								<option value="info">Information</option>
+								<option value="mobile">Mobile</option>
+								<option value="support">Support</option>
+							</select>
+						</div>
+					</div>
+	
+					<div class="form-group">
+	
+						<div class="row" style="margin-top: 1.75rem;">
+							<div class="col-6">
+								<div id="footer_spacing" 
+									class="align-middle"
+									(click)="save();"
+									style="color: white;">
+									<span class="col-10">Save</span>
+									<span class="col-2 badge">
+										<i class="fas fa-chevron-right" style="color: white; font-size: large;"></i>
+									</span>
+								</div>
+							</div>
+							<div class="col-6">
+								<div id="footer_spacing" 
+									class="align-middle"
+									(click)="cancel();"
+									style="background-color: rgb(178, 33, 30); color: white;">
+									<span class="col-10">Cancel</span>
+									<span class="col-2 badge">
+										<i class="fas fa-chevron-right" style="color: white; font-size: large;"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+				</div>

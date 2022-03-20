@@ -64,8 +64,6 @@ export class DatabaseService {
 			// Get server-side error
 			errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
 		}
-		debugger;
-		console.log(errorMessage);
 
 		const err = new Error(errorMessage); 
 		return throwError(() => err);

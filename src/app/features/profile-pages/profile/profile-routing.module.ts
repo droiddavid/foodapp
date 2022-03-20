@@ -4,6 +4,9 @@ import { ProfilePrivacyComponent } from './profile-privacy/profile-privacy.compo
 import { ProfileAddComponent } from './profile-add/profile-add.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfileComponent } from './profile.component';
+import { ProfileAddressComponent } from './profile-addresses/profile-address.component';
+import { ProfileEmailAddressesComponent } from './profile-email-addresses/profile-email-addresses.component';
+import { AddEmailAddressComponent } from './profile-email-addresses/add-email-address/add-email-address.component';
 
 
 const routes: Routes = [
@@ -21,6 +24,18 @@ const routes: Routes = [
 	{
 		path: 'profilePrivate',
 		component: ProfilePrivacyComponent
+	},
+	{
+		path: 'profileEmailAddresses',
+		component: ProfileEmailAddressesComponent
+	},
+	{
+		path: 'addEmailAddress',
+		component: AddEmailAddressComponent
+	},
+	{
+		path: 'profileAddresses',
+		component: ProfileAddressComponent
 	}
 ];
 

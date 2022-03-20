@@ -10,13 +10,19 @@ import { ProfileAddComponent } from './profile-add/profile-add.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { RouterModule } from '@angular/router';
 import { ProfilePrivacyComponent } from './profile-privacy/profile-privacy.component';
+import { ProfileAddressComponent } from './profile-addresses/profile-address.component';
+import { ProfileEmailAddressesComponent } from './profile-email-addresses/profile-email-addresses.component';
+import { AddEmailAddressComponent } from './profile-email-addresses/add-email-address/add-email-address.component';
 
 @NgModule({
 	declarations: [
 		ProfileComponent,
 		ProfileAddComponent,
 		ProfileEditComponent,
-		ProfilePrivacyComponent
+		ProfilePrivacyComponent,
+		ProfileAddressComponent,
+		ProfileEmailAddressesComponent,
+  AddEmailAddressComponent,
 	],
 	imports: [
 		CommonModule,

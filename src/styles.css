@@ -61,10 +61,6 @@
 }
 */
 
-#toastElement {
-	color: white;
-}
-
 
 .icon_bs_left {
 	color: white;
@@ -263,6 +259,7 @@ label {
 
 /* Handle the bootstrap toast width and height */
 #toastElement {
+	color: white;
 	height: 3rem;
 	width: 90%;
 	margin-left: auto;
@@ -272,6 +269,13 @@ label {
 
 
 
+.circleButton {
+	color: white;
+	height: 60px;
+	max-width: 60px;
+	min-width: 60px;
+	border-radius: 50px;
+}
 
 
 

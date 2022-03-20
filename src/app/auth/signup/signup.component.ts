@@ -255,7 +255,7 @@ export class SignupComponent implements OnInit {
 							);
 							this.router.navigate(['home/signin']);
 						}); //end .subscribe
-					}
+				}
 				/* ************************************************/
 				return response;
 			});
