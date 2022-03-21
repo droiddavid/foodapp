@@ -132,6 +132,7 @@ a {
 
 
 input[type="text"],
+input[type="submit"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
@@ -340,6 +341,7 @@ label {
 #ui_inner {
 	text-align: center; margin-bottom: 50px;
 }
+
 
 
 
