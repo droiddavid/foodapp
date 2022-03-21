@@ -1,1 +1,76 @@
-<p>profile-address works!</p>
+<div class="body">
+
+	<!-- main element for Google's javascript validations. -->
+	<main>
+
+		<div class="quickstart_body">
+
+			<div id="qs_verbage" class="row">
+				<div class="col-12">
+					<h4>Addresses</h4>
+					Add addresses for different kitchen locations.
+				</div>
+			</div>
+
+
+			<div class="qs_outer_interface row">
+
+				<div id="qs_inner_interface" class="col-12">
+
+
+					<button class="btn btn-success circleButton" 
+						routerLink="/profile/addAddress">
+
+						<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen; font-size: 36px;"></i>
+					</button>
+			
+					<div id="addressesList" class="col-12">
+						<!-- ADDRESSES TABLE  ADDRESSES TABLE  ADDRESSES TABLE -->
+						<div 
+							ng-show="$ctrl.User.Addresses.length > 0" 
+							*ngFor="let address of Addresses" 
+							style="color: black; padding: 1rem; border-radius: 25px;"
+						>
+
+							<div class="row">
+								<div class="col-12" 
+									style="
+										border: 1px solid #00000017; 
+										border-radius: 25px; 
+										padding: 1rem;
+										box-shadow: 3px 3px 5px #888888;"
+									>
+									<div>
+										<h5>{{ address.addressLine1 }}</h5>
+										<h5>{{ address.addressLine2 }}</h5>
+										<h6>{{ address.city }} {{ address.state }} {{ address.zip }}</h6>
+										<h6>{{ address.addressType }}</h6>
+									</div>
+									<!-- CREATE A MENU -->
+									<div class="row" style="margin-top: 1.75rem;">
+										<div class="col-12">
+											<div id="footer_spacing" 
+												class="align-middle"
+													ng-click="$ctrl.removeAddress($index);"
+													style="background-color: rgb(178,33,30);color:white;">
+												<span class="col-12" style="text-align: -webkit-center; text-align: center;">Remove</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- ADDRESSES TABLE  ADDRESSES TABLE  ADDRESSES TABLE   -->
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	<!-- EMAILS EMAILS EMAILS -->
+	</main>
+
+</div>

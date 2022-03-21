@@ -13,6 +13,7 @@ import { ProfilePrivacyComponent } from './profile-privacy/profile-privacy.compo
 import { ProfileAddressComponent } from './profile-addresses/profile-address.component';
 import { ProfileEmailAddressesComponent } from './profile-email-addresses/profile-email-addresses.component';
 import { AddEmailAddressComponent } from './profile-email-addresses/add-email-address/add-email-address.component';
+import { AddAddressComponent } from './profile-addresses/add-address/add-address.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +24,7 @@ import { AddEmailAddressComponent } from './profile-email-addresses/add-email-ad
 		ProfileAddressComponent,
 		ProfileEmailAddressesComponent,
   AddEmailAddressComponent,
+  AddAddressComponent,
 	],
 	imports: [
 		CommonModule,

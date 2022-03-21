@@ -94,7 +94,6 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 					)
 				);
 
-
 			}
 		); //end .subscribe
 	}

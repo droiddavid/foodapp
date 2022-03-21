@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile.component';
 import { ProfileAddressComponent } from './profile-addresses/profile-address.component';
 import { ProfileEmailAddressesComponent } from './profile-email-addresses/profile-email-addresses.component';
 import { AddEmailAddressComponent } from './profile-email-addresses/add-email-address/add-email-address.component';
+import { AddAddressComponent } from './profile-addresses/add-address/add-address.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,10 @@ const routes: Routes = [
 	{
 		path: 'profileAddresses',
 		component: ProfileAddressComponent
+	},
+	{
+		path: 'addAddress',
+		component: AddAddressComponent
 	}
 ];
 

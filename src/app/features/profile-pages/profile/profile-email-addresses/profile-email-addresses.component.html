@@ -1,79 +1,80 @@
 <div class="body">
 
-<!-- main element for Google's javascript validations. -->
-<main>
+	<!-- main element for Google's javascript validations. -->
+	<main>
 
-<div class="quickstart_body">
+		<div class="quickstart_body">
 
-	<div id="qs_verbage" class="row">
-		<div class="col-12">
-			<h4>Email Addresses</h4>
-			Add new email addresses to your kitchen.
-		</div>
-	</div>
-
-
-	<div class="qs_outer_interface row">
-
-		<div id="qs_inner_interface" class="col-12">
-
-			<button class="btn btn-success circleButton" 
-				routerLink="/profile/addEmailAddress">
-
-				<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen; font-size: 36px;"></i>
-			</button>
-
-
-			<!-- Material form contact | Material form contact -->
-			<div id="emailsList" class="card" style="border-top-left-radius: 25px; border-top-right-radius: 25px; color: black;">
-
-
-				<div>
-					<p>Add email addresses.</p>
+			<div id="qs_verbage" class="row">
+				<div class="col-12">
+					<h4>Email Addresses</h4>
+					Add new email addresses to your kitchen.
 				</div>
+			</div>
 
 
-				<!--Card content-->
-				<div class="card-body px-lg-5 pt-0">
+			<div class="qs_outer_interface row">
 
-					<ul class="list-group list-group-flush">
+				<div id="qs_inner_interface" class="col-12">
 
-						<li 
-							class="
-								list-group-item d-flex 
-								justify-content-between align-items-left" 
-							*ngFor="let email of Emails"
-						>
-						<!-- <a  (click)="removeEmail($index);">
-							<i style="color: grey; font-size: x-large;"
-								class="fas fa-times"></i>
-						</a> -->
-						<a  (click)="removeEmail();">
-							<i style="color: grey; font-size: x-large;"
-								class="fas fa-times"></i>
-						</a>
-							{{ email.email }}
-							<!-- <input 
-								type="text" 
-								value="{{ email.email }}" 
-								class="hidden" 
-							/>
-							<strong>{{ email.emailType }}</strong> -->
-						</li>
+					<button class="btn btn-success circleButton" 
+						routerLink="/profile/addEmailAddress">
 
-					</ul>
+						<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen; font-size: 36px;"></i>
+					</button>
+
+
+					<!-- Material form contact | Material form contact -->
+					<div id="emailsList" class="card" style="border-top-left-radius: 25px; border-top-right-radius: 25px; color: black;">
+
+
+						<div>
+							<p>Add email addresses.</p>
+						</div>
+
+
+						<!--Card content-->
+						<div class="card-body px-lg-5 pt-0">
+
+							<ul class="list-group list-group-flush">
+
+								<li 
+									class="
+										list-group-item d-flex 
+										justify-content-between align-items-left" 
+									*ngFor="let email of Emails"
+								>
+								<!-- <a  (click)="removeEmail($index);">
+									<i style="color: grey; font-size: x-large;"
+										class="fas fa-times"></i>
+								</a> -->
+								<a  (click)="removeEmail();">
+									<i style="color: grey; font-size: x-large;"
+										class="fas fa-times"></i>
+								</a>
+									{{ email.email }}
+									<!-- <input 
+										type="text" 
+										value="{{ email.email }}" 
+										class="hidden" 
+									/>
+									<strong>{{ email.emailType }}</strong> -->
+								</li>
+
+							</ul>
+
+						</div>
+
+					</div>
+					<!-- Material form contact | Material form contact -->
 
 				</div>
 
 			</div>
-			<!-- Material form contact | Material form contact -->
-
 
 		</div>
-	</div>
-</div>
+		<!-- EMAILS EMAILS EMAILS -->
 
-<!-- EMAILS EMAILS EMAILS -->
-</main>
+	</main>
 
 </div>

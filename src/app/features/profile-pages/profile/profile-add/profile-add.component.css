@@ -1,0 +1,8 @@
+.form {
+	border: 1px solid black;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	color: black;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
