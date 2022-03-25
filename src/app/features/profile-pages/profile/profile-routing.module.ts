@@ -9,6 +9,8 @@ import { ProfileEmailAddressesComponent } from './profile-email-addresses/profil
 import { AddEmailAddressComponent } from './profile-email-addresses/add-email-address/add-email-address.component';
 import { AddAddressComponent } from './profile-addresses/add-address/add-address.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+import { ProfileDeliveryComponent } from './profile-delivery/profile-delivery.component';
+import { AddDeliveryComponent } from './profile-delivery/add-delivery/add-delivery.component';
 
 
 const routes: Routes = [
@@ -46,11 +48,18 @@ const routes: Routes = [
 	{
 		path: 'addAddress',
 		component: AddAddressComponent
+	},
+	{
+		path: 'profileDelivery',
+		component: ProfileDeliveryComponent
+	},
+	{
+		path: 'addDelivery',
+		component: AddDeliveryComponent
 	}
 ];
 
 /*
-profileDelivery
 profileHours
 profilePhoneNumbers
 profilePhotos

@@ -44,10 +44,10 @@ export class DatabaseService {
 			JSON.stringify(data), 
 			this.httpOptions
 		)
-		.pipe(
-			retry(1),
-			catchError(error => this.errorHandler(error))
-		)
+		// .pipe(
+		// 	retry(1),
+		// 	catchError(error => this.errorHandler(error))
+		// )
 	}
 
 	// Error handling
@@ -65,9 +65,7 @@ export class DatabaseService {
 			errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
 		}
 
-		const err = new Error(errorMessage); 
-		return throwError(() => err);
-
+		return throwError(() => errorMessage);
 
 		//deprecated in angular 13. see throwError.d.ts(102, 4):
 		//return throwError(errorMessage);
@@ -114,10 +112,10 @@ export class DatabaseService {
 			JSON.stringify(data), 
 			this.httpOptions
 		)
-		.pipe(
-			retry(1),
-			catchError(error => this.errorHandler(error))
-		)
+		// .pipe(
+		// 	retry(1),
+		// 	catchError(error => this.errorHandler(error))
+		// )
 	}
 
 	//update
@@ -127,6 +125,6 @@ export class DatabaseService {
 			{table, columnsArray, where, requiredColumnsArray},
 			this.httpOptions
 		)		
-			.pipe(catchError(error => this.errorHandler(error)))
+			//.pipe(catchError(error => this.errorHandler(error)))
 	}
 }

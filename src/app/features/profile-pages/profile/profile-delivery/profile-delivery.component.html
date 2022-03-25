@@ -1,0 +1,77 @@
+<div class="body">
+
+<!-- main element for Google's javascript validations. -->
+<main>
+	<div class="quickstart_body">
+
+		<div id="qs_verbage" class="row">
+			<div class="col-12">
+				<h4>Delivery</h4>
+				<p>
+					Enter your address below.  It will used as your pick up address for deliveries.  Deliveries are handled by POSTMATES and must be ready within 30 minutes of an order.
+				
+			</div>
+		</div>
+
+
+		<div class="qs_outer_interface row">
+			<!-- BEGIN QUICK START INNER INTERFACE SECTION -->
+			<div id="qs_inner_interface" class="col-12">
+
+				<div id="DeliveryDisplayForm" 
+					class="row card border-success text-left rounded-0" 
+					style="color: black; border-top-left-radius: 25px; border-top-right-radius: 25px; margin: .125rem"
+				>
+					<div class="col-12 format">
+
+						<table>
+							<tr>
+								<td><strong>Street Number:</strong></td>
+								<td>{{ oDelivery?.streetNumber }}</td>
+							</tr>
+							<tr>
+								<td><strong>Street Name:</strong></td>
+								<td>{{ oDelivery?.streetName }}</td>
+							</tr>
+							<tr>
+								<td><strong>City:</strong></td>
+								<td>{{ oDelivery?.city }}</td>
+							</tr>
+							<tr>
+								<td><strong>State:</strong></td>
+								<td>{{ oDelivery?.state }}</td>
+							</tr>
+							<tr>
+								<td><strong>Zip:</strong></td>
+								<td>{{ oDelivery?.zip }}</td>
+							</tr>
+						</table>
+
+						<!-- Edit Button -->
+						<div class="row">
+							<div class="col-12 text-center text-white">
+								<button
+									type="submit" 
+									class="btn btn-primary btn-lg"
+									(click)="edit()"
+								>
+									Edit
+								</button>
+							</div>
+						</div>
+
+					</div><!-- COLUMN -->
+				</div><!-- ROW -->
+				<!-- DISPLAY FORM   DISPLAY FORM   DISPLAY FORM   DISPLAY FORM   DISPLAY FORM  -->
+
+
+
+			</div>
+			<!-- END QUICK START INNER INTERFACE SECTION -->
+		</div><!-- qs_outer_interface -->
+	</div><!-- quickstart_body -->
+
+
+</main>
+
+</div>

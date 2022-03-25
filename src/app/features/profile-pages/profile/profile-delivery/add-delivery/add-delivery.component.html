@@ -1,0 +1,116 @@
+<div class="body">
+
+	<!-- main element for Google's javascript validations. -->
+	<main class="main">
+
+		<div class="ui_body">
+
+			<div id="ui_verbage" class="row">
+				<div class="col-12">
+					<h3>Edit Delivery Address</h3>
+					<p style="font-weight: 600;">
+						Edit the address from where your deliveries will begin.
+					</p>
+				</div>
+			</div><!-- ui_verbage -->
+
+			<div class="ui_outer row">
+
+				<div id="ui_inner" class="col-12 format">
+
+					<!-- toast -->
+					<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+				
+						<div class="toast-header">
+							<strong class="toast_text mr-auto">Notification</strong>
+						</div>
+				
+						<div class="toast-body toast_text"></div>
+					</div>
+
+					<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+						<!--Body-->
+						<!--Street Number-->
+						<div>
+							<input 
+								type="text" 
+								class="form-control" 
+								formControlName="streetNumber" 
+								placeholder="Street Number. Ex: 1234"
+							/>
+						</div>
+
+
+
+						<!--Street Name-->
+						<div>
+							<input 
+								type="text" 
+								class="form-control" 
+								formControlName="streetName" 
+								placeholder="Street Name. Ex: Vine St."
+							/>
+						</div>
+
+
+
+						<!-- City -->
+						<div>
+							<input 
+								type="text" 
+								class="form-control" 
+								formControlName="city" 
+								placeholder="City. Ex: Los Angelas"
+							/>
+						</div>
+
+
+
+						<!-- State -->
+						<div>
+							<select 
+								class="form-control" 
+								formControlName="state" 
+								placeholder="State" required>
+								<option *ngFor="let state of states" value="{{ state.abbr }}">
+									{{ state.state_name }}
+								</option>
+							</select>
+						</div>
+
+
+
+						<!-- Zip Code -->
+						<div>
+							<input 
+								type="text" 
+								class="form-control" 
+								formControlName="zip" 
+								placeholder="ZipCode. Ex: 99999" required
+							/>
+						</div>
+
+
+
+
+						<!-- Save Button -->
+						<div>
+							<input 
+								type="submit" 
+								class="form-control" 
+								value="Save"
+							/>
+						</div>
+
+					</form>
+
+				</div><!-- ui_inner -->
+
+			</div><!-- ui_outer -->
+
+		</div><!-- ui_body -->
+
+	</main>
+
+</div>
