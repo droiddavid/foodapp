@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit {
 	private _isPublic: any;
 
 
-	public user: any;
 	oProfile!: Profile;
 	profileService!: ProfileService;
 

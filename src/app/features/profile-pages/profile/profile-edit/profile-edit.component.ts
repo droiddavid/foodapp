@@ -4,12 +4,13 @@ import { GlobalService } from 'src/app/services/global.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
 import { Router } from '@angular/router';
+import { ProfileService } from '../profile.service';
 
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+	selector: 'app-profile-edit',
+	templateUrl: './profile-edit.component.html',
+	styleUrls: ['./profile-edit.component.css']
 })
 
 
@@ -20,6 +21,7 @@ export class ProfileEditComponent implements OnInit {
 	user: any;
 	Profile!: ProfileComponent;
 	editForm!: FormGroup;
+	profileService!: ProfileService;
 
 	constructor(
 		private database: DatabaseService, 
@@ -49,98 +51,101 @@ export class ProfileEditComponent implements OnInit {
 
 	ngOnInit(): any {
 
-		if(this.Profile === undefined) {
-
-			this.Profile = new ProfileComponent(this.database, this.router);
-
-
-			/** Declare local variables  */
-			let _localStorageUser: string | null;
-			let _localStorageProfile: string | null;
-
-
-			/* If there is no user, then return new Error */
-			if (!localStorage.getItem('user')) {
-				return new Error("Cannot find user in local storage.");
-			}
-
-
-			/* Get the user object from localStorage */
-			_localStorageUser = localStorage.getItem('user');
-			if (!this.user && _localStorageUser) {
-				this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
-			}
-
-
-			/* Get the user's profile from localStorage */
-			_localStorageProfile = localStorage.getItem('profile');
-			if (this.user && _localStorageUser && (_localStorageProfile === undefined || _localStorageProfile === null)) {
-				this.database.getData("profiledata", "userId", this.user.id).subscribe(data => {
-					if(data && data.data && data.data[0]) {
-
-						//Update the Profile private fields.
-						this.Profile.updateFields(data.data[0]);
-
-
-						/* 
-							Set each form input to the updated values.
-							Note: this.getField(key) strips the underscore ("_")
-							Ex: _firstName beomes firstname to match the 
-							formGroup's field name.
-						*/
-						Object.keys(this.Profile).forEach((key) => {
-
-							//Get the value of the current key.
-							let _value = this.Profile[key as keyof ProfileComponent];
-
-							//If the key is a form input, then update the form's input value (for view purposes).
-							if (key !== "database" && key !== "_jsonProfile" && key !== "router" && key !== "_userId") {
-								console.log(key + " = " + _value);
-								this.editForm.get( this.getField(key) )!.setValue(_value);
-							}
-						});
-
-						//Create a json object of the Profile fields.
-						this.Profile.jsonProfile = {
-							"_firstName": this.Profile.firstName, 
-							"_lastName": this.Profile.lastName, 
-							"_company": this.Profile.company,
-							"_description": this.Profile.description, 
-							"_message": this.Profile.message, 
-							"_tagsString": this.Profile.tagsString, 
-							"_hasDelivery": this.Profile.hasDelivery,
-							"_deliveryRange": this.Profile.deliveryRange, 
-							"_country": this.Profile.country, 
-							"_displayName": this.Profile.displayName, 
-							"_website": this.Profile.website,
-							"_userId": this.Profile.userId
-						};
-
-
-						//Save the profile as a json object to localStorage
-						localStorage.setItem(
-							"profile", 
-							GlobalService.encode(
-								JSON.stringify(this.Profile.jsonProfile)
-							)
-						);
-
-					} //if(data && data.data && data.data[0]) {
-
-				}) //.subscribe
-
-			} else {
-				this.Profile.jsonProfile = JSON.parse(GlobalService.decode(localStorage.getItem('profile')!));
-				
-				for (let [ key, value ] of Object.entries(this.Profile.jsonProfile)) {
-					//k represents the fields on the form we dont want in the Profile object.
-					let k = (key === 'id' || key === 'displayName' || key === 'website' || key === 'image' || key === 'isPublic' || key === 'userId' || key === 'email');
-					if (k) continue; else {
-						this.editForm.get(key)!.setValue(value);
-					}
-				}
-			} //If user but no profile.
+		if (GlobalService && GlobalService.User) {
+			this.user = GlobalService.User;
 		}
+
+		if (this.Profile === undefined) {
+			this.Profile = new ProfileComponent(this.database, this.router);
+		}
+		this.profileService = new ProfileService(this.database);
+		this._getProfile();
+		this.fillForm();
+	}
+
+
+	_getProfile() {
+		let _profile = null;
+		_profile = this.profileService.getProfileFromLocalStorage();
+
+		if (_profile === null) {
+			this.profileService.getProfileFromDatabase()
+				.subscribe((r) => {
+					if (r.message === "No data found.") {
+						this.router.navigate(['/', 'profile', 'profileAdd']);
+					} else {
+						this.updateFields(r); //this.Profile = ...
+						this.saveToLocalStorage(r);}});
+		} else {
+			this.updateFields(_profile);
+			this.saveToLocalStorage(_profile);}
+	}
+
+
+	fillForm() {
+		/* Update form input values.
+			Note: this.getField(key) strips underscore ("_")
+			Ex: _firstName beomes firstname */
+		if (this.Profile !== undefined) {
+			Object.keys(this.Profile).forEach((key) => {
+				let _value = this.Profile[key as keyof ProfileComponent];
+				let _fieldName = this.getField(key);
+				if (
+					this.editForm.get( _fieldName ) && 
+					_fieldName in this.Profile
+				) {
+					this.editForm.get( _fieldName )!.setValue(_value);
+				}
+			});
+		}
+	}
+
+
+	//Save the profile as a json object to localStorage
+	saveToLocalStorage(profile:any) {
+		let p:any;
+		if (profile.data && profile.data.length > 0) {
+			p = profile.data[0];
+		}
+
+
+		//Case 1: p = p.profile.data[0]
+		if (p !== undefined && typeof p === "object") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(JSON.stringify(p))
+			);
+			return;
+		}
+
+
+		//Case 2: p = "string value"
+		if (p !== undefined && typeof p === "string") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(p)
+			);
+			return;
+		}
+
+
+		//Case 3: p = {}
+		localStorage.setItem(
+			"profile", 
+			GlobalService.encode(JSON.stringify(profile))
+		);
+	}
+
+
+	//Allows objects to update private fields.
+	public updateFields(profile: any) {
+		let p:any = (profile.data && profile.data.length > 0) ? profile.data[0] : profile;
+		Object.keys(p).forEach((key) => {
+			let _value = p[key as keyof ProfileComponent];
+			if (key !== "database" && key !== "_jsonProfile" && key !== "router" && key !== "_userId" && key !== "_isPublic") {
+				this.Profile[key as keyof ProfileComponent] = _value;
+			}
+		});
 	}
 
 
@@ -157,17 +162,16 @@ export class ProfileEditComponent implements OnInit {
 
 
 	edit(): any {
-
-		this.Profile.firstName = this.editForm.get('firstName')!.value;
-		this.Profile.lastName = this.editForm.get('lastName')!.value;
-		this.Profile.company = this.editForm.get('company')!.value;
-		this.Profile.description = this.editForm.get('description')!.value;
-		this.Profile.message = this.editForm.get('message')!.value;
-		this.Profile.tagsString = this.editForm.get('tagsString')!.value;
-		this.Profile.hasDelivery = this.editForm.get('hasDelivery')!.value;
-		this.Profile.deliveryRange = this.editForm.get('deliveryRange')!.value;
-		this.Profile.country = this.editForm.get('country')!.value;
-
+		Object.keys(this.Profile).forEach((key) => {
+			let _fieldName = this.getField(key);
+			if (
+				this.editForm.get( _fieldName ) && 
+				_fieldName in this.Profile
+			) {
+				let _value = this.editForm.get( _fieldName )!.value;
+				this.Profile[key as keyof ProfileComponent] = _value;
+			}
+		});
 
 		//Create a json object of the Profile fields.
 		this.Profile.jsonProfile = {
@@ -189,17 +193,19 @@ export class ProfileEditComponent implements OnInit {
 		let columnsArray:any = this.Profile.jsonProfile;
 		let where:any = { "userId" : this.user.id};
 		let requiredColumnsArray:any = Object.keys(columnsArray);
-		debugger;
 
 		//Update the profile in the database.
 		this.database.updateData(table,columnsArray,where,requiredColumnsArray)
 			.subscribe((res)=>{
-				debugger;
 				GlobalService.showToast(
 					res.message, 
 					"btn-success",
 					this.toastElement.nativeElement.id
 				);
+
+				//UPDATE LOCALSTORAGE
+				this.saveToLocalStorage(this.Profile.jsonProfile);
+
 				this.router.navigate(['/', 'profile']);
 			});
 
