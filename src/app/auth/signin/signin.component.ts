@@ -143,6 +143,8 @@ export class SigninComponent implements OnInit {
 				}
 				
 				if (_user) {
+					GlobalService.User = JSON.parse(JSON.stringify(_user));
+
 					localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": true })));
 					localStorage.setItem("user", GlobalService.encode(JSON.stringify(_user)));
 				} else {

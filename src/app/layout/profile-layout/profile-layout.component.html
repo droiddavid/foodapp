@@ -17,12 +17,14 @@
 				</fa-icon>
 			</span>
 
-			<span class="navTitle" 
-				id="title" 
-				routerLink="dashboard"
-			>
-				{{ Profile.company }}
-			</span>
+			<p *ngIf="Profile.company">
+				<span class="navTitle" 
+					id="title" 
+					routerLink="dashboard"
+				>
+					{{ Profile.company }}
+				</span>
+			</p>
 
 			<button type="button" class="navbar-toggler" 
 				data-bs-toggle="collapse" 

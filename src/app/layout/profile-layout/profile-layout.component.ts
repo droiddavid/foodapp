@@ -1,9 +1,11 @@
 import { DatabaseService } from './../../services/database/database.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DoCheck, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
 import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
 import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/features/profile-pages/profile/profile.service';
+
 
 
 @Component({
@@ -11,110 +13,117 @@ import { Router } from '@angular/router';
   templateUrl: './profile-layout.component.html',
   styleUrls: ['./profile-layout.component.css']
 })
-export class ProfileLayoutComponent implements OnInit {
+export class ProfileLayoutComponent implements OnInit, DoCheck {
 
 	@ViewChild('body') body!: ElementRef;
 	@ViewChild('navbar') navbar!: ElementRef;
 	@ViewChild('mpkFooter') mpkFooter!: ElementRef;
 
-
 	user: any;
 	Profile!: ProfileComponent;
-
 	faChevronLeft = faChevronLeft;
+	profileService!: ProfileService;
+
 
 	constructor(private database: DatabaseService, private router: Router) { }
 
+
 	ngOnInit(): any {
+		this.Profile = new ProfileComponent(this.database, this.router);
+		this.profileService = new ProfileService(this.database);
+		this._getProfile();		
+	} //ngOnInit
+
+
+	ngDoCheck() {
+		//Set Profile company name because this.Profile data
+		//may not be available yet.
 		if(this.Profile === undefined) {
-			this.initHelper();
+			//Initialize the Profile object.
+			if (this.Profile === undefined) {
+				this.Profile = new ProfileComponent(this.database, this.router);
+				this.Profile.company = "";
+			}
 		}
 	}
-	initHelper(): any {
-		this.Profile = new ProfileComponent(this.database, this.router);
 
-		/** Declare local variables  */
-		let _localStorageUser: string | null;
-		let _localStorageProfile: string | null;
+	//Get the user's profile from LocalStorage or the DB.
+	_getProfile() {
 
-		/* If there is no user, then return new Error */
-		if (!localStorage.getItem('user')) {
-			return new Error("Cannot find user in local storage.");
-		}
+		let _profile = null;
+		_profile = this.profileService.getProfileFromLocalStorage();
 
-		/* Get the user object from localStorage */
-		_localStorageUser = localStorage.getItem('user');
-		if (!this.user && _localStorageUser) {
-			this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
-		}
-
-		/* Get the user's profile from localStorage */
-		_localStorageProfile = localStorage.getItem('profile');
-		if (this.user && _localStorageUser && !_localStorageProfile) {
-			this.database.getData("profiledata", "userId", this.user.id)
-				.subscribe(data => {
-					if (data) {
-						if (data.data) {
-							if (data.data[0]) {
-								//this.Profile = data.data[0];
-
-								//Update the Profile private fields.
-								this.Profile.updateFields(data.data[0]);
-
-								//Create a json object of the Profile fields.
-								this.Profile.jsonProfile = {
-									"firstName": this.Profile.firstName, 
-									"lastName": this.Profile.lastName, 
-									"company": this.Profile.company,
-									"description": this.Profile.description, 
-									"message": this.Profile.message, 
-									"tagsString": this.Profile.tagsString, 
-									"hasDelivery": this.Profile.hasDelivery,
-									"deliveryRange": this.Profile.deliveryRange, 
-									"country": this.Profile.country, 
-									"displayName": this.Profile.displayName, 
-									"website": this.Profile.website,
-									"userId": this.Profile.userId
-								};
-
-								//Save the profile as a json object to localStorage
-								localStorage.setItem(
-									"profile", 
-									GlobalService.encode(
-										JSON.stringify(this.Profile.jsonProfile)
-									)
-								);
-							}
-						}
+		if (_profile === null) {
+			this.profileService.getProfileFromDatabase()
+				.subscribe((r) => {
+					if (r.message === "No data found.") {
+						this.router.navigate(['/', 'profile', 'profileAdd']);
 					} else {
-						//Update the Profile private fields.
-						this.Profile.updateFields(data.data[0]);
-
-						//Create a json object of the Profile fields.
-						this.Profile.jsonProfile = {
-							"firstName": this.Profile.firstName, 
-							"lastName": this.Profile.lastName, 
-							"company": this.Profile.company,
-							"description": this.Profile.description, 
-							"message": this.Profile.message, 
-							"tagsString": this.Profile.tagsString, 
-							"hasDelivery": this.Profile.hasDelivery,
-							"deliveryRange": this.Profile.deliveryRange, 
-							"country": this.Profile.country, 
-							"displayName": this.Profile.displayName, 
-							"website": this.Profile.website,
-							"userId": this.Profile.userId
-						};
-
-						//Save the profile as a json object to localStorage
-						localStorage.setItem(
-							"profile", 
-							GlobalService.encode(
-								JSON.stringify(this.Profile.jsonProfile)
-							)
-						);
+						this.updateFields(r);
+						this.saveToLocalStorage(r);
 					}
-				})
+				});
+		} else {
+			this.updateFields(_profile);
+			this.saveToLocalStorage(_profile);
 		}
+	}
+
+
+	//Save the profile as a json object to localStorage
+	saveToLocalStorage(profile:any) {
+	
+		let p:any;
+		if (profile.data && profile.data.length > 0) {
+			p = profile.data[0];
+		}
+
+
+		//Case 1: p = p.profile.data[0]
+		if (p !== undefined && typeof p === "object") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(JSON.stringify(p))
+			);
+			return;
+		}
+
+
+		//Case 2: p = "string value"
+		if (p !== undefined && typeof p === "string") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(p)
+			);
+			return;
+		}
+
+
+		//Case 3: p = {}
+		localStorage.setItem(
+			"profile", 
+			GlobalService.encode(JSON.stringify(profile))
+		);
+	}
+
+
+	//Allows objects to update private fields.
+	public updateFields(profile: any) {
+
+		let p:any = (profile.data && profile.data.length > 0) ? 
+			profile.data[0] : 
+			profile;
+
+		this.Profile.firstName = p.firstName;
+		this.Profile.lastName = p.lastName;
+		this.Profile.company = p.company;
+		this.Profile.description = p.description;
+		this.Profile.message = p.message;
+		this.Profile.tagsString = p.tagsString;
+		this.Profile.hasDelivery = p.hasDelivery;
+		this.Profile.deliveryRange = p.deliveryRange;
+		this.Profile.country = p.country;
+		this.Profile.userId = p.userId;
+		this.Profile.isPublic = p.isPublic;
 	}
 }

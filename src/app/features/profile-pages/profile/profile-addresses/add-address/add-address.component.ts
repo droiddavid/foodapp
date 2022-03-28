@@ -91,16 +91,13 @@ export class AddAddressComponent implements OnInit {
 		Object.keys(this.form.controls).forEach(key => {
 			o = o + "\"" + key + "\":\"" + this.form.get(key)!.value + "\",";
 		});
-		debugger;
 		o = JSON.parse(
 			o.substring(0, o.length - 1) + 
 			", \"table\":\"addresses\"" +
 			", \"userId\":" + this.user.id + "}"
 		);
-		debugger;
-		this.address = JSON.parse(JSON.stringify(o));
-		debugger;
 
+		this.address = JSON.parse(JSON.stringify(o));
 
 		//insert into DB
 		this.database.insert(o)
@@ -113,7 +110,7 @@ export class AddAddressComponent implements OnInit {
 				);
 				
 
-				debugger;
+
 				if (response.status === "success") {
 					this.Addresses.push(this.address);
 				}

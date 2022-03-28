@@ -2,11 +2,22 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { HttpHeaders } from '@angular/common/http';
+import { UserComponent } from '../components/user/user.component';
+
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+
+
 export class GlobalService {
+
+
+	constructor() {}
+
+
+	static User: UserComponent;
+
 
 	//Http Headers
 	static httpOptions = {
@@ -17,8 +28,6 @@ export class GlobalService {
 			'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
 		})
 	}
-
-	constructor() { }
 
 
 	/* TOASTS */

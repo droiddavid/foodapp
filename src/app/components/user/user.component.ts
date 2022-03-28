@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+	selector: 'app-user',
+	templateUrl: './user.component.html',
+	styleUrls: ['./user.component.css']
 })
 
 
@@ -17,7 +17,8 @@ export class UserComponent implements OnInit {
 	displayName?: string = "";
 	emailAddress?: string = "";
 	emailVerified?: boolean = false;
-	express_data?: string;	firstName?: string = "";
+	express_data?: string;
+	firstName?: string = "";
 	firestore_doc_id?: string;
 	hasAccount?: boolean = false;
 	lastName?: string = "";
