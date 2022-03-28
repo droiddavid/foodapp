@@ -53,6 +53,8 @@ export class ProfileEditComponent implements OnInit {
 
 		if (GlobalService && GlobalService.User) {
 			this.user = GlobalService.User;
+		} else {
+			return new Error("Cannot find user in local storage.");
 		}
 
 		if (this.Profile === undefined) {

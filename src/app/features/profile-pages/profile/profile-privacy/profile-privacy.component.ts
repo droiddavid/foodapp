@@ -4,14 +4,13 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
 import { Router } from '@angular/router';
-
-
+import { ProfileService } from '../profile.service';
 
 
 @Component({
-  selector: 'app-profile-privacy',
-  templateUrl: './profile-privacy.component.html',
-  styleUrls: ['./profile-privacy.component.css']
+	selector: 'app-profile-privacy',
+	templateUrl: './profile-privacy.component.html',
+	styleUrls: ['./profile-privacy.component.css']
 })
 
 
@@ -27,6 +26,7 @@ export class ProfilePrivacyComponent implements OnInit {
 	Profile!: ProfileComponent;
 	btnUpdateProfile:any;
 	updateTable: string = "profiledata";
+	profileService!: ProfileService;
 
 
 	constructor(private database: DatabaseService, private router: Router) {} //constructor
@@ -34,80 +34,101 @@ export class ProfilePrivacyComponent implements OnInit {
 
 	ngOnInit(): any {
 
-		if(this.Profile === undefined) {
-
-			this.Profile = new ProfileComponent(this.database, this.router);
-
-
-			/** Declare local variables  */
-			let _localStorageUser: string | null;
-			let _localStorageProfile: string | null;
-
-
-			/* If there is no user, then return new Error */
-			if (!localStorage.getItem('user')) {
-				return new Error("Cannot find user in local storage.");
-			}
-
-
-			/* Get the user object from localStorage */
-			_localStorageUser = localStorage.getItem('user');
-			if (!this.user && _localStorageUser) {
-				this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
-			}
-
-
-			/* Get the user's profile from localStorage */
-			_localStorageProfile = localStorage.getItem('profile');
-			if (this.user && _localStorageUser && (_localStorageProfile === undefined || _localStorageProfile === null)) {
-				this.database.getData("profiledata", "userId", this.user.id).subscribe(data => {
-
-					if(data && data.data && data.data[0]) {
-
-						//Update the Profile private fields.
-						this.Profile.updateFields(data.data[0]);
-
-						//Create a json object of the Profile fields.
-						this.Profile.jsonProfile = {
-							"_firstName": this.Profile.firstName, 
-							"_lastName": this.Profile.lastName, 
-							"_company": this.Profile.company,
-							"_description": this.Profile.description, 
-							"_message": this.Profile.message, 
-							"_tagsString": this.Profile.tagsString, 
-							"_hasDelivery": this.Profile.hasDelivery,
-							"_deliveryRange": this.Profile.deliveryRange, 
-							"_country": this.Profile.country, 
-							"_displayName": this.Profile.displayName, 
-							"_website": this.Profile.website,
-							"_userId": this.Profile.userId,
-							"_isPublic": this.Profile.isPublic
-						};
-
-
-						//Save the profile as a json object to localStorage
-						localStorage.setItem(
-							"profile", 
-							GlobalService.encode(
-								JSON.stringify(this.Profile.jsonProfile)
-							)
-						);
-
-					} //if(data && data.data && data.data[0]) {
-
-				}) //.subscribe
-
-			} else {
-				this.Profile.jsonProfile = JSON.parse(GlobalService.decode(localStorage.getItem('profile')!));
-				this.Profile.updateFields(this.Profile.jsonProfile);
-			} //If user but no profile.
+		/* If there is no user, then return new Error */
+		if (!GlobalService.User) {
+			return new Error("Cannot find user in local storage.");
+		} else {
+			this.user = GlobalService.User;
 		}
+
+		if (this.Profile === undefined) {
+			this.Profile = new ProfileComponent(this.database, this.router);
+		}
+		this.profileService = new ProfileService(this.database);
+		this._getProfile();
+	}
+
+
+	_getProfile() {
+		let _profile = null;
+		_profile = this.profileService.getProfileFromLocalStorage();
+
+		if (_profile === null) {
+			this.profileService.getProfileFromDatabase()
+				.subscribe((r) => {
+					if (r.message === "No data found.") {
+						this.router.navigate(['/', 'profile', 'profileAdd']);
+					} else {
+						this.updateFields(r); //this.Profile = ...
+						this.saveToLocalStorage(r);
+					}
+				});
+		} else {
+			this.updateFields(_profile);
+			this.saveToLocalStorage(_profile);
+		}
+	}
+
+
+	//Save the profile as a json object to localStorage
+	saveToLocalStorage(profile:any) {
+		let p:any;
+		if (profile.data && profile.data.length > 0) {
+			p = profile.data[0];
+		}
+
+
+		//Case 1: p = p.profile.data[0]
+		if (p !== undefined && typeof p === "object") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(JSON.stringify(p))
+			);
+			return;
+		}
+
+
+		//Case 2: p = "string value"
+		if (p !== undefined && typeof p === "string") {
+			localStorage.setItem(
+				"profile", 
+				GlobalService.encode(p)
+			);
+			return;
+		}
+
+
+		//Case 3: p = {}
+		localStorage.setItem(
+			"profile", 
+			GlobalService.encode(JSON.stringify(profile))
+		);
+	}
+
+
+	//Allows objects to update private fields.
+	public updateFields(profile: any) {
+		let p:any = (profile.data && profile.data.length > 0) ? profile.data[0] : profile;
+		Object.keys(p).forEach((key) => {
+			let _value = p[key as keyof ProfileComponent];
+			if (key !== "database" && key !== "_jsonProfile" && key !== "router" && key !== "_userId" && key !== "_isPublic") {
+				this.Profile[key as keyof ProfileComponent] = _value;
+			}
+		});
+	}
+
+
+	getField(key: any): string {
+		let _fieldname!:string;
+		if (key.indexOf("_") > -1) {
+			_fieldname = key.split("_")[1]
+		}
+		return _fieldname;
 	}
 
 
 	//Update the user's profile's isPublic property.
 	update() {
-
 		if (
 			this.Profile.isPublic === undefined || 
 			this.Profile.isPublic === null

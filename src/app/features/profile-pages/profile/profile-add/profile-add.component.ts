@@ -83,6 +83,7 @@ export class ProfileAddComponent implements OnInit {
 						"btn-info", 
 						this.toastElement.nativeElement.id
 					);
+					this.router.navigate(['/', 'profile', 'profileEdit']);
 				}
 
 				//The user does not already exist.
