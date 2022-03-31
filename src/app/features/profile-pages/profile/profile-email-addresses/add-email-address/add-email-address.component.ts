@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angula
 import { GlobalService } from 'src/app/services/global.service';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { Router } from '@angular/router';
+import { EmailService } from './../email.service';
 import { Email } from '../email';
 
 @Component({
@@ -18,6 +19,7 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 
 	user!: any;
 	Emails!: Email[];
+	emailService: EmailService = new EmailService(this.database);
 
 
 	constructor(private database: DatabaseService, private router: Router) { }
@@ -80,10 +82,11 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 				
 
 				if (response.status === "success") {
-					this.Emails.push({
-						email: email,
-						emailType: emailType
-					});
+					let _Email = new Email(this.emailService);
+					_Email.email = email;
+					_Email.emailType = emailType;
+					
+					this.Emails.push(_Email);
 				}
 
 				//Save the emails as a json object to localStorage

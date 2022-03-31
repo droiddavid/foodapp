@@ -4,9 +4,12 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { Email } from './email';
 
+
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+
+
 export class EmailService {
 
 	table:string = "emails";
@@ -14,7 +17,6 @@ export class EmailService {
 	localStorageName = "emails";
 
 	constructor(private database: DatabaseService) { }
-
 
 	//Get a single address
 	getEmail(id:string): Observable<Email> {
