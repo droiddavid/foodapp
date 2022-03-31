@@ -3,6 +3,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { AddressService } from './../../profile-addresses/address.service';
 import { User } from 'src/app/shared/user';
 import { Address } from '../../profile-addresses/address';
 import { Delivery } from '../delivery';
@@ -19,7 +20,10 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('toastElement') toastElement!:ElementRef;
 
+	addressService!: AddressService
+
 	user!: User;
+	Address!: Address;
 	Addresses!: Address[];
 	oDelivery!: Delivery;
 	form!: FormGroup;
@@ -41,35 +45,33 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 
 
 	ngOnInit(): any {
+		if (this.addressService === undefined || this.addressService === null) {
+			this.addressService = new AddressService(this.database);
+		}
 
 		if(this.oDelivery === undefined) {
 
 			/** Declare local variables  */
-			let _localStorageUser: string | null;
 			let _localStorageDelivery: string | null;
 
-
-			/* If there is no user, then return new Error */
-			if (!localStorage.getItem('user')) {
-				return new Error("Cannot find user in local storage.");
-			}
-
-
-			/* Get the user object from localStorage */
-			_localStorageUser = localStorage.getItem('user');
-			if (!this.user && _localStorageUser) {
-				this.user = JSON.parse(GlobalService.decode(localStorage.getItem('user')!));
+			if (!GlobalService.User) {
+				this.router.navigate(['/', 'home']);
 			}
 
 
 			/* Get the user's delivery address from localStorage */
 			_localStorageDelivery = localStorage.getItem('delivery');
-			if (this.user && _localStorageUser && (_localStorageDelivery === undefined || _localStorageDelivery === null)) {
-				this.database.getData("addresses", "userId", this.user.id)
-				.subscribe(data => {
-					if(data && data.data) {
+			if (_localStorageDelivery === undefined || _localStorageDelivery === null) {
 
-						this.Addresses = data.data;
+				if (this.Address === null || this.Address === undefined) {
+					this.Address = new Address(this.addressService);
+				}
+				this.Address.getAddresses()
+				.subscribe(data => {
+					if(data) {
+
+						let _addr = JSON.parse(JSON.stringify(data));
+						this.Addresses = _addr.data;
 
 						let delivery = this.getDeliveryPickUpAddress();
 
@@ -92,6 +94,7 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 									JSON.stringify(this.oDelivery)
 								)
 							);
+							this.ngAfterViewInit();
 						}
 
 					} //if(data && data.data && data.data[0]) {
@@ -109,7 +112,7 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 		/* Get the user's  addresses from localStorage */
 		_localStorageAddresses = localStorage.getItem('addresses');
 		if ((_localStorageAddresses === undefined || _localStorageAddresses === null)) {
-			this.database.getData("addresses", "userId", this.user.id)
+			this.database.getData("addresses", "userId", GlobalService.User.id)
 			.subscribe(data => {
 
 				if(data && data.data) {
@@ -155,49 +158,34 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 		let aIndex = this.Addresses.findIndex(function (address) {
 			return address.addressType === "Delivery";
 		});
-		let addressResponse = undefined;
-		if (aIndex > -1) {
-			addressResponse = this.Addresses[aIndex];
-		} else {
-			addressResponse = undefined;
-		}
-		return addressResponse;
+		let _dir = undefined;
+		if (aIndex > -1) _dir = this.Addresses[aIndex];
+		return _dir;
 	};
 
 
 
-	retrieveAddresses(): any {
-		this.database.getData(
-			"addresses", 
-			"userId", 
-			this.user.id)
-			.subscribe( data => {
-				this.Addresses = data.data;
 
-				//Save the emails as a json object to localStorage
-				localStorage.setItem(
-					"addresses", 
-					GlobalService.encode(
-						JSON.stringify(this.Addresses)
-					)
-				);
-
-				return data.data;
-			});
-	}
 
 	async onSubmit() {
 
-		let address: Address = { id: 0, userId: "", addressLine1: "", addressLine2: "", city: "", state: "", zip: "", addressType: "Delivery" };
+		let address = {
+			id: 0,
+			userId: String(GlobalService.User.id),
+			addressLine1: "", addressLine2: "",
+			city: "", state: "", zip: "",
+			addressType: "Delivery"		
+		};
+
 		address.id = this.oDelivery.id;
-		address.userId = this.oDelivery.userId;
+		//address.userId = this.oDelivery.userId;
 
 		address.addressLine1 = this.form.get("streetNumber")?.value;
 		address.addressLine2 = this.form.get("streetName")?.value;
 
 		address.city = this.form.get("city")?.value;
 		address.state = this.form.get("state")?.value;
-		address.zip = this.form.get("zip")?.value;
+		address.zip = String(this.form.get("zip")?.value);
 
 		
 		//Save the delivery as a json object to localStorage
@@ -206,18 +194,25 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 			GlobalService.encode(
 				JSON.stringify({
 					id: this.oDelivery.id,
-					userId: this.oDelivery.userId,
+					userId: String(this.oDelivery.userId),
 					streetNumber: this.form.get("streetNumber")?.value,
 					streetName: this.form.get("streetName")?.value,
 					city: this.form.get("city")?.value,
 					state: this.form.get("state")?.value,
-					zip:  this.form.get("zip")?.value
+					zip:  String(this.form.get("zip")?.value)
 				})
 			)
 		);
 
 		if (!this.Addresses || this.Addresses.length === 0) {
-			await this.retrieveAddresses();
+
+			let addr = new Address(this.addressService);
+			//Returns Observable<Address>
+			addr.getAddresses()
+				.subscribe((data) => {
+					let _addr = JSON.parse(JSON.stringify(data));
+					this.Addresses = _addr.data;
+				});
 		}
 
 
@@ -234,7 +229,20 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 			//Then replace it with the changed addresses array.
 			if (aIndex > -1) {
 				this.Addresses.splice(aIndex, 1);
-				this.Addresses.push(address);
+
+				let addr = new Address(this.addressService);
+
+				addr.id = address.id;
+				addr.userId = String(address.userId);
+		
+				addr.addressLine1 = address.addressLine1;
+				addr.addressLine2 = address.addressLine2;
+		
+				addr.city = address.city;
+				addr.state = address.state;
+				addr.zip = String(address.zip);
+
+				this.Addresses.push(addr);
 			}
 
 						
@@ -251,8 +259,9 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 		//Declare and assign variables.
 		let table:string = "addresses";
 		let columnsArray:any = address;
-		let where:any = { "userId" : this.user.id, "id": address.id};
+		let where:any = { "userId" : String(GlobalService.User.id), "id": address.id};
 		let requiredColumnsArray:any = Object.keys(columnsArray);
+
 
 		this.database.updateData(table, columnsArray, where, requiredColumnsArray)
 			.subscribe((r) => {
