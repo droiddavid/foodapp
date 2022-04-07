@@ -49,4 +49,10 @@ export class EmailService {
 		}
 		return JSON.parse(GlobalService.decode(_emails!));
 	}
+
+
+	//delete
+	delete ( recordToDelete:any ): Observable<any> {
+		return this.database.delete2( recordToDelete );
+	};
 }

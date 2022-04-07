@@ -19,12 +19,29 @@
 
 					<button class="btn btn-success circleButton" 
 						routerLink="/profile/addEmailAddress">
-
-						<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen; font-size: 36px;"></i>
+						<fa-icon
+							[icon]="faPlus">
+						</fa-icon>
 					</button>
 
 
-					<!-- Material form contact | Material form contact -->
+
+					<!-- toast -->
+					<div #toastElement 
+						id="toastElement" 
+						class="toast" 
+						role="alert" 
+						aria-live="assertive" aria-atomic="true"
+					>					
+						<div class="toast-header">
+							<strong class="toast_text mr-auto">Notification</strong>
+						</div>
+				
+						<div class="toast-body toast_text"></div>
+					</div>
+
+
+				<!-- Material form contact | Material form contact -->
 					<div id="emailsList" class="card" style="border-top-left-radius: 25px; border-top-right-radius: 25px; color: black;">
 
 
@@ -44,21 +61,14 @@
 										justify-content-between align-items-left" 
 									*ngFor="let email of Emails"
 								>
-								<!-- <a  (click)="removeEmail($index);">
-									<i style="color: grey; font-size: x-large;"
-										class="fas fa-times"></i>
-								</a> -->
-								<a  (click)="removeEmail();">
-									<i style="color: grey; font-size: x-large;"
-										class="fas fa-times"></i>
-								</a>
-									{{ email.email }}
-									<!-- <input 
-										type="text" 
-										value="{{ email.email }}" 
-										class="hidden" 
-									/>
-									<strong>{{ email.emailType }}</strong> -->
+									<a  (click)="removeEmail(email);">
+										<fa-icon
+											class="icon_bs_left"
+											[icon]="faTimes">
+										</fa-icon>
+									</a>
+									<strong>{{ email.email }}</strong>
+									{{ email.emailType }}
 								</li>
 
 							</ul>

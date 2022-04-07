@@ -80,13 +80,13 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 					this.toastElement.nativeElement.id
 				);
 				
-
+				debugger;
 				if (response.status === "success") {
-					let _Email = new Email(this.emailService);
-					_Email.email = email;
-					_Email.emailType = emailType;
-					
-					this.Emails.push(_Email);
+					this.Emails.push(<Email>{
+						"userId": GlobalService.User.id,
+						"email": email,
+						"emailType": emailType
+					});
 				}
 
 				//Save the emails as a json object to localStorage

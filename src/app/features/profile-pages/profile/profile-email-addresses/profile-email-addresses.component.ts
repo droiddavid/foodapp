@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
 import { Router } from '@angular/router';
 import { Email } from 'src/app/features/profile-pages/profile/profile-email-addresses/email';
 import { EmailService } from './email.service';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -11,6 +12,11 @@ import { EmailService } from './email.service';
 	styleUrls: ['./profile-email-addresses.component.css']
 })
 export class ProfileEmailAddressesComponent implements OnInit {
+
+	@ViewChild('toastElement') toastElement!:ElementRef;
+
+	faPlus = faPlus;
+	faTimes = faTimes;
 
 	Email!: Email;
 	Emails: any;
@@ -23,7 +29,6 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 
 	ngOnInit(): any {
-		debugger;
 		if (this.Email === undefined) {
 			this.Email = new Email(this.emailService);
 		}
@@ -34,13 +39,11 @@ export class ProfileEmailAddressesComponent implements OnInit {
 	_getEmails() {
 		this.Emails = null;
 		this.Emails = this.Email.getEmailsFromLocalStorage();
-		debugger;
 
 		if (this.Emails === null) {
 
 			this.Email.getEmailsFromDatabase()
 				.subscribe((data:any) => {
-					debugger;
 
 					if (
 						(data.message !== "warning" && data.message !== "No data found.") &&
@@ -139,8 +142,36 @@ export class ProfileEmailAddressesComponent implements OnInit {
 	}
 
 
-	removeEmail() {
-		console.log("index");
-	}
+	removeEmail(e: Email) {
 
+		let emailToDelete = {
+			"table" : "emails",
+			"firstFieldName" : "userId",
+			"firstFieldValue" : GlobalService.User.id,
+			"secondFieldName" : "email",
+			"secondFieldValue" : e.email
+		}
+
+		this.emailService.delete( emailToDelete )
+			.subscribe((response) => {
+
+				GlobalService.showToast(
+					e.email + ' was deleted. [STATUS: ' + response.status + "]", 
+					"btn-success",
+					this.toastElement.nativeElement.id
+				);
+
+				//Remove phone number from the User's phone number array.
+				let eIndex = this.Emails.findIndex((_e:any) => {
+					return _e.email === e.email;
+				});
+
+				if (eIndex > -1) {
+					this.Emails.splice(eIndex, 1);
+				}
+
+				//UPDATE LOCALSTORAGE
+				this.saveToLocalStorage(this.Emails);
+			});
+	}
 }

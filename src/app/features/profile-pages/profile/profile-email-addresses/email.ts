@@ -25,6 +25,10 @@ export class Email {
 		return this.emailService.getEmailsFromDatabase()
 	}
 
+	delete( emailToDelete: Email ) {
+		return this.emailService.delete( emailToDelete );
+	}
+
 
 	public get userId() { return this._userId; }
 	public set userId(value: any) {
