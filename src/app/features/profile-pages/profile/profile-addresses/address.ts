@@ -34,18 +34,6 @@ export class Address {
 	}
 
 
-	//Get the address from LocalStorage.  Return a string.
-	// getAddressesFromLocalStorage(): string | null {
-	// 	let _address = localStorage.getItem(this.localStorageName);
-	// 	debugger;
-
-	// 	if (_address === null) {
-	// 		return null;
-	// 	}
-	// 	return JSON.parse(GlobalService.decode(_address!));
-	// }
-
-
 	public get id() { return this._id; }
 	public set id(value: any) {
 		this._id = value;

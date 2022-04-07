@@ -17,9 +17,9 @@ export class DatabaseService {
 	_insert: string = environment.database.baseUrl + environment.database.insert;
 	_delete: string = environment.database.baseUrl + environment.database.delete;
 	deleteIn: string = environment.database.baseUrl + environment.database.deleteIn;
+	_delete2: string = environment.database.baseUrl + environment.database.delete2;
 	fileMover: string = environment.database.baseUrl + environment.database.fileMover;
 	update: string = environment.database.baseUrl + environment.database.update;
-
 
 	constructor(private http: HttpClient) { }
 
@@ -103,6 +103,16 @@ export class DatabaseService {
 			field: field,
 			fieldList: fieldList
 		})) //.pipe();
+	}
+
+	delete2(obj:any): Observable<any> {
+		return this.http.post(this._delete2, {
+			table: obj.table,
+			firstFieldName: obj.firstFieldName,
+			firstFieldValue: obj.firstFieldValue,
+			secondFieldName: obj.secondFieldName,
+			secondFieldValue: obj.secondFieldValue
+		});
 	}
 
 	//POST - INSERT

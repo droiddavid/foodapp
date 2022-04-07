@@ -4,6 +4,7 @@ import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { Address } from './address';
 
+
 @Injectable({
 	providedIn: 'root'
 })

@@ -23,7 +23,6 @@ export class ProfileAddressComponent implements OnInit {
 
 
 	ngOnInit(): any {
-		debugger;
 		if (this.Address === undefined) {
 			this.Address = new Address(this.addressService);
 		}

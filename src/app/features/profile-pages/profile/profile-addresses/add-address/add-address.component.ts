@@ -32,7 +32,8 @@ export class AddAddressComponent implements OnInit {
 			state: 			['', []],
 			zip: 			['', []],
 			addressType: 		['', []]
-		});}
+		});
+	}
 
 	ngOnInit(): any {
 		this.getUser();

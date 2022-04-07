@@ -1,0 +1,43 @@
+<div class="content">
+
+	<!-- toast -->
+	<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<strong class="toast_text mr-auto">Notification</strong>
+		</div>
+		<div class="toast-body toast_text"></div>
+	</div>
+
+
+	<form (submit)="onSubmit()">
+		<div class="body">
+			<input #phoneNumber
+				type="tel" 
+				placeholder="Phone Number" 
+			/>
+
+			<input #phoneNumberType
+				id="phoneNumberType" 
+				list="phoneNumberTypes"
+				placeholder="Select phone number type"
+			/>
+			<datalist id="phoneNumberTypes">
+				<option value="Business">
+				<option value="Home">
+				<option value="Mobile">
+			</datalist>
+		</div>
+
+		<div class="footer" style="justify-content: space-evenly;">
+
+			<div class="row" style="margin-top: 1.75rem;">
+				<div class="col-12">
+					<input type="submit" value="Save" />
+				</div>
+			</div>
+
+		</div> <!-- footer -->		
+	</form>
+
+
+</div>

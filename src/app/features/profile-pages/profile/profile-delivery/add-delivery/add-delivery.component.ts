@@ -66,7 +66,7 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 				if (this.Address === null || this.Address === undefined) {
 					this.Address = new Address(this.addressService);
 				}
-				this.Address.getAddresses()
+				this.Address.getAddressesFromDatabase()
 				.subscribe(data => {
 					if(data) {
 
@@ -208,7 +208,7 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 
 			let addr = new Address(this.addressService);
 			//Returns Observable<Address>
-			addr.getAddresses()
+			addr.getAddressesFromDatabase()
 				.subscribe((data) => {
 					let _addr = JSON.parse(JSON.stringify(data));
 					this.Addresses = _addr.data;

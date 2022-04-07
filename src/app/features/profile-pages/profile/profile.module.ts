@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
@@ -17,6 +17,12 @@ import { AddAddressComponent } from './profile-addresses/add-address/add-address
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { ProfileDeliveryComponent } from './profile-delivery/profile-delivery.component';
 import { AddDeliveryComponent } from './profile-delivery/add-delivery/add-delivery.component';
+import { ProfilePhoneComponent } from './profile-phone/profile-phoneNumbers.component';
+import { ProfilePhoneAddComponent } from './profile-phone/profile-phone-add/profile-phone-add.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
+import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
+
 
 @NgModule({
 	declarations: [
@@ -31,13 +37,20 @@ import { AddDeliveryComponent } from './profile-delivery/add-delivery/add-delive
   ProfileMenuComponent,
   ProfileDeliveryComponent,
   AddDeliveryComponent,
+  ProfilePhoneComponent,
+  ProfilePhoneAddComponent,
+  ProfileHoursComponent,
+  AddHoursComponent,
 	],
 	imports: [
+		FormsModule,
 		CommonModule,
 		ProfileRoutingModule,
 		HttpClientModule,
 		ReactiveFormsModule,
 		RouterModule,
-	]
+		FontAwesomeModule,
+	],
+	providers: []
 })
 export class ProfileModule { }

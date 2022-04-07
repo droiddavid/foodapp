@@ -1,0 +1,45 @@
+
+<!-- toast -->
+<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+
+	<div class="toast-header">
+		<strong class="toast_text mr-auto">Notification</strong>
+	</div>
+
+	<div class="toast-body toast_text"></div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+	<div>
+		<h5>Enter Days and Hours</h5>
+	</div>
+
+	<div>
+		<label for="date">Date</label><br />
+		<input #date
+			type="date" 
+			formControlName="date" /><br />
+
+
+		<label for="hourOpen">Open</label><br />
+		<input #hourOpen
+			type="time" 
+			formControlName="hourOpen" /><br />
+
+
+		<label for="hourClosed">Closed</label><br />
+		<input #hourClosed 
+			type="time" 
+			formControlName="hourClosed" />
+	</div>
+
+
+	<div>
+		<input type="submit" 
+			class="btn btn-success"
+			value="Save">
+	</div>
+
+
+</form>

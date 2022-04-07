@@ -6,9 +6,9 @@ import { EmailService } from './../email.service';
 import { Email } from '../email';
 
 @Component({
-  selector: 'app-add-email-address',
-  templateUrl: './add-email-address.component.html',
-  styleUrls: ['./add-email-address.component.css']
+	selector: 'app-add-email-address',
+	templateUrl: './add-email-address.component.html',
+	styleUrls: ['./add-email-address.component.css']
 })
 export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 

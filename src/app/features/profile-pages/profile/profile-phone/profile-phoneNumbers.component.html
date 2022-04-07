@@ -1,0 +1,70 @@
+<button id="cameraButton" class="btn btn-success" 
+	(click)="addPhoneNumber()">
+	<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true"></i>
+</button>
+
+<!-- toast -->
+<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+	<div class="toast-header">
+		<strong class="toast_text mr-auto">Notification</strong>
+	</div>
+	<div class="toast-body toast_text"></div>
+</div>
+
+<!--<table class="table" ng-show="$ctrl.Profile.schedules.length">-->
+	<table class="table">
+
+		<thead>
+			<tr>
+				<th>&nbsp;</th>
+				<th class="th" style="text-align: center;">
+					<fa-icon
+						class="icon_bs_left"
+						[icon]="faInfoCircle"
+						aria-hidden="true" 
+						tooltip="Select to display this phone number to the Public App."
+					></fa-icon><br />
+					Display<br />
+					To<br />
+					Public
+				</th>
+				<th>Number</th>
+				<th>Type</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr *ngFor="let phone of PhoneNumbers">
+				<td>
+					<a (click)="removePhoneNumber(phone);">
+						<fa-icon
+							class="icon_bs_left"
+							[icon]="faTimes">
+						</fa-icon>
+						<i class="fas fa-times" 
+							style="color: grey; font-size: x-large;"></i>
+					</a>
+				</td>
+				<td>
+					<span id="updatetext_phoneDisplayToPublic"
+							(click)="editCheckbox(phone);">
+						<input type="checkbox"  
+
+							class="displayToPublic"
+							[checked]="phone.displayToPublic"
+						/>
+					</span>
+				</td>
+				<td>
+					<span id="updatetext_scheduleDate">
+						{{ phone.phoneNumber }}
+					</span>
+				</td>
+				<td>
+					<span id="updatetext_scheduleDayName">
+						{{ phone.phoneNumberType }}
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>

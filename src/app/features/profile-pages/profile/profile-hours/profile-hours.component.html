@@ -1,0 +1,92 @@
+
+
+<button 
+	class="btn btn-success circleButton"
+	(click)="addSchedule();"
+>
+	<fa-icon
+		[icon]="faPlus">
+	</fa-icon>
+</button>
+
+
+<!-- toast -->
+<div #toastElement 
+	id="toastElement" 
+	class="toast" 
+	role="alert" 
+	aria-live="assertive" aria-atomic="true"
+>					
+	<div class="toast-header">
+		<strong class="toast_text mr-auto">Notification</strong>
+	</div>
+
+	<div class="toast-body toast_text"></div>
+</div>
+
+
+<table class="table" ng-show="User.Hours.length">
+<thead>
+	<tr>
+		<th>&nbsp;</th>
+
+		<th>
+			<i class="fa fa-info-circle info_badge" 
+				aria-hidden="true" 
+				tooltip="Select to display this date on your Front Facing Public App.">
+			</i>
+			Display
+		</th>
+
+		<th>Date</th>
+		<th>Day</th>
+		<th>Open</th>
+		<th>Close</th>
+	</tr>
+</thead>
+
+<tbody>
+	<!--<tr ng-repeat="schedule in Profile.schedules">
+	<tr ng-repeat="schedule in User.Hours track by $index">-->
+		<tr *ngFor="let schedule of Hours">
+		<td>
+			<a (click)="removeSchedule(schedule);">
+				<fa-icon
+					class="icon_bs_left"
+					[icon]="faTimes">
+				</fa-icon>
+			</a>
+		</td>
+		<td>
+			<span id="updatetext_scheduleDisplayToPublic"
+					(click)="editCheckbox(schedule);">
+				<input type="checkbox" 
+					class="displayToPublic"
+					[checked]="schedule.displayToPublic"
+				/>
+			</span>
+		</td>
+		
+		<td>
+			<span id="updatetext_scheduleDate">
+				{{ schedule.date }}
+			</span>
+		</td>
+		<td>
+			<span id="updatetext_scheduleDayName">
+				{{ schedule.dayName }}
+			</span>
+		</td>
+		<td>
+			<span id="updatetext_hourOpen">
+				{{ schedule.hourOpen }}
+			</span>
+		</td>
+		<td>
+			<span id="updatetext_hourClosed">
+				{{ schedule.hourClosed }}
+			</span>
+		</td>
+	</tr>
+</tbody>
+</table>

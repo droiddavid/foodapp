@@ -11,6 +11,10 @@ import { AddAddressComponent } from './profile-addresses/add-address/add-address
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { ProfileDeliveryComponent } from './profile-delivery/profile-delivery.component';
 import { AddDeliveryComponent } from './profile-delivery/add-delivery/add-delivery.component';
+import { ProfilePhoneComponent } from './profile-phone/profile-phoneNumbers.component';
+import { ProfilePhoneAddComponent } from './profile-phone/profile-phone-add/profile-phone-add.component';
+import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
+import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
 
 
 const routes: Routes = [
@@ -56,6 +60,22 @@ const routes: Routes = [
 	{
 		path: 'addDelivery',
 		component: AddDeliveryComponent
+	},
+	{
+		path: 'profilePhoneNumbers',
+		component: ProfilePhoneComponent
+	},
+	{
+		path: 'addPhoneNumber',
+		component: ProfilePhoneAddComponent
+	},
+	{
+		path: 'profileHours',
+		component: ProfileHoursComponent
+	},
+	{
+		path: 'addHours',
+		component: AddHoursComponent
 	}
 ];
 
