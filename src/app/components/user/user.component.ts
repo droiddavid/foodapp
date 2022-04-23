@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
 	//User Data
 	id?: any = 0;
 	displayName?: string = "";
+	directory?: string = "";
 	emailAddress?: string = "";
 	emailVerified?: boolean = false;
 	express_data?: string;

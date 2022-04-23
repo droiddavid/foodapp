@@ -22,6 +22,8 @@ import { ProfilePhoneAddComponent } from './profile-phone/profile-phone-add/prof
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
 import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
+import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component
   ProfilePhoneAddComponent,
   ProfileHoursComponent,
   AddHoursComponent,
+  ProfilePhotosComponent,
 	],
 	imports: [
 		FormsModule,
@@ -50,6 +53,7 @@ import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component
 		ReactiveFormsModule,
 		RouterModule,
 		FontAwesomeModule,
+		ImageCropperModule,
 	],
 	providers: []
 })

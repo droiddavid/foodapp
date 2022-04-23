@@ -34,7 +34,9 @@ export const environment = {
 		delete: "delete.php",
 		delete2: "delete2.php",
 		deleteIn: "deleteIn.php",
-		fileMover: "fileMover.php"
+		fileMover: "fileMover.php",
+		photos: "photos.php",
+		fileImageMover: "fileImageMover"
 	}
 };
 

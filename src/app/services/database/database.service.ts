@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -20,9 +20,11 @@ export class DatabaseService {
 	_delete2: string = environment.database.baseUrl + environment.database.delete2;
 	fileMover: string = environment.database.baseUrl + environment.database.fileMover;
 	update: string = environment.database.baseUrl + environment.database.update;
+	_fileMover: string = environment.database.baseUrl + environment.database.fileMover;
+	_photos: string = environment.database.baseUrl + environment.database.photos;
+	_fileImageMover: string = environment.database.baseUrl + environment.database.fileImageMover;
 
 	constructor(private http: HttpClient) { }
-
 
 	//Http Headers
 	httpOptions = {
@@ -30,7 +32,7 @@ export class DatabaseService {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*',
 			'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-			'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+			'Access-Control-Allow-Headers': 'Origin, X-Auth-Token, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Authorization, Content-Type',
 		})
 	}
 
@@ -136,5 +138,18 @@ export class DatabaseService {
 			this.httpOptions
 		)		
 			//.pipe(catchError(error => this.errorHandler(error)))
+	}
+
+	//photos
+	uploadPhotos(url: any, formData: any): Promise<any> {
+		return fetch(url, {
+			method: 'POST',
+			body: formData
+		});
+		// return this.http.post<any>(
+		// 	this._fileMover,
+		// 	JSON.stringify(data), 
+		// 	this.httpOptions
+		// )
 	}
 }

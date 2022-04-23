@@ -140,6 +140,7 @@ export class SigninComponent implements OnInit {
 					_user.message = message;
 					_user.role = role;
 					_user.status = status;
+					_user.directory = _user.emailAddress.split('@')[0] + '_' + _user.id;
 				}
 				
 				if (_user) {

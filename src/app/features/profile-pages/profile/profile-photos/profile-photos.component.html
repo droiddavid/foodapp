@@ -1,0 +1,45 @@
+<!-- toast -->
+<div #toastElement 
+	id="toastElement" 
+	class="toast" 
+	role="alert" 
+	aria-live="assertive" aria-atomic="true"
+>					
+	<div class="toast-header">
+		<strong class="toast_text mr-auto">Notification</strong>
+	</div>
+
+	<div class="toast-body toast_text"></div>
+</div>
+
+
+<!-- leftbox -->
+<div class="box-2">
+	<div #result></div>
+</div>
+
+
+<form #imagesform method="post" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+	<input 
+		type="file" 
+		(change)="fileChangeEvent($event)"
+		name="files[]"
+		multiple="true" 
+	/>
+	<input type="submit" value="Upload File" name="submit">
+</form>
+
+
+<image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="16 / 9"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+></image-cropper>
+
+
+<img [src]="croppedImage" />
