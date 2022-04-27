@@ -3,6 +3,8 @@ export interface Profile {
 	lastName?: string; 
 	company?: string;
 	description?: string;
+	directory?: string;
+	image?: string;
 	message?: string;
 	tagsString?: string;
 	hasDelivery?: boolean;

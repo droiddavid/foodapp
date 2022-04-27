@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
 	private _lastName!: string; 
 	private _company!: string;
 	private _description!: string;
+	private _image!: string;
 	private _message!: string;
 	private _tagsString!: string;
 	private _hasDelivery!: boolean;
@@ -110,6 +111,7 @@ export class ProfileComponent implements OnInit {
 		this._lastName = p.lastName;
 		this._company = p.company;
 		this._description = p.description;
+		this._image = p.image;
 		this._message = p.message;
 		this._tagsString = p.tagsString;
 		this._hasDelivery = p.hasDelivery;
@@ -143,6 +145,11 @@ export class ProfileComponent implements OnInit {
 	public get description() { return this._description; }
 	public set description(value: any) {
 		this._description = value;
+	}
+
+	public get image() { return this._image; }
+	public set image(value: any) {
+		this._image = value;
 	}
 
 	public get message() { return this._message; }
@@ -203,5 +210,4 @@ export class ProfileComponent implements OnInit {
 	public set isPublic(value: any) {
 		this._isPublic = value;
 	}
-
 }
