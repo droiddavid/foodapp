@@ -24,6 +24,7 @@ import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
 import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
 import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ProfileExpressComponent } from './profile-express/profile-express.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   ProfileHoursComponent,
   AddHoursComponent,
   ProfilePhotosComponent,
+  ProfileExpressComponent,
 	],
 	imports: [
 		FormsModule,

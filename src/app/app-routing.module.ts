@@ -1,3 +1,4 @@
+import { FoodLayoutComponent } from './layout/food-layout/food-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
@@ -50,6 +51,21 @@ const routes: Routes = [
 			{
 				path: 'profile',
 				loadChildren: () => import('./features/profile-pages/profile/profile.module').then(m => m.ProfileModule)
+			}
+		]
+	},
+	//Food Route
+	{
+		path: '', component: FoodLayoutComponent,
+		children: [
+			{
+				path: 'food',
+				redirectTo: '/food',
+				pathMatch: 'full'
+			},
+			{
+				path: 'food',
+				loadChildren: () => import('./features/food/food.module').then(m => m.FoodModule)
 			}
 		]
 	},

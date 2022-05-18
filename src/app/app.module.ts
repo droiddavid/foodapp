@@ -24,6 +24,7 @@ import { UserComponent } from './components/user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.component';
 import { RouterModule } from '@angular/router';
+import { FoodLayoutComponent } from './layout/food-layout/food-layout.component';
 
 
 
@@ -35,6 +36,7 @@ import { RouterModule } from '@angular/router';
     HomeLayoutComponent,
     UserComponent,
     ProfileLayoutComponent,
+    FoodLayoutComponent,
   ],
   imports: [
     BrowserModule,

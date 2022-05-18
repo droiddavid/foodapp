@@ -1,0 +1,431 @@
+<style>
+	.modal-backdrop {
+		/* bug fix - no overlay */
+		display: none;
+	}
+	.modal-backdrop.show {
+		opacity: 1;
+	}
+	.subplatter_kiosk_columns {
+		color: black;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	.specialsRoller {
+		padding: .25rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: end;
+	}
+	.specialsCard {
+		background-image: url('images/png/roller_bg_image.png');
+		background-repeat: no-repeat;
+		background-size:cover;
+		background-position:center;
+		border: 1px solid green;
+		/*box-shadow:  20px 20px 60px #6dd96d;
+		box-shadow: 1px 3px 3px 1px #6dd96d;*/
+		box-shadow: 8px 8px 20px 3px #6dd96d;
+		border-radius: .5rem;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		font-weight: bolder;
+		height: 160px;
+		justify-content: space-between;
+		margin: .75rem;
+		object-fit:cover;
+		text-align: center;
+		width: 120px;
+	}
+	.specialsCardHeader {
+		background-color: #6dd96d;
+		border-top-left-radius: .5rem;
+		border-top-right-radius: .5rem;
+		position: relative;
+		top: -.06rem;
+	}
+	.specialsCardFooter {
+		background-color: #6dd96d;
+		border-bottom-left-radius: .5rem;
+		border-bottom-right-radius: .5rem;
+		position: relative;
+		bottom: -.06rem;
+	}
+/*	.letter_format {
+		border: 2px solid green;
+		border-top-left-radius: 25px;
+		border-top-right-radius:25px;
+		left: -.6rem; 
+		margin: .75rem;
+		padding: 1rem;
+		position: relative;
+		top: 1.75rem; 
+		width: 75px;
+	}*/
+	.letter_format {
+		border: 2px solid green;
+		border-radius: 25px;
+		margin: .75rem;
+		margin-bottom: 2rem;
+		padding: 1rem;
+		position: relative;
+		top: 1.75rem;
+		width: 100%;
+	}
+	.accordionList {
+		background: white;
+		border: 2px solid green;
+		box-shadow: 8px 8px 20px 3px #888888;
+		height: 75px;
+		/*border-radius: 25px;*/
+		margin-bottom: 1rem; 
+		/*padding: 1rem;*/
+		max-width: 320px;
+		position:relative;
+		text-align: left; 
+		z-index: 2;
+	}
+	.price_format {
+		background-color: green;
+		border-bottom-left-radius: .5rem;
+		border-bottom-right-radius: .5rem;
+		height: fit-content;
+		width: inherit;
+	}
+	.price_format_label {
+		color: white; 
+		float: right; 
+		font-size: x-large; 
+		position: relative; 
+		/*right: 10px;*/
+	}
+</style>
+<div class="page">
+	<nav class="navbar navbar-expand-sm fixed-top navbar-light">
+		<div class="container-fluid">
+			<span ng-click="$ctrl.return_to_previous_page()">
+				<i class="fas fa-chevron-left" style="color: white;"></i>
+			</span>
+
+			<a class="navbar-brand mr-3" style="color: white;">
+				{{ Profile.company }}
+			</a>
+		</div>
+	</nav>
+
+	<div class="content">
+		<div class="pageBody">
+			<!-- main element for Google's javascript validations. -->
+			<main>
+				<div class="quickstart_body">
+
+					<div id="qs_verbage" class="row">
+						<div class="col-12">
+							<div id="breadcrumbsMenu">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="#">Food</a></li>
+									</ol>
+								</nav>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="row">
+										<div class="col-12 text-center">
+											<h4>Food</h4>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 text-left">
+											Select a category into which to add your new food item.  If you already have a category, then select it then add your food item there.
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="qs_outer_interface row" style="
+						border-top-left-radius: 25px;
+    					border-top-right-radius: 25px;"
+    				>
+						<!-- BEGIN QUICK START INNER INTERFACE SECTION -->
+						<div id="qs_inner_interface" class="col-12">
+
+<!-- 							<div class="row" style="justify-content: space-around; margin-bottom: 2rem;">
+								<div class="col-3 subplatter_kiosk_columns">
+									<button id="cameraButton" 
+										class="btn btn-success"
+										ng-click="$ctrl.show_addNewFoodTypePanel();"
+										style="
+											background: white;
+											color: forestgreen;
+											height: 110px;
+											max-width: 110px;
+											min-width: 110px;
+											text-align: center;
+											width: 110px;"
+									>
+										View By Category
+									</button>
+								</div>
+								<div class="col-3 subplatter_kiosk_columns">
+									<button id="cameraButton" 
+										class="btn btn-success"
+										ng-click="$ctrl.show_addNewFoodTypePanel();"
+										style="
+											background: white;
+											color: forestgreen;
+											height: 110px;
+											max-width: 110px;
+											min-width: 110px;
+											text-align: center;
+											width: 110px;"
+									>
+										View Alphabetically
+									</button>
+								</div>
+								<div class="col-3 subplatter_kiosk_columns">
+									<button id="cameraButton" class="btn btn-success"
+										aria-label="add food item"
+										data-toggle="modal" data-target="#modal_new_or_existing"
+										style="
+											background: white;
+											color: forestgreen;
+											height: 110px;
+											max-width: 110px;
+											min-width: 110px;
+											text-align: center;
+											width: 110px;"
+									>
+										<div class="row">
+											<div class="col-12">
+												Add Food, Then Categorize It
+											</div>
+										</div>
+									</button>
+								</div>
+							</div> -->
+
+
+ 							<div class="row" style="color: black;">
+
+								<div id="btn_view_alphabetically" class="col-12">
+									<button 
+										class="btn btn-success" 
+										ng-click="$ctrl.setListView('view_alphabetically');"
+										style="padding: 1rem;"
+									>
+										View Alphabetically
+									</button>
+								</div>
+
+
+ 								<div id="btn_view_categories" 
+ 									class="col-12">
+									<button 
+										class="btn btn-success"
+										ng-click="$ctrl.setListView('view_categories');"
+										style="padding: 1rem;"
+									>
+										View Categories
+									</button>
+								</div>
+
+							</div>
+
+
+							<div id="view_alphabetically">
+								<div class="accordion" id="accordionList">
+									<div class="row" style="color: black;">
+										<div class="col-12">
+											<div class="specialsRoller" ng-repeat="letter in $ctrl.boxFoodList">
+
+												<div class="letter_format" 
+													data-toggle="collapse" 
+													data-target="#{{letter.letter}}" 
+													aria-expanded="true" 
+													aria-controls="{{letter.letter}}"
+												>
+													{{ letter.letter }}
+												</div>
+
+												<div  id="{{letter.letter}}" 
+													class="collapse specialsCard" 
+													data-parent="#accordionList" 
+													ng-repeat="foodItem in letter.list"
+													style="background-image: url({{ foodItem.image }});"
+													ng-click="$ctrl.editFoodItem(foodItem)"
+												>
+													<div class="row">
+														<div class="col-12">
+															<div class="specialsCardHeader">
+																{{ foodItem.name }}
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12">
+															<div class="price_format">
+																<span class="price_format_label specialsCardFooter label label-success">
+																	${{ foodItem.price }}
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+
+	<!-- 											<div class="specialsCard flex-item"
+													ng-repeat="foodItem in $ctrl.FoodList"
+													style="background-image: url({{ foodItem.image }})"
+												>
+
+													<div class="row">
+														<div class="col-12">
+															<div class="specialsCardHeader">{{ foodItem.name }}</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12">
+															<div class="price_format">
+																<span class="price_format_label specialsCardFooter label label-success">
+																	${{ foodItem.price }}
+																</span>
+															</div>
+														</div>
+													</div>
+
+												</div> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+							<div id="view_categories">
+								<div class="row">
+									<div class="col-12">
+										<!-- Add Category Button -->
+										<div id="addNewFoodTypePanel" style="border: 1px solid red;">
+											<input type="text"  
+												id="newFoodType"
+												class="form-control" 
+												aria-describedby="newFoodTypeHelp" 
+												placeholder="Enter new category"
+												style="display: inline; width: 80%;"
+											>
+
+
+											<button 
+												id="addCategoryButton" 
+												class="btn btn-success circleButton" 
+												aria-label="add category"
+												ng-click="$ctrl.addCategory()"
+											>
+												<i class="fa fa-plus" aria-hidden="true"></i>
+											</button>
+										</div>
+										<!-- Add Category Button -->
+
+										<div id="categoryList" style="margin-top: 2rem;">
+											<ul class="list-group">
+												<li 
+													class="list-group-item list-group-item-success 
+														d-flex 
+														justify-content-between 
+														align-items-center" 
+													ng-repeat="foodType in $ctrl.User.FoodTypes" 
+													ng-click="$ctrl.showMeal(platter);"
+													style="border-radius: 25px;
+														background-color: white;
+														border: 1px solid forestgreen;
+														margin-bottom: 2rem;
+														color: black;
+														text-align: left;"
+												>
+													<div style="width: 10%;">
+														<div 
+															id="onDelete"
+															aria-label="add food item to platter" 
+															ng-click="$ctrl.openRemoveCategoryDialog($index);"
+														>
+															<i 
+																class="fas fa-times" 
+																style="color: grey; font-size: x-large;"></i>
+														</div>	
+													</div>
+
+													<div style="display: inline-flex; width: 85%;" ng-click="$ctrl.showFoodPage(foodType);">
+														<div style="width: 100%;">{{ foodType.type }}</div>
+
+														<div style="width: 10%;">
+															<i style="color: green; font-size: x-large;" class="fas fa-chevron-right"></i>
+														</div>
+													</div>
+
+												</li>
+											</ul>					
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</main><!-- end of main -->
+
+		</div><!-- class="pageBody" -->
+
+	</div>
+
+</div>
+
+<mpkfooter version="1.01" pagename="food"></mpkfooter>
+
+
+
+<!-- Remove Food Category Modal  Remove Food Category Modal  Remove Food Category Modal -->
+<div class="modal modal-backdrop" id="myModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">&nbsp;&nbsp;&nbsp;Delete Food?</h4>
+			</div>
+
+			<div class="modal-body">
+				<p>
+					Do you wish to delete the food also?
+					<br /><br /><br />
+					To display food again, recreate the category.</p>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" 
+					class="btn btn-success" 
+					data-dismiss="modal"
+					ng-click="$ctrl.removeCategory('YES');"
+				>Yes</button>
+
+				<button type="button" 
+					class="btn btn-danger" 
+					data-dismiss="modal"
+					ng-click="$ctrl.removeCategory('NO');"
+				>No</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Remove Food Category Modal  Remove Food Category Modal  Remove Food Category Modal -->

@@ -16,6 +16,7 @@ import { ProfilePhoneAddComponent } from './profile-phone/profile-phone-add/prof
 import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
 import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
 import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
+import { ProfileExpressComponent } from './profile-express/profile-express.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,10 @@ const routes: Routes = [
 	{
 		path: 'profilePhotos',
 		component: ProfilePhotosComponent
+	},
+	{
+		path: 'profileExpress',
+		component: ProfileExpressComponent
 	}
 ];
 
