@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { Address } from './address';
@@ -12,8 +12,11 @@ import { AddressService } from './address.service';
 })
 export class ProfileAddressComponent implements OnInit {
 
+	@ViewChild('toastElement')
+	toastElement!: ElementRef;
+
 	Address!: Address;
-	Addresses: any;
+	Addresses: Array<Address> = new Array();
 
 
 	constructor(
@@ -31,10 +34,11 @@ export class ProfileAddressComponent implements OnInit {
 
 
 	_getAddresses() {
-		this.Addresses = null;
-		this.Addresses = this.Address.getAddressesFromLocalStorage();
+		this.Addresses = [];
+		//this.Addresses = this.Address.getAddressesFromLocalStorage();
+		//let ary_addresses = this.Address.getAddressesFromLocalStorage();
 
-		if (this.Addresses === null) {
+		if (this.Address.getAddressesFromLocalStorage() === null) {
 
 			this.Address.getAddressesFromDatabase()
 				.subscribe((data:any) => {
@@ -47,7 +51,7 @@ export class ProfileAddressComponent implements OnInit {
 						this.updateFields(this.Addresses);
 						this.saveToLocalStorage(this.Addresses);
 					} else {
-						this.router.navigate(['/', 'profile', 'addAddress']);
+						this.router.navigate(['/', 'profile', 'profileAddresses']);
 					}
 
 				});
@@ -61,7 +65,7 @@ export class ProfileAddressComponent implements OnInit {
 
 	//Save the address as a json object to localStorage
 	saveToLocalStorage(address:any): void {
-	
+
 		let a:any;
 		if (address.data && address.data.length > 0) {
 			a = address.data[0];
@@ -111,5 +115,39 @@ export class ProfileAddressComponent implements OnInit {
 		this.Address.zip = a.zip;
 		this.Address.addressType = a.addressType;
 
+	}
+
+
+	removeAddress(a: any) {
+		let addressToDelete = {
+			"table" : "addresses",
+			"firstFieldName" : "userId",
+			"firstFieldValue" : GlobalService.User.id,
+			"secondFieldName" : "id",
+			"secondFieldValue" : a.id
+		}
+
+		this.addressService.delete(addressToDelete)
+			.subscribe((response:any) => {
+
+				GlobalService.showToast(
+					a + ' was deleted. [STATUS: ' + response.status + "]",
+					"btn-success",
+					this.toastElement.nativeElement.id
+				)
+				
+				//Remove address from the User's Address array.
+				let aIndex = this.Addresses.findIndex((_a:any) => {
+					return _a.id === a.id;
+				});
+
+				if (aIndex > -1) {
+					this.Addresses.splice(aIndex, 1);
+				}
+
+				//UPDATE LOCALSTORAGE
+				this.saveToLocalStorage(this.Addresses);
+			}
+		);
 	}
 }

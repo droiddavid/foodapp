@@ -135,14 +135,8 @@ export class ProfileEmailAddressesComponent implements OnInit {
 	}
 
 
-	xremoveEmail(index:number) {
-		console.log("index" + index);
-	}
-
-
 	removeEmail(e: Email) {
 
-		debugger;
 		let emailToDelete = {
 			"table" : "emails",
 			"firstFieldName" : "userId",

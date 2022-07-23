@@ -17,54 +17,37 @@
 
 				<div id="qs_inner_interface" class="col-12 side_padding">
 
+					<!-- toast -->
+					<div #toastElement 
+						id="toastElement" 
+						class="toast" 
+						role="alert" 
+						aria-live="assertive" aria-atomic="true"
+					>					
+						<div class="toast-header">
+							<strong class="toast_text mr-auto">Notification</strong>
+						</div>
+				
+						<div class="toast-body toast_text"></div>
+					</div>
+
 					<button class="btn btn-success circleButton" 
 						routerLink="/profile/addAddress">
-						<i 
-							id="font_awesome_camera" 
-							class="fa fa-plus" 
+						<i class="fas fa-plus" 
 							aria-hidden="true" 
-							style="color: forestgreen; font-size: 36px;"></i>
+							style="color: forestgreen; font-size: 36px;"
+						></i>
 					</button>
 			
-					<div id="addressesList" class="col-12">
-						<!-- ADDRESSES TABLE  ADDRESSES TABLE  ADDRESSES TABLE -->
-						<div 
-							ng-show="$ctrl.User.Addresses.length > 0" 
-							*ngFor="let address of Addresses" 
-							style="color: black; padding: 1rem; border-radius: 25px;"
-						>
-
-							<div class="row">
-								<div class="col-12" 
-									style="
-										border: 1px solid #00000017; 
-										border-radius: 25px; 
-										padding: 1rem;
-										box-shadow: 3px 3px 5px #888888;"
-									>
-									<div>
-										<h5>{{ address.addressLine1 }}</h5>
-										<h5>{{ address.addressLine2 }}</h5>
-										<h6>{{ address.city }} {{ address.state }} {{ address.zip }}</h6>
-										<h6>{{ address.addressType }}</h6>
-									</div>
-									<!-- CREATE A MENU -->
-									<div class="row" style="margin-top: 1.75rem;">
-										<div class="col-12">
-											<div id="footer_spacing" 
-												class="align-middle"
-													ng-click="$ctrl.removeAddress($index);"
-													style="background-color: rgb(178,33,30);color:white;">
-												<span class="col-12" style="text-align: -webkit-center; text-align: center;">Remove</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
+					<span *ngIf="Addresses.length > 0">
+						<div id="addressesList" class="col-12" 
+							*ngFor="let address of Addresses">
+							<app-address-list-item 
+								[address]="address" 
+								(onDelete)="removeAddress($event)"
+							></app-address-list-item>
 						</div>
-						<!-- ADDRESSES TABLE  ADDRESSES TABLE  ADDRESSES TABLE   -->
-					</div>
+					</span>
 
 				</div>
 

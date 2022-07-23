@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { AddressService } from './address.service';
 
 export class Address {
@@ -30,6 +31,10 @@ export class Address {
 	//Get the address from the DB.  Return an Observable of type Address.
 	getAddressesFromDatabase() {
 		return this.addressService.getAddressesFromDatabase()
+	}
+
+	delete( addressToDelete: Address ) {
+		return this.addressService.delete( addressToDelete );
 	}
 
 

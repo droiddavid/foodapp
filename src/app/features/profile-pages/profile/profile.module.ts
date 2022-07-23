@@ -1,3 +1,4 @@
+import { AddressListItemComponent } from './../../../components/address-list-item/address-list-item.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -54,6 +55,7 @@ import { EmailListItemComponent } from 'src/app/components/email-list-item/email
 		ProfileInvitationsComponent,
 		ProfileOrdersComponent,
 		EmailListItemComponent,
+		AddressListItemComponent
 	],
 	imports: [
 		FormsModule,

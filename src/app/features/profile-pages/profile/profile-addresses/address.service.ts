@@ -23,12 +23,10 @@ export class AddressService {
 		return this.database.getData(this.table, "id", id);
 	}
 
-
 	//Get all addresses for a specific user
 	getAddresses(): Observable<Address[]> {
 		return this.database.getData(this.table, "userId", GlobalService.User.id);
 	}
-
 
 	//Get the address from the DB.  Return an Observable of type Address.
 	getAddressesFromDatabase(): Observable<Address> {
@@ -39,7 +37,6 @@ export class AddressService {
 		);
 	}
 
-
 	//Get the address from LocalStorage.  Return a string.
 	getAddressesFromLocalStorage(): string | null | object {
 		let _addresses = localStorage.getItem(this.localStorageName);
@@ -48,6 +45,11 @@ export class AddressService {
 			return null;
 		}
 		return JSON.parse(GlobalService.decode(_addresses!));
+	}
+
+	//Remove an address from the DB.  Return an Observable of type Address.
+	delete( addressToDelete: any): Observable<any> {
+		return this.database.delete2( addressToDelete );
 	}
 
 }
