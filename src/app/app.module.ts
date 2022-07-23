@@ -17,30 +17,32 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Structural Modules and Compnents
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
-import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+
 import { UserComponent } from './components/user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ProfileLayoutComponent } from './layout/profile-layout/profile-layout.component';
+
 import { RouterModule } from '@angular/router';
-import { FoodLayoutComponent } from './layout/food-layout/food-layout.component';
+
+import { HeaderComponent } from './structure/header/header.component';
+import { FooterComponent } from './structure/footer/footer.component';
+import { HomeRoutingModule } from './home/home-routing.module';
+import { AuthModule } from './auth/auth.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardLayoutComponent,
-    AuthLayoutComponent,
-    HomeLayoutComponent,
     UserComponent,
-    ProfileLayoutComponent,
-    FoodLayoutComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HomeRoutingModule,
     HttpClientModule,
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -49,6 +51,8 @@ import { FoodLayoutComponent } from './layout/food-layout/food-layout.component'
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    AuthModule,
+    DashboardModule,
   ],
   providers: [DatabaseService,  AuthService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

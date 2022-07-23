@@ -10,6 +10,7 @@ import { UserComponent } from 'src/app/components/user/user.component';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { User } from 'src/app/shared/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { HeaderService } from 'src/app/services/subjects/header.service';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class SigninComponent implements OnInit {
 		public afs: AngularFirestore,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private database: DatabaseService) {
+		private database: DatabaseService,
+		private headerService: HeaderService) {
 
 			if (this.authService.userData) {
 				this.userData = this.authService.userData;
@@ -95,7 +97,6 @@ export class SigninComponent implements OnInit {
 
 	async signin(email:string, password:string) {
 		const result = await this.afAuth.signInWithEmailAndPassword(email, password);
-
 		this.user = result.user;
 
 		this.SetUserData(result.user);
@@ -121,10 +122,12 @@ export class SigninComponent implements OnInit {
 
 	//Sign In
 	async Submit() {
+
 		let user: UserComponent = new UserComponent(this.database);
 
 		user.getUser(this.user.email)
 			.subscribe((response)=>{
+
 				let {emailAddress, id, lastLogin, lastUpdate, message, role,status
 				} = response.data[0];
 
@@ -153,12 +156,13 @@ export class SigninComponent implements OnInit {
 					localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
 				}
 
-
 				this.isLoggedIn = true;
 				localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));
 
+				//emit changes to the header service.
+				this.headerService.changeTitle('dashboard');
+				this.headerService.changeMenuItems('dashboard');
 				this.router.navigate(['/', 'dashboard']);
-				return;
 			});
 	}
 

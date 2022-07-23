@@ -6,6 +6,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProfileModule } from '../features/profile-pages/profile/profile.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 		DashboardRoutingModule,
 		FontAwesomeModule,
 		HttpClientModule,
+		ProfileModule,
 	]
 })
 export class DashboardModule { }

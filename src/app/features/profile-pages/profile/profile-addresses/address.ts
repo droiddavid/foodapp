@@ -1,6 +1,5 @@
 import { AddressService } from './address.service';
 
-
 export class Address {
 
 	private _id!: number;

@@ -20,73 +20,23 @@ import { ProfileExpressComponent } from './profile-express/profile-express.compo
 
 
 const routes: Routes = [
-	{
-		path: '',
-		component: ProfileMenuComponent
-	},
-	{	path: 'profile',
-		component: ProfileComponent
-	},
-	{
-		path: 'profileEdit',
-		component: ProfileEditComponent
-	},
-	{
-		path: 'profileAdd',
-		component: ProfileAddComponent
-	},
-	{
-		path: 'profilePrivate',
-		component: ProfilePrivacyComponent
-	},
-	{
-		path: 'profileEmailAddresses',
-		component: ProfileEmailAddressesComponent
-	},
-	{
-		path: 'addEmailAddress',
-		component: AddEmailAddressComponent
-	},
-	{
-		path: 'profileAddresses',
-		component: ProfileAddressComponent
-	},
-	{
-		path: 'addAddress',
-		component: AddAddressComponent
-	},
-	{
-		path: 'profileDelivery',
-		component: ProfileDeliveryComponent
-	},
-	{
-		path: 'addDelivery',
-		component: AddDeliveryComponent
-	},
-	{
-		path: 'profilePhoneNumbers',
-		component: ProfilePhoneComponent
-	},
-	{
-		path: 'addPhoneNumber',
-		component: ProfilePhoneAddComponent
-	},
-	{
-		path: 'profileHours',
-		component: ProfileHoursComponent
-	},
-	{
-		path: 'addHours',
-		component: AddHoursComponent
-	},
-	{
-		path: 'profilePhotos',
-		component: ProfilePhotosComponent
-	},
-	{
-		path: 'profileExpress',
-		component: ProfileExpressComponent
-	}
+	{ path: '', 					component: ProfileMenuComponent },
+	{ path: 'profile', 				component: ProfileComponent },
+	{ path: 'profileEdit', 			component: ProfileEditComponent },
+	{ path: 'profileAdd', 			component: ProfileAddComponent },
+	{ path: 'profilePrivate', 		component: ProfilePrivacyComponent },
+	{ path: 'profileEmailAddresses', 	component: ProfileEmailAddressesComponent },
+	{ path: 'addEmailAddress', 		component: AddEmailAddressComponent },
+	{ path: 'profileAddresses', 		component: ProfileAddressComponent },
+	{ path: 'addAddress', 			component: AddAddressComponent },
+	{ path: 'profileDelivery', 		component: ProfileDeliveryComponent },
+	{ path: 'addDelivery', 			component: AddDeliveryComponent },
+	{ path: 'profilePhoneNumbers', 	component: ProfilePhoneComponent },
+	{ path: 'addPhoneNumber', 		component: ProfilePhoneAddComponent },
+	{ path: 'profileHours', 			component: ProfileHoursComponent },
+	{ path: 'addHours', 			component: AddHoursComponent },
+	{ path: 'profilePhotos', 		component: ProfilePhotosComponent },
+	{ path: 'profileExpress', 		component: ProfileExpressComponent }
 ];
 
 /*

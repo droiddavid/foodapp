@@ -42,37 +42,21 @@
 
 
 				<!-- Material form contact | Material form contact -->
-					<div id="emailsList" class="card" style="border-top-left-radius: 25px; border-top-right-radius: 25px; color: black;">
+					<div id="emailsList" class="card">
 
-
-						<div>
-							<p>Add email addresses.</p>
-						</div>
+						<div><p>Add email addresses.</p></div>
 
 
 						<!--Card content-->
 						<div class="card-body px-lg-5 pt-0">
-
 							<ul class="list-group list-group-flush">
-
-								<li 
-									class="
-										list-group-item d-flex 
-										justify-content-between align-items-left" 
+								<app-email-list-item 
 									*ngFor="let email of Emails"
-								>
-									<a  (click)="removeEmail(email);">
-										<fa-icon
-											class="icon_bs_left"
-											[icon]="faTimes">
-										</fa-icon>
-									</a>
-									<strong>{{ email.email }}</strong>
-									{{ email.emailType }}
-								</li>
-
+									[email]="email.email"
+									[emailType]="email.emailType"
+									(onDelete)="removeEmail($event)"
+								></app-email-list-item>
 							</ul>
-
 						</div>
 
 					</div>

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
+import { HeaderService } from '../services/subjects/header.service';
 
 import { AuthService } from './../services/auth/auth.service';
 
@@ -56,7 +57,11 @@ export class DashboardComponent implements OnInit {
 	faHome = faHome;
 	userData:any;
 	
-	constructor(private authService: AuthService, private router: Router) { }
+	constructor(
+		private authService: AuthService, 
+		private router: Router,
+		private headerService: HeaderService
+	) { }
 
 
 
@@ -85,7 +90,14 @@ export class DashboardComponent implements OnInit {
 		this.addMenuItem("foodTypes", this.classes_default, this.styles, "fas fa-chart-line", "Food Categories", "Manage your food categories like 'Vegetables', 'Pasta', etc.");
 		this.addMenuItem("menus", this.classes_success, this.styles, "fas fa-file-alt", "Menus", "Manage your menus. Create menus, add meals and sides.");
 		this.addMenuItem("platters", this.classes_default, this.styles, "fas fa-utensils", "Meals", "Assemble meals from your food and sides. Sell your meals individually or on menus.");
-		this.addMenuItem("food", this.classes_success, this.styles, "fas fa-hamburger", "Food", "Create sides for your menus and for building your meals and platters.");
+		this.addMenuItem(
+			"food", 
+			this.classes_success, 
+			this.styles, 
+			"fas fa-hamburger", 
+			"Food", 
+			"Create sides for your menus and for building your meals and platters."
+		);
 		this.addMenuItem("contacts", this.classes_default, this.styles, "fas fa-file-invoice", "Contacts", "Manage your contacts. Add name and phone numbers you can to send invitations by text message.");
 		this.addMenuItem("invitations", this.classes_success, this.styles, "fas fa-file-invoice", "Invitations", "Create and send invitations to your contacts.");
 		//this.addMenuItem("memberships", this.classes_default, this.styles, "fas fa-users", "Memberships", "Create memberships private offerings like a book club, wedding shower, etc.");
@@ -103,7 +115,13 @@ export class DashboardComponent implements OnInit {
 
 
 	manage(page: string) {
+		//may be deprecated.  check this...
 		localStorage['previous_state'] = "dashboard";
+		
+		//emit title and menu to the header service.
+		this.headerService.changeTitle(page);
+		this.headerService.changeMenuItems(page);
+
 		this.router.navigate(['/', page]);
 	};
 

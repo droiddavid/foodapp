@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
 
 
 	goToEdit() {
-		this.router.navigate(['/', 'profile', 'profileEdit']);
+		this.router.navigate(['/', 'profileEdit']);
 	}
 
 

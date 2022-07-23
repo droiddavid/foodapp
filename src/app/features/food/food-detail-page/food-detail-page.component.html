@@ -1,0 +1,144 @@
+<!-- Add Category Button -->
+<div id="addNewFoodTypePanel"></div>
+<!-- Add Category Button -->
+
+
+<div class="content">
+	<div class="pageBody">
+		<!-- main element for Google's javascript validations. -->
+		<main>
+			<div class="quickstart_body">
+
+				<div id="qs_verbage" class="row">
+					<div class="col-12">
+						<div id="breadcrumbsMenu">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Food</a></li>
+									<!--<li class="breadcrumb-item"><a href="#">{{ $ctrl.User.FoodItem.type }}</a></li>-->
+								</ol>
+							</nav>
+						</div>
+						<h4>Add/Edit Food Item</h4>
+						Add a new food item or edit an existing one.
+					</div>
+				</div>
+
+
+				<div class="qs_outer_interface row">
+					<!-- BEGIN QUICK START INNER INTERFACE SECTION -->
+					<div id="qs_inner_interface" class="col-12">
+
+						<!-- style is cameraButton -->
+						<button id="addFoodItemButton" class="btn btn-success" 
+							ng-click="$ctrl.addFoodItem()"
+							style="
+								background: #ffffffaf;
+								border-radius: 50%;
+								-webkit-box-shadow: 0 0 5px 2px #ccc;
+								-moz-box-shadow: 0 0 5px 2px #ccc;
+								box-shadow: 0 0 5px 2px #ccc;
+								height: 90px;
+								margin: auto;
+								margin-bottom: 2rem;
+								margin-top: -60px;
+								max-width: 90px;
+								min-width: 90px;
+								text-align: center;
+								width: 90px;"
+						>
+							<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen;"></i>
+						</button>
+				
+				
+
+						<ul class="list-group">
+							<li 
+								class="list-group-item list-group-item-success 
+									d-flex 
+									justify-content-between 
+									align-items-center" 
+								ng-repeat="item in $ctrl.FoodItems"
+								style="
+									border-radius: 25px;
+									background-color: white;
+									border: 1px solid forestgreen;
+									margin-bottom: 2rem;
+									color: black;
+									text-align: left;
+								" 		
+							>
+								<div style="width: 10%;">
+									<div 
+										aria-label="remove food item"	
+										ng-click="$ctrl.removeFoodItem($index);"
+										ng-show="
+											$ctrl.User.previous_state !== 'subplatter' && 
+											$ctrl.User.previous_state !== 'menuplatter' && 
+											$ctrl.User.previous_state !== 'submenu'">
+										<i class="fas fa-times" style="color: grey; font-size: x-large;"></i>
+									</div>
+
+
+
+									<div 
+										ng-click="$ctrl.addFoodItemToPlatter($index);"
+										ng-show="(
+											$ctrl.User.previous_state === 'subplatter' || 
+											$ctrl.User.previous_state === 'menuplatter') && 
+										item.isOnPlatter === false"
+									>
+										<i class="fas fa-plus addFoodItemToPlatter"></i>
+									</div>
+									<div 
+										ng-click="$ctrl.removeFoodItemFromPlatter($index);"
+										ng-show="(
+											$ctrl.User.previous_state === 'subplatter' ||
+											$ctrl.User.previous_state === 'menuplatter') && 
+											item.isOnPlatter === true"
+									>
+										<i class="fas fa-check removeFoodItemFromPlatter"></i>
+									</div>
+
+
+
+
+
+
+									<div 
+										ng-click="$ctrl.addFoodItemToMenu($index);"
+										ng-show="($ctrl.User.previous_state === 'submenu') && 
+											item.isOnMenu === false">
+										<i class="fas fa-plus addFoodItemToPlatter"></i>
+									</div>
+									<div 
+										ng-click="$ctrl.removeFoodItemFromMenu($index);"
+										ng-show="($ctrl.User.previous_state === 'submenu') && 
+											item.isOnMenu === true">
+										<i class="fas fa-check removeFoodItemFromPlatter"></i>
+									</div>
+
+								</div>
+
+								<div style="display: inline-flex; width: 85%;" ng-click="$ctrl.edit(item);">
+									<div style="width: 100%;">
+										item.name
+									</div>
+
+									<div style="width: 10%;">
+										<i style="color: green; font-size: x-large;" class="fas fa-chevron-right"></i>
+									</div>
+								</div>
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+		</main><!-- end of main -->
+
+	</div><!-- class="pageBody" -->
+
+</div>

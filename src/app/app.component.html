@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<app-header
+	[title]="title"
+	[menuItems]="menuItems"
+	(onTitleChange)="onTitleChange($event)"
+	(onMenuItemChange)="onMenuNavigate($event)">
+</app-header>
+
+
+<router-outlet 
+	(activate)='onActivate($event)'
+></router-outlet>
+
+
+<app-footer></app-footer>

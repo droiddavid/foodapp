@@ -17,9 +17,8 @@ import { GlobalService } from './../global.service';
 
 
 export class AuthService {
-	//userData!: Observable<firebase.User>; //Save logged in user data
-	userData: any //Save logged in user daya
-	//_user: any = {};  //localstorage user data
+
+	userData: any //Save logged in user data
 
 	constructor(
 		public afs: AngularFirestore, //Inject Firestoree auth service
@@ -31,8 +30,10 @@ export class AuthService {
 		/* Saving user data in localstorage when 
 		logged in and setting up null when logged out */
 		this.afAuth.authState.subscribe((user) => {
+
 			if (user) {
 				this.userData = user;
+
 				localStorage.setItem("user", GlobalService.encode(JSON.stringify(this.userData)));
 			} else {
 				localStorage.setItem('user', 'null');
@@ -40,11 +41,11 @@ export class AuthService {
 		}); 
 	}
 
-
 	/* Sign in */
 	SignIn(email: string, password: string) {
 		return this.angularFireAuth.signInWithEmailAndPassword(String(email), String(password));
 	}
+
 	// Sign in with email/password
 	async xSignIn(email: string, password: string) {
 		try {
@@ -61,7 +62,6 @@ export class AuthService {
 		}
 	}
 
-
 	// Sign up with email/password
 	async SignUp(email: string, password: string) {
 		try {
@@ -75,19 +75,7 @@ export class AuthService {
 			//window.alert(error.message);
 		}
 	}
-  
-  
-	/* Sign out */
-	async xSignOut() {
-		this.angularFireAuth
-			.signOut()
-			.then(() => {
-				localStorage.removeItem('user');
-				this.router.navigate(['./components/sign-in']);
-			});
-	}
 
-	
 	// Sign out
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
@@ -96,18 +84,14 @@ export class AuthService {
 		});
 	}
 
-
-
-
-   // Send email verfificaiton when new user sign up
+	// Send email verfificaiton when new user sign up
 	async SendVerificationMail() {
-	  return this.afAuth.currentUser
-	    .then((u: any) => u.sendEmailVerification())
-	    .then(() => {
-		 this.router.navigate(['verify-email-address']);
-	    });
+		return this.afAuth.currentUser
+			.then((u: any) => u.sendEmailVerification())
+			.then(() => {
+				this.router.navigate(['verify-email-address']);
+			});
 	}
-
 
 	// Reset Forggot password
 	async ForgotPassword(passwordResetEmail: string) {
@@ -120,7 +104,6 @@ export class AuthService {
 				window.alert(error);
 			});
 	}
-
 
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): any {
@@ -141,7 +124,6 @@ export class AuthService {
 		}
 
 	}
-   
 
 	// Sign in with Google
 	async GoogleAuth() {
@@ -151,7 +133,6 @@ export class AuthService {
 			}
 		});
 	}
-
 
 	// Auth logic to run auth providers
 	async AuthLogin(provider: any) {
@@ -167,7 +148,6 @@ export class AuthService {
 			window.alert(error);
 		});
 	}
-
 
 	SetUserData(user: any) {
 

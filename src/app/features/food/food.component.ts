@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { FoodType } from './food-type';
+import { FoodTypeService } from './food-type.service';
 
 @Component({
   selector: 'app-food',
@@ -8,128 +12,114 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class FoodComponent implements OnInit {
 
-	Profile:any = {
-		"company": "Company Name"
-	}
-
+	faPlus = faPlus;
 	foodTypes: any;
-	toolbar: any;
 	addCategoryButton = document.querySelector('#addCategoryButton');
 
-
 	User = {};
-	FoodList = [];
-	FoodListWithFirstLetter = [];
-	alphabets = [
-		'A','B','C','D','E',
-		'F','G','H','I','J',
-		'K','L','M','N','O',
-		'P','Q','R','S','T',
-		'U','V','W','X','Y',
-		'Z'
-	];
-	view_alphabetically: any;
-	view_categories: any;
-	btn_view_categories: any;
-	btn_view_alphabetically: any;
 
-  constructor() { }
-
-  ngOnInit(): void {
-
-	/* Alphabetic List */
-	this.view_alphabetically = document.querySelector('#view_alphabetically');
-
-	/* Show Alphabet Button */
-	this.btn_view_alphabetically = document.querySelector('#btn_view_alphabetically');
-
-	/* Categorize List */
-	this.view_categories = document.querySelector('#view_categories');
-
-	/* Show Categorize Button */
-	this.btn_view_categories = document.querySelector('#btn_view_categories');
-
-	this.btn_view_alphabetically.style.display = "none";
-	this.view_categories.style.display = "none";
+	FoodType: any;
+	FoodTypeList = Array<FoodType>();
 
 
-	if (localStorage["user"]) {
-		let data = JSON.parse(GlobalService.decode(String(localStorage["data"])));
-		let _user = JSON.parse(GlobalService.decode(String(localStorage["user"])));
+	constructor(
+		private router: Router,
+		private foodTypeService: FoodTypeService
+	) {}
 
-		let user = (_user.User === undefined) ? _user : _user.User;
-
-		//this.Factories = new UtilityFactory(user);
-
-
-		// if (!(data.dataRetrieved)) {
-		// 	await this.Factories.getData();
-		// }
-
-
-		// for (let key in _user) {
-		// 	if (key === "factories") continue;
-		// 	this.Factories[key] = _user[key];
-		// }
-
-		//await this.Factories.castAll(user);
-
-		//this.User = this.Factories.User;
-
-		//this.User.FoodTypes = this.Factories.FoodTypeFactory;
-
-		//this.Profile = this.Factories.ProfileFactory;
-
-		//this.FoodList = this.Factories.FoodFactory;	
-		//this.FoodList.sort((a, b) => (a.name > b.name) ? 1 : -1);
-
-		// localStorage.removeItem("user");
-		// localStorage.user = b64EncodeUnicode(String(JSON.stringify(this.Factories)));
+	ngOnInit(): any {
+		if (this.FoodType === undefined) {
+			this.FoodType = new FoodType(this.foodTypeService);
+		}
+		this._getFoodTypes();
+	} //ngOnInit
 
 
-		//Fix this!!!
-		//this.go("food");
-	} else {
-		//toastShow('My Personal Kitchen', 'Error: No Profiles Found.');
-		return;
+
+	_getFoodTypes() {
+
+		let _FoodTypes:any = this.FoodType.getFoodTypesFromLocalStorage();
+
+		if ((_FoodTypes === null) || (_FoodTypes.length === 0)) {
+			this.FoodType.getFoodTypesFromDatabase()
+				.subscribe((data:any) => {
+
+					if (
+						(data.message !== "warning" && data.message !== "No data found.") &&
+						(data.data.length > 0)
+					) {
+						this.FoodTypeList = data.data; 
+						this.updateFoodTypeFields(this.FoodTypeList);
+						this.saveFoodTypesToLocalStorage(this.FoodTypeList);
+					} else {
+						this.router.navigate(['/', 'foodTypes']);
+					}
+				});
+		} else {
+			this.updateFoodTypeFields(this.FoodTypeList);
+			this.saveFoodTypesToLocalStorage(this.FoodTypeList);
+		}
 	}
 
-	// ToolbarService.init({
-	// 	"btnPrevious": {
-	// 		"id": 'btnPrevious',
-	// 		"class": 'glyphicon glyphicon-chevron-left brand',
-	// 		"state": 'cookDashboard',
-	// 		"style": 'color: white;'
-	// 	},
-	// 	"btnBrand": {
-	// 		"id": 'btnBrand',
-	// 		"class": 'brand pull-right',
-	// 		"state": 'food',
-	// 		"style": 'color: white;',
-	// 		"value": 'Food'
-	// 	},
-	// 	"menu": [
-	// 		{ "name": 'HOME', "state": 'index' },
-	// 		{ "name": 'Profile', "state": 'profile' },
-	// 		{ "name": 'Memberships', "state": 'memberships' },
-	// 		{ "name": 'Upgrade To Cook', "state": 'cookDashboard' },
-	// 	]
-	// }); //ToolbarService.init(...)
+	//Save the food types as a json object to localStorage
+	saveFoodTypesToLocalStorage(foodTypeList:any): void {
+		let a:any;
+		if (foodTypeList.data && foodTypeList.data.length > 0) {
+			a = foodTypeList.data[0];
+		}
 
 
-	//this.configureFoodList();
+		//Case 1: a = a.FoodTypeList.data[0]
+		if (a !== undefined && typeof a === "object") {
+			localStorage.setItem(
+				"FoodTypeList", 
+				GlobalService.encode(JSON.stringify(a))
+			);
+			return;
+		}
 
 
-	//Hide the 'Add New FoodType Panel'
-	$('#addNewFoodTypePanel').hide();
+		//Case 2: a = "string value"
+		if (a !== undefined && typeof a === "string") {
+			localStorage.setItem(
+				"FoodTypeList", 
+				GlobalService.encode(a)
+			);
+			return;
+		}
 
 
-	// this.addCategoryButton.addEventListener('touchstart click', function () {
-	// 	this.addCategoryButton.addEventListener('touchmove', function () {}, true);
-	// 	this.addCategoryButton.addEventListener('touchend', function () {
-	// 		this.addCategory();
-	// 	}, true);
-	// }, true);
-  }
+		//Case 3: a = {}
+		localStorage.setItem(
+			"FoodTypeList", 
+			GlobalService.encode(JSON.stringify(foodTypeList))
+		);
+	}
+	//Allows objects to update private fields.
+	public updateFoodTypeFields(foodTypeList: any) {
+		let a:any = (foodTypeList.data && foodTypeList.data.length > 0) ? 
+		foodTypeList.data[0] : 
+		foodTypeList;
+	}
 
+
+
+	//showFoodPage(foodType: FoodType) {}
+	addFoodItem():void {
+		debugger;
+	}
+	showMeal(platter:any) {
+		console.log("platter: " + platter);
+		console.table([platter]);
+		debugger;
+	}
+	openRemoveCategoryDialog() {
+		debugger;
+	}
+	showFoodPage(foodType: FoodType) {
+		console.log("foodType: " + foodType);
+		console.table([foodType]);
+		debugger;
+		this.router.navigate(['/foodDetailPage/', foodType.type]);
+	}
 }

@@ -52,10 +52,7 @@ export class ProfileEmailAddressesComponent implements OnInit {
 						this.Emails = data.data; 
 						this.updateFields(this.Emails);
 						this.saveToLocalStorage(this.Emails);
-					} else {
-						this.router.navigate(['/', 'profile', 'profileAddresses']);
 					}
-
 				});
 
 		} else {
@@ -133,7 +130,8 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 
 	addEmail() {
-		this.router.navigate(['/', 'profile', 'profileEmailAddresses', 'profileEmailAddressesAdd']);
+		//this.router.navigate(['/', 'profile', 'profileEmailAddresses', 'profileEmailAddressesAdd']);
+		this.router.navigate(['/', 'profileEmailAddressesAdd']);
 	}
 
 
@@ -144,26 +142,27 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 	removeEmail(e: Email) {
 
+		debugger;
 		let emailToDelete = {
 			"table" : "emails",
 			"firstFieldName" : "userId",
 			"firstFieldValue" : GlobalService.User.id,
 			"secondFieldName" : "email",
-			"secondFieldValue" : e.email
+			"secondFieldValue" : e
 		}
 
 		this.emailService.delete( emailToDelete )
 			.subscribe((response) => {
-
+				debugger;
 				GlobalService.showToast(
-					e.email + ' was deleted. [STATUS: ' + response.status + "]", 
+					e + ' was deleted. [STATUS: ' + response.status + "]", 
 					"btn-success",
 					this.toastElement.nativeElement.id
 				);
 
 				//Remove phone number from the User's phone number array.
 				let eIndex = this.Emails.findIndex((_e:any) => {
-					return _e.email === e.email;
+					return _e.email === e;
 				});
 
 				if (eIndex > -1) {

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
 import { Router } from '@angular/router';
 import { ProfileService } from '../profile.service';
+import { HeaderService } from 'src/app/services/subjects/header.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class ProfileEditComponent implements OnInit {
 	constructor(
 		private database: DatabaseService, 
 		private formBuilder: FormBuilder,
-		private router: Router) {
+		private router: Router,
+		private headerService: HeaderService) {
 
 		this.editForm = this.formBuilder.group({
 			firstName: 	['', [ Validators.required ]],
@@ -44,9 +46,12 @@ export class ProfileEditComponent implements OnInit {
 	}
 
 
-	// Object.keys(this.Profile).forEach((key)=>{
-	// 	console.log("key: " + key);
-	// });
+	emitTitleChange(title: string) {
+		this.headerService.changeTitle(title);
+	}
+	emitMenuItemChange(menuItem: string) {
+		this.headerService.changeMenuItems(menuItem);
+	}
 
 
 	ngOnInit(): any {

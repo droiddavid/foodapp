@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
-import { AuthRoutingModule } from './auth-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { SigninComponent } from './signin/signin.component';
@@ -10,7 +8,6 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthService } from './../services/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 //Firebase services
@@ -29,9 +26,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 		VerifyEmailComponent
 	],
 	imports: [
-		Router,
 		CommonModule,
-		AuthRoutingModule,
 		FormsModule,
 		ReactiveFormsModule,
 		FontAwesomeModule,

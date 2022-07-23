@@ -129,7 +129,7 @@ export class ProfilePhotosComponent implements OnInit, AfterViewInit {
 
 
 	ngAfterViewInit() {
-		let _directory: string =  'https://www.mypersonalkitchen.com/images/'  + this.User.directory;
+		let _directory: string = 'https://www.mypersonalkitchen.com/images/' + this.User.directory;
 		this.result.nativeElement.src = _directory + "/" + this.profile.image;
 	}
 

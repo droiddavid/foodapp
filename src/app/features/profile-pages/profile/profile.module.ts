@@ -25,6 +25,10 @@ import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component
 import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ProfileExpressComponent } from './profile-express/profile-express.component';
+import { ProfileContactsComponent } from './profile-contacts/profile-contacts.component';
+import { ProfileInvitationsComponent } from './profile-invitations/profile-invitations.component';
+import { ProfileOrdersComponent } from './profile-orders/profile-orders.component';
+import { EmailListItemComponent } from 'src/app/components/email-list-item/email-list-item.component';
 
 
 @NgModule({
@@ -35,17 +39,21 @@ import { ProfileExpressComponent } from './profile-express/profile-express.compo
 		ProfilePrivacyComponent,
 		ProfileAddressComponent,
 		ProfileEmailAddressesComponent,
-  AddEmailAddressComponent,
-  AddAddressComponent,
-  ProfileMenuComponent,
-  ProfileDeliveryComponent,
-  AddDeliveryComponent,
-  ProfilePhoneComponent,
-  ProfilePhoneAddComponent,
-  ProfileHoursComponent,
-  AddHoursComponent,
-  ProfilePhotosComponent,
-  ProfileExpressComponent,
+		AddEmailAddressComponent,
+		AddAddressComponent,
+		ProfileMenuComponent,
+		ProfileDeliveryComponent,
+		AddDeliveryComponent,
+		ProfilePhoneComponent,
+		ProfilePhoneAddComponent,
+		ProfileHoursComponent,
+		AddHoursComponent,
+		ProfilePhotosComponent,
+		ProfileExpressComponent,
+		ProfileContactsComponent,
+		ProfileInvitationsComponent,
+		ProfileOrdersComponent,
+		EmailListItemComponent,
 	],
 	imports: [
 		FormsModule,

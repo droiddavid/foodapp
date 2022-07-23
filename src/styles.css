@@ -13,54 +13,6 @@
 	width: 100vw;
 }
 
-/*
-.navbar {
-	display: grid;
-	grid-template-columns: auto 12fr auto;
-	flex-wrap: nowrap;
-}
-.navbar-brand {
-	color: white;
-}
-.navbar-toggler {
-	border-color: rgb(255,255,255);
-	color: white;
-	float: right;
-	width: auto;
-}
-
-
-.navbar-custom .navbar-brand,
-.navbar-custom .navbar-text {
-    color: green;
-}
-
-
-
-
-.navTitle {
-	text-align: center;
-}
-#navbar {
-	grid-template-columns: 11fr 1fr;
-	padding-right: 1rem;
-}
-#navbarCollapse {
-	grid-template-columns: auto auto 12fr;
-	padding-right: 1rem;
-}
-
-.navbar-toggler-icon {
-	color: white;
-	border-color: rgb(255,255,255);
-}
-
-.navbar-dark .navbar-toggler-icon {
-	color: #ffffff !important;
-	fill: #ffffff !important;
-}
-*/
-
 
 .icon_bs_left {
 	color: white;

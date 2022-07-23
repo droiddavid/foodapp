@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HeaderService } from '../services/subjects/header.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,9 @@ export class HomeComponent implements OnInit {
 		"food": undefined
 	};
 
-	constructor() { }
+	constructor(
+		private headerService: HeaderService, 
+		private router: Router) { }
 
 	ngOnInit(): void { }
 	search(searchType:string) {
@@ -163,6 +167,12 @@ export class HomeComponent implements OnInit {
 		}
 
 		return jsonString;
+	};
+	goState(state:string) {
+		this.headerService.changeTitle(state);
+		this.headerService.changeMenuItems(state);
+		
+		this.router.navigate(['/' + state]);
 	};
 
 }
