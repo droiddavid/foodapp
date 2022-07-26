@@ -20,7 +20,7 @@ import { ProfileExpressComponent } from './profile-express/profile-express.compo
 
 
 const routes: Routes = [
-	{ path: '', 					component: ProfileMenuComponent },
+	{ path: 'profilemenu', 			component: ProfileMenuComponent },
 	{ path: 'profile', 				component: ProfileComponent },
 	{ path: 'profileEdit', 			component: ProfileEditComponent },
 	{ path: 'profileAdd', 			component: ProfileAddComponent },

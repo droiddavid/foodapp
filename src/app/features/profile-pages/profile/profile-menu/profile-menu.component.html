@@ -18,7 +18,36 @@
 				<div id="qs_inner_interface" class="col-12">
 
 
-					<ul class="list-group">
+					<!-- Container for the demo -->
+					<div class="list-group">
+						<div
+							*ngFor="let menuItem of Menus"
+							(click)="manage(menuItem.url);"
+							class="{{ menuItem.classes }}"
+							[ngStyle]="{'border-bottom':'1px solid #ffffff','font-size':'x-large'}"
+						>
+
+							<div id="{{ menuItem.url }}">
+								<div class="card-icon" style="padding-top: 1rem; width: 50px;">
+									<span>
+										<i class="{{ menuItem.icon }}" aria-hidden="true" style="color: #19aa8d; font-size: xx-large"></i>
+									</span>
+								</div>
+								<div style="margin-left: 1rem;">
+									<span class="list-group-item-heading">
+										{{ menuItem.heading }}
+									</span>
+									<p class="list-group-item-text">{{ menuItem.text }}</p>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+
+
+					<!-- <ul class="list-group">
 						<li class="list-group-item d-flex justify-content-between align-items-center" 
 							(click)="showProfilePage('profilePrivate');"
 							style="border-top-left-radius: 25px;border-top-right-radius: 25px;"
@@ -103,7 +132,7 @@
 							<i style="color: green; font-size: 1.25em;" 
 								class="fas fa-chevron-right"></i>
 						</li>
-					</ul>
+					</ul> -->
 
 				</div>
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -14,7 +14,7 @@ import { ProfileService } from '../profile.service';
 })
 
 
-export class ProfilePrivacyComponent implements OnInit {
+export class ProfilePrivacyComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('privacyMessage') privacyMessage!: ElementRef;
 	@ViewChild('toastElement') toastElement!:ElementRef;
@@ -47,6 +47,21 @@ export class ProfilePrivacyComponent implements OnInit {
 		this.profileService = new ProfileService(this.database);
 		this._getProfile();
 	}
+
+
+	ngAfterViewInit() {
+
+		//Toggle the isPublic property of the user's profile.
+		this.Profile.isPublic = (this.Profile.isPublic == 1) ? 0 : 1;
+		
+		let message = (this.Profile.isPublic == 1) ? 
+			"Public." : 
+			"Private.";
+
+		this.privacyMessage.nativeElement.innerText = 
+			"Your kitchen is " + message;
+	}
+
 
 
 	_getProfile() {

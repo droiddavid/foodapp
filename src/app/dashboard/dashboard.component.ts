@@ -118,11 +118,18 @@ export class DashboardComponent implements OnInit {
 		//may be deprecated.  check this...
 		localStorage['previous_state'] = "dashboard";
 		
-		//emit title and menu to the header service.
-		this.headerService.changeTitle(page);
-		this.headerService.changeMenuItems(page);
 
-		this.router.navigate(['/', page]);
+		if (page == "profile") {		
+			//emit title and menu to the header service.
+			this.headerService.changeTitle('profilemenu');
+			this.headerService.changeMenuItems('profilemenu');
+			this.router.navigate(['/', 'profilemenu']);
+		} else {		
+			//emit title and menu to the header service.
+			this.headerService.changeTitle(page);
+			this.headerService.changeMenuItems(page);
+			this.router.navigate(['/', page]);
+		}
 	};
 
 
