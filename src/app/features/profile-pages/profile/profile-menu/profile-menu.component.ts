@@ -72,6 +72,7 @@ export class ProfileMenuComponent implements OnInit {
 
 
 	manage(page: string) {
+
 		//may be deprecated.  check this...
 		localStorage['previous_state'] = "dashboard";
 		

@@ -67,20 +67,20 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 		let emailType = this.emailType.nativeElement.value;
 		//insert into DB
 
-		this.database.insert({
+		let args = {
 			"userId": this.user.id,
 			"email": email,
 			"emailType": emailType,
 			"table": 'emails'
-		})
+		};
+		this.database.insert(args)
 			.subscribe((response) => {
 				GlobalService.showToast(
 					"Add email: " + response.status,
 					"btn-success", 
 					this.toastElement.nativeElement.id
 				);
-				
-				debugger;
+
 				if (response.status === "success") {
 					this.Emails.push(<Email>{
 						"userId": GlobalService.User.id,
@@ -97,13 +97,14 @@ export class AddEmailAddressComponent implements OnInit, AfterViewInit {
 					)
 				);
 
+				this.router.navigate(['/profileEmailAddresses']);
 			}
 		); //end .subscribe
 	}
 
 
 	cancel() {
-		this.router.navigate(['profile/profileEmailAddresses']);
+		this.router.navigate(['/profileEmailAddresses']);
 	}
 
 }

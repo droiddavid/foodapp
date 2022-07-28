@@ -19,16 +19,27 @@ export class ProfileDeliveryComponent implements OnInit {
 
 	user!: User;
 	Addresses!: Address[];
-	oDelivery!: Delivery;
+	oDelivery: Delivery = {
+		id: 0,
+		userId: "",
+		streetNumber: "",
+		streetName: "",
+		city: "",
+		state: "",
+		zip: "" 
+	};;
 
 
 	constructor(private database: DatabaseService, private router: Router) { }
 
 
 	ngOnInit(): any {
-		if(this.oDelivery === undefined) {
+		let oDeliveryPristine = ( this.oDelivery.id === 0 || this.oDelivery.userId === "" || this.oDelivery.streetNumber === "" || this.oDelivery.streetName === "" || this.oDelivery.city === "" || this.oDelivery.state === "" || this.oDelivery.zip === "");
 
-
+		if(
+			oDeliveryPristine || 
+			this.oDelivery === undefined
+		) {
 			/** Declare local variables  */
 			let _localStorageUser: string | null;
 			let _localStorageDelivery: string | null;
@@ -49,38 +60,47 @@ export class ProfileDeliveryComponent implements OnInit {
 
 			/* Get the user's delivery address from localStorage */
 			_localStorageDelivery = localStorage.getItem('delivery');
+
 			if (this.user && _localStorageUser && (_localStorageDelivery === undefined || _localStorageDelivery === null)) {
-				this.database.getData("addresses", "userId", this.user.id).subscribe(data => {
-					if(data && data.data) {
+				this.database.getData("addresses", "userId", this.user.id)
+					.subscribe(data => {
 
-						this.Addresses = data.data;
+						if(data && data.data) {
 
-						let delivery = this.getDeliveryPickUpAddress();
+							let delivery!:Address;
+							this.Addresses = data.data;
 
-						if (delivery !== undefined) {
-							this.oDelivery = {
-								id: delivery.id,
-								userId: delivery.userId,
-								streetNumber: delivery.addressLine1,
-								streetName: delivery.addressLine2,
-								city: delivery.city,
-								state: delivery.state,
-								zip: delivery.zip
-							};
+							let isDelivery = this.Addresses.filter(a => {
+								return a.addressType === "Delivery";
+							})
 
+							if (isDelivery.length > 0) {
+								delivery = isDelivery[0];
+							}
 
-							//Save the delivery as a json object to localStorage
-							localStorage.setItem(
-								"delivery", 
-								GlobalService.encode(
-									JSON.stringify(this.oDelivery)
-								)
-							);
-						}
+							if (delivery !== undefined) {
+								this.oDelivery = {
+									id: delivery.id,
+									userId: delivery.userId,
+									streetNumber: delivery.addressLine1,
+									streetName: delivery.addressLine2,
+									city: delivery.city,
+									state: delivery.state,
+									zip: delivery.zip
+								};
 
-					} //if(data && data.data && data.data[0]) {
+								//Save the delivery as a json object to localStorage
+								localStorage.setItem(
+									"delivery", 
+									GlobalService.encode(
+										JSON.stringify(this.oDelivery)
+									)
+								);
+							}
 
-				}) //.subscribe
+						} //if(data && data.data && data.data[0]) {
+
+					}) //.subscribe
 
 			} else {
 				this.oDelivery = JSON.parse(GlobalService.decode(localStorage.getItem('delivery')!));
@@ -90,20 +110,6 @@ export class ProfileDeliveryComponent implements OnInit {
 
 
 	edit() {
-		this.router.navigate(['/', 'profile', 'addDelivery']);
+		this.router.navigate(['/', 'addDelivery']);
 	}
-
-
-	getDeliveryPickUpAddress (): any {
-		let aIndex = this.Addresses.findIndex(function (address) {
-			return address.addressType === "Delivery";
-		});
-		let addressResponse = undefined;
-		if (aIndex > -1) {
-			addressResponse = this.Addresses[aIndex];
-		} else {
-			addressResponse = undefined;
-		}
-		return addressResponse;
-	};
 }

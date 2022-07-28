@@ -29,6 +29,9 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 
 	ngOnInit(): any {
+		if (!GlobalService.User.id) {
+			this.router.navigate(['/', 'login']);
+		}
 		if (this.Email === undefined) {
 			this.Email = new Email(this.emailService);
 		}
@@ -147,7 +150,7 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 		this.emailService.delete( emailToDelete )
 			.subscribe((response) => {
-				debugger;
+
 				GlobalService.showToast(
 					e + ' was deleted. [STATUS: ' + response.status + "]", 
 					"btn-success",

@@ -270,7 +270,7 @@ export class AddDeliveryComponent implements OnInit, AfterViewInit {
 					"btn-success", 
 					this.toastElement.nativeElement.id
 				);
-				this.router.navigate(['/', 'profile', 'profileDelivery']);
+				this.router.navigate(['/', 'profileDelivery']);
 			});
 	}
 }

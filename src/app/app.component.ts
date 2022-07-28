@@ -39,6 +39,27 @@ export class AppComponent {
 			case 'profilemenu': this.title = 'Profile Menu'; break;
 			case 'phonenumber': this.title = 'Phone Number'; break;
 			case 'profileEdit': this.title = 'Profile Edit'; break;
+			case 'addAddress': this.title = 'Add Address'; break;
+			case 'emailAdd': this.title = 'Add Email'; break;
+			case 'emailEdit': this.title = 'Edit Email'; break;
+			case 'profileDelivery': this.title = 'Profile Delivery'; break;
+			case 'profileHours': this.title = 'Profile Hours'; break;
+			case 'profileEcommerce': this.title = 'Profile Ecommerce'; break;
+			case 'profilePrivacy': this.title = 'Profile Privacy'; break;
+			case 'foodcategories': this.title = 'Food Categories'; break;
+			case 'addDelivery': this.title = 'Add Delivery'; break;
+			case 'addHours': this.title = 'Add Hours'; break;
+			case 'addEcommerce': this.title = 'Add Ecommerce'; break;
+			case 'addPrivacy': this.title = 'Add Privacy'; break;
+			case 'addPhonenumber': this.title = 'Add Phone Number'; break;
+			case 'addContact': this.title = 'Add Contact'; break;
+			case 'addMeal': this.title = 'Add Meal'; break;
+			case 'addMenu': this.title = 'Add Menu'; break;
+			case 'addFood': this.title = 'Add Food'; break;
+			case 'addFoodCategory': this.title = 'Add Food Category'; break;
+			case 'addEmailAddress': this.title = 'Add Email Address'; break;
+			
+
 			default: this.title = event.charAt(0).toUpperCase() + event.slice(1);
 		}
 	}
@@ -67,6 +88,7 @@ export class AppComponent {
 			case 'invitations': items = ['home','dashboard', 'logout']; break;
 			case 'orders': items = ['home','dashboard', 'logout']; break;
 
+
 			/* PROFILE HAMBURGER MENU */
 			case 'privacy': items = ['profilemenu']; break;
 
@@ -76,15 +98,18 @@ export class AppComponent {
 			case 'profileEdit': items = ['profile']; break;
 
 			case 'delivery': items = ['profilemenu']; break;
-			case 'emails': items = [ 'profilemenu', 'emailEdit', 'emailAdd']; break;
-			case 'addresses': items = ['profilemenu', 'addAddress']; break;			
+			case 'addDelivery': items = ['profilemenu']; break;
+			case 'emails': items = ['profilemenu', 'emailEdit', 'emailAdd']; break;
+			case 'addEmailAddress': items = ['profilemenu']; break;
+
+
+			case 'profileAddresses': items = ['profilemenu', 'addAddress']; break;			
 			case 'addAddress': items = ['addresses', 'profile']; break;
 
-			case 'hours': items = ['profilemenu']; break;
-			case 'phonenumbers': items = ['profilemenu']; break;
-			case 'ecommerce': items = ['profilemenu']; break;
+			case 'profileHours': items = ['profilemenu']; break;
+			case 'profilePhonenumbers': items = ['profilemenu']; break;
+			case 'profileEcommerce': items = ['profilemenu']; break;
 
-			
 		}
 		this.changeMenuItemArray(items);
 	}
@@ -99,16 +124,20 @@ export class AppComponent {
 				text: menuItem.charAt(0).toUpperCase() + menuItem.slice(1),
 				href: ''
 			};
-			if (menuItem === 'profilemenu') {
-				mItem.text = 'Profile Menu';
+			switch (menuItem) {
+				case 'profilemenu': mItem.text = 'Profile Menu'; break;
+				case 'profileEdit': mItem.text = 'Profile Edit'; break;
+				case 'phonenumbers': mItem.text = 'Phone Numbers'; break;
+				case 'addAddress': mItem.text = 'Add Address'; break;
+				case 'addEmailAddress': mItem.text = 'Add Email'; break;
+				case 'emailEdit': mItem.text = 'Edit Email'; break;
+				case 'profileDelivery': mItem.text = 'Profile Delivery'; break;
+				case 'profileHours': mItem.text = 'Profile Hours'; break;
+				case 'profileEcommerce': mItem.text = 'Profile Ecommerce'; break;
+				case 'profilePrivacy': mItem.text = 'Profile Privacy'; break;
+				case 'foodcategories': mItem.text = 'Food Categories'; break;
+				case 'addDelivery': mItem.text = 'Add Delivery'; break;
 			}
-			if (menuItem === 'profileEdit') {
-				mItem.text = 'Profile - Edit';
-			}
-			if (menuItem === 'phonenumbers') {
-				mItem.text = 'Phone Numbers';
-			}
-
 			this.menuItems.push(mItem);
 		});
 
@@ -129,6 +158,10 @@ export class AppComponent {
 					case '/phonenumbers': menu_array = ['dashboard']; break;
 					case '/profileEdit': menu_array = ['dashboard', 'profile', 'logout']; break;
 					case '/privacy': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
+					case '/addDelivery': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
+					case '/profileEmailAddresses': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
+					case '/emails': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
+					case '/addEmailAddress': menu_array = ['dashboard', 'emails', 'logout']; break;
 					default: menu_array = ['dashboard', 'logout'];
 				}
 
