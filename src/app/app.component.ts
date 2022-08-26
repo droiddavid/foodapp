@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { HeaderService } from './services/subjects/header.service';
 import { MenuItem } from './types/menuitem';
@@ -8,11 +8,14 @@ import { MenuItem } from './types/menuitem';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
 
 	title!:string;
 	menuItems!: MenuItem[];
 	mItem!: MenuItem;
+
+	appHeader!: any;
+	appSpacer!: any;
 
 	constructor(
 		private router: Router,
@@ -32,6 +35,15 @@ export class AppComponent {
 			.subscribe(menuItem => {
 				this.onMenuNavigate(menuItem);
 			});
+
+	}
+
+	ngAfterViewInit(): void {
+		this.appHeader = document.querySelector('app-header');
+		let appHeaderHeight = this.appHeader.firstChild.clientHeight;
+
+		this.appSpacer = document.querySelector('#spacer');
+		this.appSpacer.style.height = appHeaderHeight + 'px';
 	}
 
 	onTitleChange(event:any) {
@@ -162,6 +174,7 @@ export class AppComponent {
 					case '/profileEmailAddresses': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
 					case '/emails': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
 					case '/addEmailAddress': menu_array = ['dashboard', 'emails', 'logout']; break;
+					case '/addAddress': menu_array = ['dashboard', 'profileAddresses', 'logout']; break;
 					default: menu_array = ['dashboard', 'logout'];
 				}
 

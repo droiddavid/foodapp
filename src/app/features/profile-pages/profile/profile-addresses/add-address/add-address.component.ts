@@ -66,6 +66,14 @@ export class AddAddressComponent implements OnInit {
 
 					this.Addresses = data.data;
 
+					debugger;
+					//for each address, if value =  'NULL' replace it with ''	
+					Object.keys(this.Addresses).forEach(key => {
+						if (this.address[key] === "NULL") {
+							this.address[key] = '';
+						}
+					});
+
 
 					//Save the profile as a json object to localStorage
 					localStorage.setItem(
@@ -81,13 +89,21 @@ export class AddAddressComponent implements OnInit {
 
 		} else {
 			this.Addresses = JSON.parse(GlobalService.decode(localStorage.getItem('addresses')!));
+					//for each address, if value == 'NULL' replace it with ''
+					this.Addresses.forEach((a:any) => {
+						for(let key in a) {
+							if (a[key] === "NULL") {
+								a[key] = '';
+							}
+						}
+					});
+
 		}
 	}
 
 	address: any;
 
 	onSubmit() {
-		
 		let o = "{";
 		Object.keys(this.form.controls).forEach(key => {
 			o = o + "\"" + key + "\":\"" + this.form.get(key)!.value + "\",";
@@ -100,8 +116,15 @@ export class AddAddressComponent implements OnInit {
 
 		this.address = JSON.parse(JSON.stringify(o));
 
+		//Add a space to any empty fields
+		Object.keys(this.address).forEach(key => {
+			if (this.address[key] === "") {
+				this.address[key] = 'NULL';
+			}
+		});
+
 		//insert into DB
-		this.database.insert(o)
+		this.database.insert(this.address)
 			.subscribe((response) => {
 
 				GlobalService.showToast(
@@ -110,7 +133,7 @@ export class AddAddressComponent implements OnInit {
 					this.toastElement.nativeElement.id
 				);
 				
-
+				delete this.address.table;
 
 				if (response.status === "success") {
 					this.Addresses.push(this.address);
@@ -123,7 +146,6 @@ export class AddAddressComponent implements OnInit {
 						JSON.stringify(this.Addresses)
 					)
 				);
-
 			}
 		); //end .subscribe
 	}

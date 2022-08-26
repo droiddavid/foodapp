@@ -48,10 +48,21 @@ export class ProfileAddressComponent implements OnInit {
 						(data.data.length > 0)
 					) {
 						this.Addresses = data.data; 
+
+						//for each address, if value == 'NULL' replace it with ''
+						this.Addresses.forEach((a:any) => {
+							for (let key in a) {
+								if (a[key] === 'NULL') {
+									a[key] = '';
+								}
+							}
+						});
+
+
 						this.updateFields(this.Addresses);
 						this.saveToLocalStorage(this.Addresses);
 					} else {
-						this.router.navigate(['/', 'profile', 'profileAddresses']);
+						this.router.navigate(['/', 'profileAddresses']);
 					}
 
 				});

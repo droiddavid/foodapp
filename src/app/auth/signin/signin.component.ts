@@ -128,41 +128,50 @@ export class SigninComponent implements OnInit {
 		user.getUser(this.user.email)
 			.subscribe((response)=>{
 
-				let {emailAddress, id, lastLogin, lastUpdate, message, role,status
-				} = response.data[0];
-
-				let _user: any = {
-					"emailAddress": "", "id": "", "lastLogin": "",
-					"lastUpdate": "", "message": "", "role": "", "status": ""
-				};
-				if (emailAddress && id && lastLogin && lastUpdate && message && role && status) {
-					_user.emailAddress = emailAddress;
-					_user.id = id;
-					_user.lastLogin = lastLogin;
-					_user.lastUpdate = lastUpdate;
-					_user.message = message;
-					_user.role = role;
-					_user.status = status;
-					_user.directory = _user.emailAddress.split('@')[0] + '_' + _user.id;
-				}
-				
-				if (_user) {
-					GlobalService.User = JSON.parse(JSON.stringify(_user));
-
-					localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": true })));
-					localStorage.setItem("user", GlobalService.encode(JSON.stringify(_user)));
+				if (!response && !response.data) {
+					GlobalService.showToast(
+						"User not found",
+						"btn-danger", 
+						this.toastElement.nativeElement.id
+					);
 				} else {
-					localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": false })));
-					localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
+					let {emailAddress, id, lastLogin, lastUpdate, message, role,status
+					} = response.data[0];
+
+					let _user: any = {
+						"emailAddress": "", "id": "", "lastLogin": "",
+						"lastUpdate": "", "message": "", "role": "", "status": ""
+					};
+					if (emailAddress && id && lastLogin && lastUpdate && message && role && status) {
+						_user.emailAddress = emailAddress;
+						_user.id = id;
+						_user.lastLogin = lastLogin;
+						_user.lastUpdate = lastUpdate;
+						_user.message = message;
+						_user.role = role;
+						_user.status = status;
+						_user.directory = _user.emailAddress.split('@')[0] + '_' + _user.id;
+					}
+					
+					if (_user) {
+						GlobalService.User = JSON.parse(JSON.stringify(_user));
+
+						localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": true })));
+						localStorage.setItem("user", GlobalService.encode(JSON.stringify(_user)));
+					} else {
+						localStorage.setItem("data", GlobalService.encode(JSON.stringify({ "user": false })));
+						localStorage.setItem("user", GlobalService.encode(JSON.stringify({ "user": ""})));
+					}
+
+					this.isLoggedIn = true;
+					localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));
+
+					//emit changes to the header service.
+					this.headerService.changeTitle('dashboard');
+					this.headerService.changeMenuItems('dashboard');
+					this.router.navigate(['/', 'dashboard']);
 				}
 
-				this.isLoggedIn = true;
-				localStorage.setItem("isLoggedIn", GlobalService.encode(JSON.stringify({"isLoggedIn":this.isLoggedIn})));
-
-				//emit changes to the header service.
-				this.headerService.changeTitle('dashboard');
-				this.headerService.changeMenuItems('dashboard');
-				this.router.navigate(['/', 'dashboard']);
 			});
 	}
 

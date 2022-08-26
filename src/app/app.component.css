@@ -1,0 +1,11 @@
+app-header {
+	background-color: aqua;
+}
+
+router-outlet {
+	background-color: coral;
+}
+
+app-footer {
+	background-color: aqua;
+}
