@@ -131,7 +131,12 @@ export class DatabaseService {
 	}
 
 	//update
-	updateData(table:string, columnsArray: Array<string>, where: string, requiredColumnsArray: Array<string>):Observable<any> {
+	updateData(
+		table:string, 
+		columnsArray: Array<string>, 
+		where: string, 
+		requiredColumnsArray: Array<string>
+	): Observable<any> {
 		return this.http.post(
 			this.update,
 			{table, columnsArray, where, requiredColumnsArray},

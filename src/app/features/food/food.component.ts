@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { FoodType } from './food-type';
-import { FoodTypeService } from './food-type.service';
+import { FoodType } from './foodType/food-type';
+import { FoodTypeService } from './foodType/food-type.service';
 
 @Component({
-  selector: 'app-food',
-  templateUrl: './food.component.html',
-  styleUrls: ['./food.component.css']
+	selector: 'app-food',
+	templateUrl: './food.component.html',
+	styleUrls: ['./food.component.css']
 })
+
 export class FoodComponent implements OnInit {
 
 	faPlus = faPlus;
@@ -117,9 +118,6 @@ export class FoodComponent implements OnInit {
 		debugger;
 	}
 	showFoodPage(foodType: FoodType) {
-		console.log("foodType: " + foodType);
-		console.table([foodType]);
-		debugger;
-		this.router.navigate(['/foodDetailPage/', foodType.type]);
+		this.router.navigate(['foodList/', foodType.type]);
 	}
 }

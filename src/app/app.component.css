@@ -3,8 +3,15 @@ app-header {
 }
 
 router-outlet {
-	background-color: coral;
+	scrollbar-width: thin;
+	scrollbar-color: white white;
 }
+
+router-outlet::-webkit-scrollbar { width: 1px; }
+router-outlet::-webkit-scrollbar-track { background: white; }
+router-outlet::-webkit-scrollbar-thumb { border-radius: 1px; }
+
+
 
 app-footer {
 	background-color: aqua;

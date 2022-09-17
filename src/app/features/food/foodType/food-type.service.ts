@@ -5,7 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { FoodType } from './food-type';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class FoodTypeService {
 
@@ -41,6 +41,7 @@ export class FoodTypeService {
 
 	//Get the address from LocalStorage.  Return a string.
 	getFoodTypesFromLocalStorage(): string | null | object {
+
 		let _foodTypes = localStorage.getItem(this.localStorageName);
 
 		if (_foodTypes === null) {

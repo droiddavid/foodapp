@@ -6,15 +6,19 @@ import { FoodComponent } from './food.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FoodDetailPageComponent } from './food-detail-page/food-detail-page.component';
+import { FoodListComponent } from './food-list/food-list.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     FoodComponent,
-    FoodDetailPageComponent
+    FoodDetailPageComponent,
+    FoodListComponent
   ],
   imports: [
     CommonModule,
     FoodRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ]
 })
 export class FoodModule { }

@@ -13,16 +13,16 @@
 </div>
 
 
-<!-- Add Category Button -->
-<span>CATEGORY LIST</span>
-<div id="categoryList" style="padding: 1.5rem; margin-top: 2rem;">
+<!-- Add food Button -->
+<span>FOOD LIST</span>
+<div id="foodList" style="padding: 1.5rem; margin-top: 2rem;">
 	<ul class="list-group">
 		<li 
 			class="list-group-item list-group-item-success 
 				d-flex 
 				justify-content-between 
 				align-items-center" 
-			*ngFor="let foodType of FoodTypeList" 
+			*ngFor="let foodItem of FoodItems" 
 			style="border-radius: 25px;
 				background-color: white;
 				border: 1px solid forestgreen;
@@ -34,7 +34,7 @@
 				<div 
 					id="onDelete"
 					aria-label="add food item to platter" 
-					ng-click="openRemoveCategoryDialog($index);"
+					ng-click="openRemovefoodDialog($index);"
 				>
 					<i 
 						class="fas fa-times" 
@@ -42,18 +42,19 @@
 				</div>	
 			</div>
 
-			<!-- <div style="display: inline-flex; width: 85%;" >
-				<a [routerLink]="['foodDetailPage/', foodType.type]">{{ foodType.type }}</a>
-				<div style="width: 10%;">
-					<i style="color: green; font-size: x-large;" class="fas fa-chevron-right"></i>
-				</div>
-			</div> -->
 			<div style="display: inline-flex; width: 85%;" >
-				<a (click)="showFoodPage(foodType)">{{ foodType.type }}</a>
+				<a (click)="showDetailPage(foodItem)">{{ foodItem.name }}</a>
 				<div style="width: 10%;">
 					<i style="color: green; font-size: x-large;" class="fas fa-chevron-right"></i>
 				</div>
 			</div>
 		</li>
-	</ul>					
+	</ul>
+	
+	<!-- style is cameraButton -->
+	<button id="addFoodItemButton" class="btn btn-success" 
+		(click)="addFoodItem()"
+	>
+		<i id="font_awesome_camera" class="fa fa-plus" aria-hidden="true" style="color: forestgreen;"></i>
+	</button>
 </div>

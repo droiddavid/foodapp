@@ -1,0 +1,18 @@
+#addFoodItemButton {
+	background: #ffffffaf;
+	border-radius: 50%;
+	-webkit-box-shadow: 0 0 5px 2px #ccc;
+	-moz-box-shadow: 0 0 5px 2px #ccc;
+	box-shadow: 0 0 5px 2px #ccc;
+	height: 90px;
+	margin: auto;
+	margin-bottom: 2rem;
+	margin-top: -60px;
+	max-width: 90px;
+	min-width: 90px;
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	text-align: center;
+	width: 90px;
+}

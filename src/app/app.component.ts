@@ -15,7 +15,9 @@ export class AppComponent implements AfterViewInit {
 	mItem!: MenuItem;
 
 	appHeader!: any;
-	appSpacer!: any;
+	appSpacerHeader!: any;
+	appFooter!: any;
+	appSpacerFooter!: any;
 
 	constructor(
 		private router: Router,
@@ -41,9 +43,13 @@ export class AppComponent implements AfterViewInit {
 	ngAfterViewInit(): void {
 		this.appHeader = document.querySelector('app-header');
 		let appHeaderHeight = this.appHeader.firstChild.clientHeight;
+		this.appSpacerHeader = document.querySelector('#spacer_header');
+		this.appSpacerHeader.style.height = appHeaderHeight + 'px';
 
-		this.appSpacer = document.querySelector('#spacer');
-		this.appSpacer.style.height = appHeaderHeight + 'px';
+		this.appFooter = document.querySelector('app-footer');
+		let appFooterHeight = this.appFooter.firstChild.clientHeight;
+		this.appSpacerFooter = document.querySelector('#spacer_header');
+		this.appSpacerFooter.style.height = appFooterHeight + 'px';
 	}
 
 	onTitleChange(event:any) {

@@ -3,15 +3,15 @@ a {
 	border-radius: 20px;
 }
 
-
-input[type="text"],
-input[type="submit"],
+input[type="button"],
+input[type="date"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
-input[type="date"],
-input[type="time"],
+input[type="submit"],
 input[type="tel"],
+input[type="text"],
+input[type="time"],
 select,
 	.mpkButton, 
 	.contact form input, 

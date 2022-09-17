@@ -28,6 +28,7 @@ import { FooterComponent } from './structure/footer/footer.component';
 import { HomeRoutingModule } from './home/home-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { FoodModule } from './features/food/food.module';
 
 
 
@@ -54,6 +55,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     FontAwesomeModule,
     AuthModule,
     DashboardModule,
+    FoodModule,
   ],
   providers: [DatabaseService,  AuthService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
