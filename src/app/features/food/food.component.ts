@@ -118,6 +118,6 @@ export class FoodComponent implements OnInit {
 		debugger;
 	}
 	showFoodPage(foodType: FoodType) {
-		this.router.navigate(['foodList/', foodType.type]);
+		this.router.navigate(['foodList', foodType.type]);
 	}
 }

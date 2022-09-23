@@ -76,10 +76,13 @@ export class AppComponent implements AfterViewInit {
 			case 'addFood': this.title = 'Add Food'; break;
 			case 'addFoodCategory': this.title = 'Add Food Category'; break;
 			case 'addEmailAddress': this.title = 'Add Email Address'; break;
+			case 'foodDetailPage': this.title = 'Food Detail Page'; break;
+			case 'foodList': this.title = 'Food List'; break;
 			
 
 			default: this.title = event.charAt(0).toUpperCase() + event.slice(1);
 		}
+
 	}
 
 	onMenuNavigate(event:any) {
@@ -128,11 +131,16 @@ export class AppComponent implements AfterViewInit {
 			case 'profilePhonenumbers': items = ['profilemenu']; break;
 			case 'profileEcommerce': items = ['profilemenu']; break;
 
+			case 'foodDetailPage': items = ['food']; break;
+			case 'foodList/item': items = ['dashboard', 'food']; break;
+
 		}
+
 		this.changeMenuItemArray(items);
 	}
 
 	changeMenuItemArray(menuName:string[]) {
+
 		menuName.forEach(menuItem => {
 
 			let mItem: MenuItem = {
@@ -155,6 +163,8 @@ export class AppComponent implements AfterViewInit {
 				case 'profilePrivacy': mItem.text = 'Profile Privacy'; break;
 				case 'foodcategories': mItem.text = 'Food Categories'; break;
 				case 'addDelivery': mItem.text = 'Add Delivery'; break;
+				case 'foodDetilPage': mItem.text = 'Food Detail Page'; break;
+				case 'foodList': mItem.text = 'Food List'; break;
 			}
 			this.menuItems.push(mItem);
 		});
@@ -170,6 +180,11 @@ export class AppComponent implements AfterViewInit {
 
 				//Change the menu items array based on the route
 				let menu_array: string[] = [];
+
+				
+				//get the parameter from the event.url
+				let url_param = event.url.split('/')[2];
+
 				switch (event.url) {
 					case '/': menu_array = ['dashboard', 'logout']; break;
 					case '/profilemenu': menu_array = ['dashboard', 'profile', 'logout']; break; 
@@ -181,6 +196,9 @@ export class AppComponent implements AfterViewInit {
 					case '/emails': menu_array = ['dashboard', 'profilemenu', 'logout']; break;
 					case '/addEmailAddress': menu_array = ['dashboard', 'emails', 'logout']; break;
 					case '/addAddress': menu_array = ['dashboard', 'profileAddresses', 'logout']; break;
+					case '/food': menu_array = ['dashboard', 'logout']; break;
+					case '/foodDetailPage/' + url_param: menu_array = ['dashboard', 'food', 'logout']; break;
+					case '/foodList/' + url_param: menu_array = ['dashboard', 'food', 'logout']; break;
 					default: menu_array = ['dashboard', 'logout'];
 				}
 

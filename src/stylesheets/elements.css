@@ -20,9 +20,14 @@ select,
 	padding: 1rem;
 	border: 1px solid #00833b;
 	border-radius: 25px;
+	margin-bottom: 2rem;
 }
 
 
 input[type="text"] {
 	border: 2px solid darkgreen;
+}
+
+textarea {
+	margin-bottom: 2rem;
 }

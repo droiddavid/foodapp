@@ -1,15 +1,5 @@
 <!-- main element for Google's javascript validations. -->
 <main>
-	<!-- toast -->
-	<div #toastElement id="toastElement" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-
-		<div class="toast-header">
-			<strong class="toast_text mr-auto">Notification</strong>
-		</div>
-
-		<div class="toast-body toast_text"></div>
-	</div>
-
 	<form 
 		class="form mt-4" 
 		[ngStyle]="{'text-align':'-webkit-center'}" 
@@ -18,7 +8,29 @@
 			<h2>Edit Food Item</h2>
 			<p>Make changes to your food item.</p>
 		</div>
-		<hr>
+		<hr />
+		
+	<!-- toast -->
+		<div #toastElement 
+		id="toastElement" 
+		class="toast" 
+		role="alert" 
+		aria-live="assertive" 
+		aria-atomic="true"
+		style="
+			position: relative; 
+			top: 50%; 
+			left: 50%; 
+			transform: translate(-50%, -50%);"
+		>
+
+		<div class="toast-header">
+		<strong class="toast_text mr-auto">Notification</strong>
+		</div>
+
+		<div class="toast-body toast_text"></div>
+		</div>
+		<hr />
 		<!-- Food Item Name -->
 		<div class="form-group">
 			<label for="name">Food Item Name</label>
@@ -29,6 +41,7 @@
 					class="form-control"
 					placeholder="Name..."
 					[(ngModel)]="name"
+					required
 				>
 			</div>
 		</div>
@@ -38,11 +51,15 @@
 			<label for="type">Food Item Type</label>
 			<div class="input-group">
 				<select id="type" name="type" class="form-control"
-					(change)="onChange($event)">
+					(change)="onChange($event)"
+					[(ngModel)]="type"
+					required
+				>
 					<option value="">{{ type }}</option>
 					<option 
 						*ngFor="let type of FoodTypeList" 
-						[value]="type.type">
+						[value]="type.type"
+					>
 						{{type.type}}
 					</option>
 				</select>
@@ -73,6 +90,7 @@
 					class="form-control"
 					placeholder="Price..."
 					[(ngModel)]="price"
+					required
 				>
 			</div>
 		</div>
@@ -95,21 +113,21 @@
 		<div class="form-group">
 			<label for="status">Food Item Status</label>
 			<div class="input-group">
-				<input type="text"
-					id="status" 
-					name="status"
-					class="form-control"
-					placeholder="Status..."
-					[(ngModel)]="status"
-				>
+				<!-- make a label for the status checkbox -->
+				<label class="switch">
+					<input type="checkbox" 
+						id="status" 
+						name="status"
+						[(ngModel)]="status"
+					>
+					<span class="slider round"></span>
+				</label>
 			</div>
 		</div>
-
 		<!-- Submit Button -->
 		<div class="form-group">
-			<input type="submit" class="btn btn-primary" value="Submit" />
+			<input type="submit" class="btn btn-success" value="Submit" />
 		</div>
 
 	</form>
-
 </main><!-- end of main -->

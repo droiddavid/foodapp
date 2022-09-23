@@ -97,13 +97,10 @@ export class FoodDetailPageComponent implements OnInit, AfterViewChecked {
 
 						if (this._type) {
 							let tIndex = this.FoodTypeList.findIndex(x => x.type === this.FoodItem.type);
-							debugger;
 							if (tIndex > -1) {
-								
 								this.FoodItem.type = this._type = this.FoodTypeList[tIndex];
 							}
 						}
-
 
 						this.updateFoodTypeFields(this.FoodTypeList);
 						this.saveFoodTypesToLocalStorage(this.FoodTypeList);
@@ -206,39 +203,63 @@ export class FoodDetailPageComponent implements OnInit, AfterViewChecked {
 
 
 	submit(): void {
+		
 		this.FoodItem = {
 			"id": this._id,
 			"name": this._name,
-			"type": this._type.type,
+			"type": this._type,
 			"price": this._price,
 			"status": this._status,
 			"description": this._description,
 			"image": this._image
 		};
 
+		//if this.FoodItem.type is an object, then we need to get the type value
+		if (typeof this.FoodItem.type === "object") {
+			this.FoodItem.type = this.FoodItem.type.type;
+		}
+
 		
 		//Declare and assign variables.
 		let table:string = "food";
 		let columnsArray:any = this.FoodItem;
-		let where:any = { "userId" : this.user.id};
+		let where:any = { "userId" : this.user.id, "id" : this.FoodItem.id };
 		let requiredColumnsArray:any = Object.keys(columnsArray);
 
-		debugger;
-		this.router.navigate(['foodList/', this.FoodItem.type]);
-		//Update the foodItem in the database.
-		// this.database.updateData(table,columnsArray,where,requiredColumnsArray)
-		// 	.subscribe((res)=>{
-		// 		GlobalService.showToast(
-		// 			res.message, 
-		// 			"btn-success",
-		// 			this.toastElement.nativeElement.id
-		// 		);
+		//Check if the user has entered all the required fields.
+		let requiredColumnsArrayLength:number = requiredColumnsArray.length;
+		for (let i = 0; i < requiredColumnsArrayLength; i++) {
+			let key:string = requiredColumnsArray[i];
+			
+			let value:any = columnsArray[key];
+			if (value === "" || value === null || value === undefined) {
+				GlobalService.showToast(
+					"Please enter a value for " + key + ".",
+					"btn-danger", 
+					this.toastElement.nativeElement.id
+				);
 
-		// 		this.router.navigate(['foodList/', this._type]);
-		// 	});
+				return;
+			}
+		}
+
+
+
+		//Update the foodItem in the database.
+		this.database.updateData(table,columnsArray,where,requiredColumnsArray)
+			.subscribe((res)=>{
+				GlobalService.showToast(
+					res.message, 
+					"btn-success",
+					this.toastElement.nativeElement.id
+				);
+
+				this.router.navigate(['foodList', this.FoodItem.type]);
+		});
 	}
 
 	onChange(e: any) {
+		debugger;
 		this._type = e.target.value;
 
 		let temp = this.FoodTypeList.find(x => x.type === this._type);
@@ -273,7 +294,8 @@ export class FoodDetailPageComponent implements OnInit, AfterViewChecked {
 		this._name = value; 
 	}
 
-	public get type() { return this._type; }
+	public get type() { 
+		return this._type; }
 	public set type(value: any) {
 		this._type = value; 
 	}
