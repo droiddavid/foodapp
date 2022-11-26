@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { DatabaseService } from './services/database/database.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 //Structural Modules and Compnents
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +29,8 @@ import { HomeRoutingModule } from './home/home-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FoodModule } from './features/food/food.module';
+import { PlattersModule } from './features/platters/platters.module';
+import { MenusComponent } from './features/menus/menus.component';
 
 
 
@@ -40,6 +42,7 @@ import { FoodModule } from './features/food/food.module';
     UserComponent,
     HeaderComponent,
     FooterComponent,
+    MenusComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,11 +54,11 @@ import { FoodModule } from './features/food/food.module';
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    ReactiveFormsModule,
     FontAwesomeModule,
     AuthModule,
     DashboardModule,
     FoodModule,
+    PlattersModule
   ],
   providers: [DatabaseService,  AuthService, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

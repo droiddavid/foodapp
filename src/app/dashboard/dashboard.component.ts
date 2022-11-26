@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
 import { HeaderService } from '../services/subjects/header.service';
-
 import { AuthService } from './../services/auth/auth.service';
 
 
@@ -35,9 +34,9 @@ class MenuItem implements Menu {
 }
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+	selector: 'app-dashboard',
+	templateUrl: './dashboard.component.html',
+	styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 

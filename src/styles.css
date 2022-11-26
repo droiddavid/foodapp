@@ -10,6 +10,7 @@
 @import "./stylesheets/header.css";
 @import "./stylesheets/scrollbars.css";
 @import "./stylesheets/toast.css";
+@import "./stylesheets/faicons.css";
 
 
 * {

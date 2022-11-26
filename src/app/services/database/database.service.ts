@@ -14,6 +14,8 @@ import { UserComponent } from 'src/app/components/user/user.component';
 export class DatabaseService {
 
 	select: string = environment.database.baseUrl + environment.database.select;
+	_select2: string = environment.database.baseUrl + environment.database.select2;
+	_selectIn: string = environment.database.baseUrl + environment.database.selectIn;
 	_insert: string = environment.database.baseUrl + environment.database.insert;
 	_delete: string = environment.database.baseUrl + environment.database.delete;
 	deleteIn: string = environment.database.baseUrl + environment.database.deleteIn;
@@ -91,20 +93,34 @@ export class DatabaseService {
 		)
 	}
 
-	delete(table:string, fieldName:string, fieldValue: string): Observable<any> {
-		return this.http.post(this._delete, JSON.stringify({
-			table: table,
-			field: fieldName,
-			fieldList: fieldValue
-		})) //.pipe();
+	//select * from table where field in fieldlist
+	selectIn(table:string, field:string, fieldList: string): Observable<any> {
+		return this.http.post(
+			this._selectIn, 
+			JSON.stringify({
+				table: table,
+				field: field,
+				fieldList: fieldList
+		}));
 	}
 
-	deleteMultipleIn(table:string, field:string, fieldList: string): Observable<any> {
-		return this.http.post(this.deleteIn, JSON.stringify({
-			table: table,
-			field: field,
-			fieldList: fieldList
-		})) //.pipe();
+
+	select2(obj:any): Observable<any> {
+		return this.http.post(this._select2, {
+			table: obj.table,
+			firstFieldName: obj.firstFieldName,
+			firstFieldValue: obj.firstFieldValue,
+			secondFieldName: obj.secondFieldName,
+			secondFieldValue: obj.secondFieldValue
+		});
+	}
+
+	delete(obj:any): Observable<any> {
+		return this.http.post(this._delete, {
+			table: obj.table,
+			fieldName: obj.fieldName,
+			fieldValue: obj.fieldValue
+		});
 	}
 
 	delete2(obj:any): Observable<any> {
@@ -115,6 +131,14 @@ export class DatabaseService {
 			secondFieldName: obj.secondFieldName,
 			secondFieldValue: obj.secondFieldValue
 		});
+	}
+
+	deleteMultipleIn(table:string, field:string, fieldList: string): Observable<any> {
+		return this.http.post(this.deleteIn, JSON.stringify({
+			table: table,
+			field: field,
+			fieldList: fieldList
+		})) //.pipe();
 	}
 
 	//POST - INSERT

@@ -78,6 +78,7 @@ export class AppComponent implements AfterViewInit {
 			case 'addEmailAddress': this.title = 'Add Email Address'; break;
 			case 'foodDetailPage': this.title = 'Food Detail Page'; break;
 			case 'foodList': this.title = 'Food List'; break;
+			case 'platterDetail': this.title = 'Platter Detail'; break;
 			
 
 			default: this.title = event.charAt(0).toUpperCase() + event.slice(1);
@@ -165,6 +166,7 @@ export class AppComponent implements AfterViewInit {
 				case 'addDelivery': mItem.text = 'Add Delivery'; break;
 				case 'foodDetilPage': mItem.text = 'Food Detail Page'; break;
 				case 'foodList': mItem.text = 'Food List'; break;
+				case 'platterDetail': mItem.text = 'Platter Detail'; break;
 			}
 			this.menuItems.push(mItem);
 		});
