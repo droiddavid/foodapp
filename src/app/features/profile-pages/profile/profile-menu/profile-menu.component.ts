@@ -1,7 +1,7 @@
 import { HeaderService } from './../../../../services/subjects/header.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+//import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 interface Menu {
 	url: string; 
@@ -42,7 +42,7 @@ export class ProfileMenuComponent implements OnInit {
 	styles: string ="border-bottom: 1px solid #ffffff; font-size: x-large;";
 
 
-	faHome = faHome;
+	//faHome = faHome;
 	constructor(
 		private router: Router,
 		private headerService: HeaderService

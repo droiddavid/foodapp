@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { FoodType } from './foodType/food-type';
 import { FoodTypeService } from './foodType/food-type.service';
@@ -13,7 +12,7 @@ import { FoodTypeService } from './foodType/food-type.service';
 
 export class FoodComponent implements OnInit {
 
-	faPlus = faPlus;
+	//faPlus = faPlus;
 	foodTypes: any;
 	addCategoryButton = document.querySelector('#addCategoryButton');
 

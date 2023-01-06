@@ -7,7 +7,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthService } from './../services/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+//import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from 'src/environments/environment';
 
 //Firebase services
@@ -29,7 +29,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		FontAwesomeModule,
+		//FontAwesomeModule,
 		HttpClientModule,
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFireAuthModule,

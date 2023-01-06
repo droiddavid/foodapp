@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+//import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { ProfileComponent } from 'src/app/features/profile-pages/profile/profile.component';
@@ -19,8 +19,8 @@ export class ProfilePrivacyComponent implements OnInit, AfterViewInit {
 	@ViewChild('privacyMessage') privacyMessage!: ElementRef;
 	@ViewChild('toastElement') toastElement!:ElementRef;
 
-	faChevronLeft = faChevronLeft;
-	faChevronRight = faChevronRight;
+	// faChevronLeft = faChevronLeft;
+	// faChevronRight = faChevronRight;
 
 	user: any;
 	Profile!: ProfileComponent;

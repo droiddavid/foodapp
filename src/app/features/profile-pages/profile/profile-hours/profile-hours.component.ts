@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { Hour } from './hour';
 import { HoursService } from './hours.service';
-import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+//import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -15,8 +15,8 @@ export class ProfileHoursComponent implements OnInit {
 
 	@ViewChild('toastElement') toastElement!: ElementRef;
 
-	faTimes = faTimes;
-	faPlus = faPlus;
+	// faTimes = faTimes;
+	// faPlus = faPlus;
 
 	Hour!: Hour;
 	Hours: any;

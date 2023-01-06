@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
-import { faEye, faHome, faBars } from '@fortawesome/free-solid-svg-icons';
+//import { faEye, faHome, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -27,9 +27,9 @@ export class SignupComponent implements OnInit {
 
 
 	//ICONS
-	faEye = faEye;
-	faHome = faHome;
-	faBars = faBars;
+	// faEye = faEye;
+	// faHome = faHome;
+	// faBars = faBars;
 	showHidePassword: string = " Show";
 	showHideConfirmPassword: string = " Show";
 

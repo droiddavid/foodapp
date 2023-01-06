@@ -3,7 +3,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-12 pt-5">
+			<div class="col-12">
 
 				<!-- toast -->
 				<div #toastElement 
@@ -20,31 +20,28 @@
 				</div>
 
 
-				<!-- <form #formData
-					class="form mt-4 formGroup" 
+				<form #formData
+					class="form mt-4 formGroup box_shadow" 
 					[formGroup]="form" 
 					[ngStyle]="{'text-align':'-webkit-center'}" 
-					(ngSubmit)="onSubmit()"
-				> -->
-				<div
-					class="form mt-4 formGroup" 
-					[formGroup]="form" 
-					[ngStyle]="{'text-align':'-webkit-center'}" 
+					(ngSubmit)="onSubmit(formData)"
+					style="border: 1px solid #ccc; border-radius: 5px; padding: 16px;"
 				>
 					<!-- icon -->
 					<div class="mb-4 text-center">
-						<fa-icon 
+						<!-- <fa-icon 
 							id="showPasswordEye" 
 							class="success" 
 							[ngStyle]="{'color':'green','font-size':'68px'}"
 							[icon]="faUser">
-						</fa-icon>
+						</fa-icon> -->
 					</div>
 
 
 					<h3 class="mb-4">Sign In to Your Account</h3>
 
 
+					<!-- userName - input type=email -->
 					<div class="form-group mb-4">
 						<input #userName
 							id="email"
@@ -53,12 +50,20 @@
 							formControlName="email"
 							class="form-control"
 							placeholder="Email" 
-							autocomplete="username" 
-							required="required"
+							autocomplete="username"
 						/>
+					</div>
+					<div *ngIf="form.get('email')!.invalid && form.get('email')!touched">
+						<div *ngIf="form.get('email')!.errors!required">
+							Email is required.
+						</div>
+						<div *ngIf="form.get('email')!.errors!email">
+							Please enter a valid email.
+						</div>
 					</div>
 
 
+					<!-- userPassword - input type=password -->
 					<div class="form-group mb-4">
 						<input #userPassword
 							id="password" 
@@ -68,54 +73,84 @@
 							class="form-control" 
 							placeholder="Password"
 							autocomplete="current-password" 
-							required="required"
 						/>
 					</div>
+					<div *ngIf="form.get('password')!.invalid && form.get('password')!.touched">
+						<div *ngIf="form.get('password')!.errors!required">
+							Password is required.
+						</div>
+						<div *ngIf="form.get('password')!.errors!minlength">
+							Password must be at least 8 characters long.
+						</div>
+						<div *ngIf="form.get('password')!.errors!maxlength">
+							Password must be no more than 20 characters long.
+						</div>
+						<div *ngIf="form.get('password')!.errors!pattern">
+							Password must contain at least one lowercase, one uppercase, one number, and one special character.
+						</div>
+					</div>
 
 
 
+					<!-- rememberMe Checkbox - input type=checkbox
 					<div class="form-group">
 						<label class="checkbox-inline"><input type="checkbox"> Remember me</label>
-					</div>
+					</div> -->
 
 
- 
+
 					<!-- Calling SignIn Api from AuthService -->
 					<div class="form-group mb-4">
-						<button 
-							id="quickstart-sign-in"
-							class="btn btn-success mpkButton btn-block btn-lg mb-4"
-							(click)="signin(userName.value, userPassword.value)"
-						>Sign In</button>
-					</div>
-					
-					<div class="formGroup">
-						<span class="or"><span class="orInner">Or</span></span>
+						<button type="submit" 
+							class="button btn btn-success mpkButton btn-block btn-lg mb-4"
+							id="quickstart-sign-in" 
+							[disabled]="form.invalid"
+						>
+							Sign In
+						</button>
 					</div>
 				
 				
 					<!-- Calling GoogleAuth Api from AuthService -->
 					<div class="formGroup">
-						<button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+						<button type="button" class="btn btn-success" (click)="authService.GoogleAuth()">
 							<i class="fab fa-google-plus-g"></i>
 								Log in with Google
 						</button>
 					</div>
-				</div>
+				</form>
 
 
-				<div class="text-center">
-					<div class="form-group">
-						Forgot your password? <a (click)="openResetPasswordDialogBox()">Reset It</a>
-					</div>
-					<div class="forgotPassword">
-						<span (click)="goToForgotPassword()">Forgot Password?</span>
-					</div>
-					<div class="form-group">
-						Don't have an account? <a (click)="goToSignUp()">Sign Up</a>
-					</div>
+				
+
+
+				<div class="text-center box_shadow"
+					style="border: 1px solid #ccc; border-radius: 5px; padding: 16px;">
+					<button 
+						class="btn btn-success" 
+						(click)="openResetPasswordDialogBox()">
+						Reset Password
+					</button>
+					<br /><br />
+
+					<button 
+						class="btn btn-success" 
+						(click)="goToForgotPassword()"
+					>Forgot Password?</button>
+					<br /><br />
+					
+					<span>Don't have an account?</span>
+					<button 
+						class="btn btn-success" 
+						(click)="goToSignUp()"
+					>Sign Up</button>
+					<br /><br />
 				</div>
-				<!--Status: <span id="quickstart-sign-in-status">{{ status }}</span>-->
+				Status: <span id="quickstart-sign-in-status">{{ status }}</span>
+
+
+
+
 
 
 				<!-- The Modal -->
@@ -146,7 +181,7 @@
 
 							<!-- Modal footer -->
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" 
+								<button type="button" class="btn btn-success" 
 									(click)="sendPasswordReset(resetEmail)">
 									Send
 								</button>

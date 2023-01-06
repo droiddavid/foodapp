@@ -1,5 +1,5 @@
 app-header {
-	background-color: aqua;
+	background-color: #198754;
 }
 
 router-outlet {
@@ -14,5 +14,5 @@ router-outlet::-webkit-scrollbar-thumb { border-radius: 1px; }
 
 
 app-footer {
-	background-color: aqua;
+	background-color: #198754;
 }

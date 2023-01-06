@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { Email } from 'src/app/features/profile-pages/profile/profile-email-addresses/email';
 import { EmailService } from 'src/app/features/profile-pages/profile/profile-email-addresses/email.service';
 import { GlobalService } from 'src/app/services/global.service';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+//import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class EmailListItemComponent implements OnInit {
 
 	@Output() onDelete:any = new EventEmitter<any>();
 
-	faTimes = faTimes;
+	//faTimes = faTimes;
 
 	constructor(private emailService: EmailService) { }
 

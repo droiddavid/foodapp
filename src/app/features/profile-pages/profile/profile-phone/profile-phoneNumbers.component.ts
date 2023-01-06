@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { PhoneNumber } from './phoneNumber';
 import { PhoneNumberService } from './phoneNumbers.service';
-import { faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
+//import { faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -15,8 +15,8 @@ export class ProfilePhoneComponent implements OnInit {
 
 	@ViewChild('toastElement') toastElement!: ElementRef;
 
-	faInfoCircle = faInfoCircle;
-	faTimes = faTimes;
+	// faInfoCircle = faInfoCircle;
+	// faTimes = faTimes;
 
 	PhoneNumber!: PhoneNumber;
 	PhoneNumbers: any;

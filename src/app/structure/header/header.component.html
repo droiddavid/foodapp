@@ -1,5 +1,48 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 	<div class="container">
+	  <div class="navbar-left">
+	    <!-- Place your icon/graphic here -->
+	    <a class="navbar-brand" href="#">{{ title }}</a>
+	  </div>
+	  <button 
+	    class="navbar-toggler navbar-toggler-right navbar-expand-sm" 
+	    type="button" 
+	    data-bs-toggle="collapse" 
+	    data-bs-target="#navbar_menu" 
+	    aria-controls="navbar_menu" 
+	    aria-expanded="false" 
+	    aria-label="Toggle navigation"
+	  >
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div id="navbar_menu" class="collapse navbar-collapse navbar-nav navbar-expand-md ml-auto">
+	    <ul id="ulMenu" class="navbar-nav me-auto mb-2 mb-lg-0">
+		 <li class={{item.liClass}} *ngFor="let item of menuItems">
+		   <a 
+			class={{item.aClasses}}
+			aria-current="page"
+			routerLink={{item.routerLink}}
+			href={{item.href}}
+			(click)="menuNavigate(item.routerLink)"
+		   >
+			{{ item.text }}
+		   </a>
+		 </li>
+	    </ul>
+	  </div>
+	</div>
+   </nav>
+   
+   
+
+
+
+
+
+
+
+<!--<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+	<div class="container">
 		<a class="navbar-brand" href="#">{{ title }}</a>
 		<button 
 			class="navbar-toggler ms-auto" 
@@ -28,4 +71,4 @@
 			</ul>
 		</div>
 	</div>
-</nav>
+</nav>-->

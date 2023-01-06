@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
@@ -8,8 +10,10 @@ import { HomeComponent } from './home/home.component';
 //import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
+	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'home', component: HomeComponent },
 	{ path: 'signin', component: SigninComponent },
+	{ path: 'signup', component: SignupComponent },
 	{ path: '/', component: HomeComponent, },
 	{ path: '', redirectTo: 'home', pathMatch: 'full'},
 //	{ path: '**', component: NotFoundComponent }

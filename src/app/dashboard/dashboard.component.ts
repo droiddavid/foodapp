@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+//import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
 import { HeaderService } from '../services/subjects/header.service';
 import { AuthService } from './../services/auth/auth.service';
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
 	styles: string ="border-bottom: 1px solid #ffffff; font-size: x-large;";
 
 
-	faHome = faHome;
+	// faHome = faHome;
 	userData:any;
 	
 	constructor(

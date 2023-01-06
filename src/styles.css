@@ -34,3 +34,7 @@ app-root {
 	grid-template-columns: 1fr;
 	grid-template-rows: auto 1fr auto;
 }
+
+.box_shadow {
+	box-shadow: 2px 2px 8px #888888;
+}

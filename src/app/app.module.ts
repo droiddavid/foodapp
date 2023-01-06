@@ -12,14 +12,13 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { DatabaseService } from './services/database/database.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Structural Modules and Compnents
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { UserComponent } from './components/user/user.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { RouterModule } from '@angular/router';
 
@@ -54,7 +53,7 @@ import { MenusComponent } from './features/menus/menus.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
-    FontAwesomeModule,
+    ReactiveFormsModule,
     AuthModule,
     DashboardModule,
     FoodModule,

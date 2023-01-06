@@ -3,7 +3,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { Router } from '@angular/router';
 import { Email } from 'src/app/features/profile-pages/profile/profile-email-addresses/email';
 import { EmailService } from './email.service';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+//import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -15,8 +15,8 @@ export class ProfileEmailAddressesComponent implements OnInit {
 
 	@ViewChild('toastElement') toastElement!:ElementRef;
 
-	faPlus = faPlus;
-	faTimes = faTimes;
+	// faPlus = faPlus;
+	// faTimes = faTimes;
 
 	Email!: Email;
 	Emails: any;

@@ -18,12 +18,12 @@
 			<tr>
 				<th>&nbsp;</th>
 				<th class="th" style="text-align: center;">
-					<fa-icon
+					<!-- <fa-icon
 						class="icon_bs_left"
 						[icon]="faInfoCircle"
 						aria-hidden="true" 
 						tooltip="Select to display this phone number to the Public App."
-					></fa-icon><br />
+					></fa-icon><br /> -->
 					Display<br />
 					To<br />
 					Public
@@ -37,10 +37,10 @@
 			<tr *ngFor="let phone of PhoneNumbers">
 				<td>
 					<a (click)="removePhoneNumber(phone);">
-						<fa-icon
+						<!-- <fa-icon
 							class="icon_bs_left"
 							[icon]="faTimes">
-						</fa-icon>
+						</fa-icon> -->
 						<i class="fas fa-times" 
 							style="color: grey; font-size: x-large;"></i>
 					</a>

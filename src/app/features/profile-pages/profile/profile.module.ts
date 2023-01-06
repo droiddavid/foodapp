@@ -20,7 +20,6 @@ import { ProfileDeliveryComponent } from './profile-delivery/profile-delivery.co
 import { AddDeliveryComponent } from './profile-delivery/add-delivery/add-delivery.component';
 import { ProfilePhoneComponent } from './profile-phone/profile-phoneNumbers.component';
 import { ProfilePhoneAddComponent } from './profile-phone/profile-phone-add/profile-phone-add.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileHoursComponent } from './profile-hours/profile-hours.component';
 import { AddHoursComponent } from './profile-hours/add-hours/add-hours.component';
 import { ProfilePhotosComponent } from './profile-photos/profile-photos.component';
@@ -64,7 +63,6 @@ import { EmailListItemComponent } from 'src/app/components/email-list-item/email
 		HttpClientModule,
 		ReactiveFormsModule,
 		RouterModule,
-		FontAwesomeModule,
 		ImageCropperModule,
 	],
 	providers: []

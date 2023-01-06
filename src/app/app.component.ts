@@ -42,13 +42,13 @@ export class AppComponent implements AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.appHeader = document.querySelector('app-header');
-		let appHeaderHeight = this.appHeader.firstChild.clientHeight;
+		let appHeaderHeight = this.appHeader.firstChild.offsetHeight; //clientHeight;
 		this.appSpacerHeader = document.querySelector('#spacer_header');
 		this.appSpacerHeader.style.height = appHeaderHeight + 'px';
 
 		this.appFooter = document.querySelector('app-footer');
-		let appFooterHeight = this.appFooter.firstChild.clientHeight;
-		this.appSpacerFooter = document.querySelector('#spacer_header');
+		let appFooterHeight = this.appFooter.firstChild.offsetHeight; //clientHeight;
+		this.appSpacerFooter = document.querySelector('#spacer_footer');
 		this.appSpacerFooter.style.height = appFooterHeight + 'px';
 	}
 

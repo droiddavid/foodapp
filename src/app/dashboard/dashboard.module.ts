@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileModule } from '../features/profile-pages/profile/profile.module';
 
 
@@ -17,7 +15,6 @@ import { ProfileModule } from '../features/profile-pages/profile/profile.module'
 		CommonModule,
 		RouterModule,
 		DashboardRoutingModule,
-		FontAwesomeModule,
 		HttpClientModule,
 		ProfileModule,
 	]

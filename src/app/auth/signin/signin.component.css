@@ -4,3 +4,12 @@ header {
 	background-color: #ccc;
 	color: #fff;
 }
+
+.modal-header {
+	background-color: #198754;
+	color: #fff;
+}
+
+form {
+	margin-bottom: 1rem;
+}

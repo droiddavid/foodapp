@@ -3,7 +3,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { Platter } from './types/platter';
-import { faChevronRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -15,8 +14,8 @@ export class PlattersComponent implements OnInit {
 
 	@ViewChild('toastElement') toastElement!: ElementRef;
 
-	faTimes = faTimes;
-	faChevronRight = faChevronRight;
+	// faTimes = faTimes;
+	// faChevronRight = faChevronRight;
 
 	//create a new array of type Platter named Platters
 	Platters: Platter[] = [];

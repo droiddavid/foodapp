@@ -15,20 +15,20 @@
 	</div>
 	<ul class="list-group text-left" style="color: black;">
 		<li class="list-group-item listitem"  *ngFor="let platter of Platters">
-			<fa-icon 
+			<!-- <fa-icon 
 				[icon]="faTimes" 
 				aria-label="delete platter" 
 				(click)="onDelete(platter)"
 				style="color: red;"
-			></fa-icon>
+			></fa-icon> -->
 
 			<div (click)="showPlatter(platter);">{{ platter.name }}</div>
 
-			<fa-icon 
+			<!-- <fa-icon 
 				[icon]="faChevronRight" 
 				aria-label="go to platter detail page"
 				(click)="showPlatter(platter);"
-			></fa-icon>
+			></fa-icon> -->
 		</li>
 	</ul>
 </main>
