@@ -1,16 +1,16 @@
-<app-header
+<app-header #appHeader
 	[title]="title"
 	[menuItems]="menuItems"
 	(onTitleChange)="onTitleChange($event)"
 	(onMenuItemChange)="onMenuNavigate($event)">
 </app-header>
 
-<div id="spacer_header"></div>
+<div id="spacer_header" #header_spacer></div>
 
 <router-outlet 
 	(activate)='onActivate($event)'
 ></router-outlet>
 
-<div id="spacer_footer"></div>
+<div id="spacer_footer" #footer_spacer></div>
 
-<app-footer></app-footer>
+<app-footer #appFooter></app-footer>
