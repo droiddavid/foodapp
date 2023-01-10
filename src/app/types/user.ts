@@ -2,8 +2,9 @@ export interface User {
 
 	//User Data
 	id?: any;
+	directory: any;
 	displayName?: string;
-	emailAddress?: string;
+	email: string;
 	emailVerified?: boolean;
 	express_data?: string;
 	firstName?: string;

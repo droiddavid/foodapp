@@ -1,7 +1,7 @@
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'src/app/services/global.service';
-import { User } from 'src/app/shared/user';
+import { User } from 'src/app/types/user';
 import { Delivery } from './delivery';
 import { Address } from '../profile-addresses/address';
 import { Router } from '@angular/router';

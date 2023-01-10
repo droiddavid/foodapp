@@ -13,18 +13,20 @@ import { UserComponent } from 'src/app/components/user/user.component';
 
 export class DatabaseService {
 
-	select: string = environment.database.baseUrl + environment.database.select;
-	_select2: string = environment.database.baseUrl + environment.database.select2;
-	_selectIn: string = environment.database.baseUrl + environment.database.selectIn;
-	_insert: string = environment.database.baseUrl + environment.database.insert;
-	_delete: string = environment.database.baseUrl + environment.database.delete;
-	deleteIn: string = environment.database.baseUrl + environment.database.deleteIn;
-	_delete2: string = environment.database.baseUrl + environment.database.delete2;
-	fileMover: string = environment.database.baseUrl + environment.database.fileMover;
-	update: string = environment.database.baseUrl + environment.database.update;
-	_fileMover: string = environment.database.baseUrl + environment.database.fileMover;
-	_photos: string = environment.database.baseUrl + environment.database.photos;
-	_fileImageMover: string = environment.database.baseUrl + environment.database.fileImageMover;
+	private baseUrl: string = environment.database.baseUrl;
+
+	select: string = `${ this.baseUrl }select.php`;
+	_select2: string = `${ this.baseUrl }select2.php`;
+	_selectIn: string = `${ this.baseUrl }selectIn.php`;
+	_insert: string = `${ this.baseUrl }insert.php`;
+	_delete: string = `${ this.baseUrl }delete.php`;
+	deleteIn: string = `${ this.baseUrl }deleteIn.php`;
+	_delete2: string = `${ this.baseUrl }delete2.php`;
+	fileMover: string = `${ this.baseUrl }fileMover.php`;
+	update: string = `${ this.baseUrl }update.php`;
+	_fileMover: string = `${ this.baseUrl }fileMover.php`;
+	_photos: string = `${ this.baseUrl }photos.php`;
+	_fileImageMover: string = `${ this.baseUrl }fileImageMover.php`;
 
 	constructor(private http: HttpClient) { }
 
@@ -41,6 +43,7 @@ export class DatabaseService {
 
 	ngOnInit() { }
 
+
 	//POST
 	createUser(data: any): Observable<UserComponent> {
 		return this.http.post<UserComponent>(
@@ -48,10 +51,10 @@ export class DatabaseService {
 			JSON.stringify(data), 
 			this.httpOptions
 		)
-		// .pipe(
-		// 	retry(1),
-		// 	catchError(error => this.errorHandler(error))
-		// )
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	// Error handling
@@ -91,6 +94,10 @@ export class DatabaseService {
 			}),
 			this.httpOptions
 		)
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	//select * from table where field in fieldlist
@@ -101,7 +108,12 @@ export class DatabaseService {
 				table: table,
 				field: field,
 				fieldList: fieldList
-		}));
+			})
+		)
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 
@@ -112,7 +124,11 @@ export class DatabaseService {
 			firstFieldValue: obj.firstFieldValue,
 			secondFieldName: obj.secondFieldName,
 			secondFieldValue: obj.secondFieldValue
-		});
+		})
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	delete(obj:any): Observable<any> {
@@ -120,7 +136,11 @@ export class DatabaseService {
 			table: obj.table,
 			fieldName: obj.fieldName,
 			fieldValue: obj.fieldValue
-		});
+		})
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	delete2(obj:any): Observable<any> {
@@ -130,7 +150,11 @@ export class DatabaseService {
 			firstFieldValue: obj.firstFieldValue,
 			secondFieldName: obj.secondFieldName,
 			secondFieldValue: obj.secondFieldValue
-		});
+		})
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	deleteMultipleIn(table:string, field:string, fieldList: string): Observable<any> {
@@ -138,7 +162,11 @@ export class DatabaseService {
 			table: table,
 			field: field,
 			fieldList: fieldList
-		})) //.pipe();
+		}))
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	//POST - INSERT
@@ -148,10 +176,10 @@ export class DatabaseService {
 			JSON.stringify(data), 
 			this.httpOptions
 		)
-		// .pipe(
-		// 	retry(1),
-		// 	catchError(error => this.errorHandler(error))
-		// )
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	//update
@@ -165,8 +193,11 @@ export class DatabaseService {
 			this.update,
 			{table, columnsArray, where, requiredColumnsArray},
 			this.httpOptions
-		)		
-			//.pipe(catchError(error => this.errorHandler(error)))
+		)
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 	}
 
 	//photos
@@ -174,7 +205,11 @@ export class DatabaseService {
 		return fetch(url, {
 			method: 'POST',
 			body: formData
-		});
+		})
+		.pipe(
+			retry(1),
+			catchError(error => this.errorHandler(error))
+		);
 		// return this.http.post<any>(
 		// 	this._fileMover,
 		// 	JSON.stringify(data), 

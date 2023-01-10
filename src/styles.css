@@ -36,5 +36,8 @@ app-root {
 }
 
 .box_shadow {
-	box-shadow: 2px 2px 8px #888888;
+	/* box-shadow: 1px 1px 8px #888888; */
+	box-shadow: 			1px 1px 7px -3px rgba(0,0,0,1);
+	-webkit-box-shadow: 	1px 1px 7px -3px rgba(0,0,0,1);
+	-moz-box-shadow: 		1px 1px 7px -3px rgba(0,0,0,1);
 }

@@ -113,7 +113,11 @@
 				
 					<!-- Calling GoogleAuth Api from AuthService -->
 					<div class="formGroup">
-						<button type="button" class="btn btn-success" (click)="authService.GoogleAuth()">
+						<button 
+							type="button" 
+							class="btn btn-success" 
+							(click)="googleLogin()"
+						>
 							<i class="fab fa-google-plus-g"></i>
 								Log in with Google
 						</button>

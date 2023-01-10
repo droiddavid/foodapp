@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database/database.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { AddressService } from './../../profile-addresses/address.service';
-import { User } from 'src/app/shared/user';
+import { User } from 'src/app/types/user';
 import { Address } from '../../profile-addresses/address';
 import { Delivery } from '../delivery';
 

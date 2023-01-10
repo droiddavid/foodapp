@@ -5,8 +5,12 @@
 		<div
 			*ngFor="let menuItem of Menus"
 			(click)="manage(menuItem.url);"
-			class="{{ menuItem.classes }}"
-			[ngStyle]="{'border-bottom':'1px solid #ffffff','font-size':'x-large'}"
+			class="{{ menuItem.classes }}  box_shadow"
+			[ngStyle]="{
+				'border-bottom':'1px solid #ffffff',
+				'font-size':'x-large', 
+				'margin-bottom': '.5rem', 
+				'border-radius': '1rem'}"
 		>
 
 			<div id="{{ menuItem.url }}">

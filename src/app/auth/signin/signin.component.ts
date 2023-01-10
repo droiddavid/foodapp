@@ -5,10 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 //import { faUser, faHome } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from 'src/app/services/global.service';
 import { HttpClient } from '@angular/common/http';
-import { DatabaseService } from 'src/app/services/database/database.service';
-import { UserComponent } from 'src/app/components/user/user.component';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { User } from 'src/app/shared/user';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from 'src/app/types/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HeaderService } from 'src/app/services/subjects/header.service';
 
@@ -48,7 +46,6 @@ export class SigninComponent implements OnInit {
 	//dataservice
 	http?: HttpClient;
 
-	db?: DatabaseService;
 	isLoggedIn!: boolean;
 	userData!: User;
 
@@ -61,7 +58,6 @@ export class SigninComponent implements OnInit {
 		public afs: AngularFirestore,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private database: DatabaseService,
 		private headerService: HeaderService,
 		private userService: UserService) {
 
@@ -91,6 +87,65 @@ export class SigninComponent implements OnInit {
 			}
 	};
 
+	//authService.GoogleAuth()
+	async googleLogin() {
+		(await this.authService.GoogleAuth()).subscribe((response: any) => {
+			if (response && response.user) {
+				GlobalService.User = response.user;
+
+				this.userService.getUser(GlobalService.User.email)
+					.subscribe((response: any) => {
+
+						if (!response && !response.data) {
+							GlobalService.showToast(
+								"User not found",
+								"btn-danger", 
+								this.toastElement.nativeElement.id
+							);
+							return;
+						}
+					
+						let {
+							emailAddress, id, lastLogin, 
+							lastUpdate, message, role,status
+						} = response.data[0];
+		
+						let _user: any = {
+							"emailAddress": "", "id": "", "lastLogin": "",
+							"lastUpdate": "", "message": "", "role": "", "status": ""
+						};
+						if (emailAddress && id && lastLogin && lastUpdate && message && role && status) {
+							_user.emailAddress = emailAddress;
+							_user.id = id;
+							_user.lastLogin = lastLogin;
+							_user.lastUpdate = lastUpdate;
+							_user.message = message;
+							_user.role = role;
+							_user.status = status;
+							_user.directory = _user.emailAddress.split('@')[0] + '_' + _user.id;
+						}
+						
+						debugger;
+						if (_user) {
+							GlobalService.User = JSON.parse(JSON.stringify(_user));
+
+							GlobalService.localset("data", "user: true");
+							GlobalService.localset("user", _user);
+						} else {
+							GlobalService.localset("data", { "user": false });
+							GlobalService.localset("user", _user);
+						}
+
+						GlobalService.localset("isLoggedIn", "true");
+
+						//emit changes to the header service.
+						this.headerService.changeTitle('dashboard');
+						this.headerService.changeMenuItems('dashboard');
+						this.router.navigate(['/', 'dashboard']);
+					});
+			}
+		});
+	}
 
 
 	ngOnInit(): void { }
@@ -160,10 +215,11 @@ export class SigninComponent implements OnInit {
 
 		this.userData = {
 			uid: this.user.uid,
-			emailAddress: this.user.email,
+			email: this.user.email,
 			displayName: this.user.displayName,
 			photoURL: this.user.photoURL,
 			emailVerified: this.user.emailVerified,
+			directory: ""
 		};
 	}
 
@@ -177,9 +233,13 @@ export class SigninComponent implements OnInit {
 		this.resetPasswordDialogBox = document.getElementById("resetPasswordDialogBox");
 		this.resetPasswordDialogBox.style.display="block";
 	}
+
+
 	closePasswordDialogBox() {
 		this.resetPasswordDialogBox.style.display="none";
 	}
+
+
 	async sendPasswordReset(email:HTMLInputElement) {;
 		this.resetPasswordDialogBox.style.display="none";
 
@@ -210,6 +270,8 @@ export class SigninComponent implements OnInit {
 	goToSignUp() {
 		this.router.navigate(['/', 'signup']);
 	}
+
+
 	goToForgotPassword() {
 		this.router.navigate(['/', 'forgot-password']);
 	}

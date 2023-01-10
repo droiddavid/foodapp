@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { HttpHeaders } from '@angular/common/http';
-import { UserComponent } from '../components/user/user.component';
+import { User } from '../types/user';
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class GlobalService {
 	constructor() {}
 
 
-	static User: UserComponent;
+	static User: User;
 
 
 	//Http Headers
@@ -27,6 +27,12 @@ export class GlobalService {
 			'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
 			'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
 		})
+	}
+
+
+	static localset(key:string, value:any) {
+		debugger;
+		localStorage.setItem(key, GlobalService.encode(JSON.stringify({value})));
 	}
 
 

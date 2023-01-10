@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from 'src/app/shared/user';
+import { User } from 'src/app/types/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { GlobalService } from './../global.service';
+import { from, of } from 'rxjs';
 
 
 //import firebase from 'firebase/compat/app';
@@ -46,22 +47,6 @@ export class AuthService {
 		return this.angularFireAuth.signInWithEmailAndPassword(String(email), String(password));
 	}
 
-	// Sign in with email/password
-	async xSignIn(email: string, password: string) {
-		try {
-			const result = await this.afAuth
-				.signInWithEmailAndPassword(email, password);
-
-			this.ngZone.run(() => {
-				this.router.navigate(['dashboard']);
-			});
-			this.SetUserData(result.user);
-		} catch (error) {
-			return error;
-			//window.alert(error.message);
-		}
-	}
-
 	// Sign up with email/password
 	async SignUp(email: string, password: string) {
 		try {
@@ -70,14 +55,13 @@ export class AuthService {
 			/* Call the SendVerificaitonMail() function when new user sign
 			up and returns promise */
 			this.SendVerificationMail();
-			this.SetUserData(result.user);
 		} catch (error) {
 			//window.alert(error.message);
 		}
 	}
 
 	// Sign out
-	SignOut() {
+	async SignOut() {
 		return this.afAuth.signOut().then(() => {
 			localStorage.removeItem('user');
 			this.router.navigate(['sign-in']);
@@ -124,48 +108,9 @@ export class AuthService {
 		}
 
 	}
-
-	// Sign in with Google
 	async GoogleAuth() {
-		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			if (res) {
-				this.router.navigate(['dashboard']);
-			}
-		});
-	}
-
-	// Auth logic to run auth providers
-	async AuthLogin(provider: any) {
-		return this.afAuth
-			.signInWithPopup(provider)
-			.then((result) => {
-				this.ngZone.run(() => {
-				this.router.navigate(['dashboard']);
-			});
-			this.SetUserData(result.user);
-		})
-		.catch((error) => {
-			window.alert(error);
-		});
-	}
-
-	SetUserData(user: any) {
-
-		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-			`users/${user.uid}`
-		);
-
-		const userData: User = {
-			uid: user.uid,
-			emailAddress: user.email,
-			displayName: user.displayName,
-			photoURL: user.photoURL,
-			emailVerified: user.emailVerified,
-		};
-
-		return userRef.set(userData, {
-			merge: true,
-		});
+		const result = await this.afAuth.signInWithPopup(new auth.GoogleAuthProvider());
+		return of(result);
 	}
 }
 //# sourceMappingURL=./auth.service.ts.generated.js.map
