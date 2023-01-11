@@ -6,17 +6,20 @@ import { FoodComponent } from './food.component';
 
 import { FoodDetailPageComponent } from './food-detail-page/food-detail-page.component';
 import { FoodListComponent } from './food-list/food-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddFoodItemComponent } from './add-food-item/add-food-item.component';
 @NgModule({
   declarations: [
     FoodComponent,
     FoodDetailPageComponent,
-    FoodListComponent
+    FoodListComponent,
+    AddFoodItemComponent
   ],
   imports: [
     CommonModule,
     FoodRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class FoodModule { }

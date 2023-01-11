@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+
+			<!-- toast -->
+			<div #toastElement 
+				id="toastElement" 
+				class="toast" 
+				role="alert" 
+				aria-live="assertive" aria-atomic="true"
+			>					
+				<div class="toast-header">
+					<strong class="toast_text mr-auto">Notification</strong>
+				</div>
+		
+				<div class="toast-body toast_text"></div>
+			</div>
+
+
+			<form #formData
+				class="form mt-4 formGroup box_shadow" 
+				[formGroup]="form" 
+				[ngStyle]="{'text-align':'-webkit-center'}" 
+				(ngSubmit)="onSubmit(formData)"
+				style="border: 1px solid #ccc; border-radius: 5px; padding: 16px;"
+			>
+				<h3 class="mb-4">Sign In to Your Account</h3>
+
+
+				<!-- userName - input type=email -->
+				<div class="form-group mb-4">
+					<input #userName
+						id="email"
+						type="email"
+						name="email"
+						formControlName="email"
+						class="form-control"
+						placeholder="Email" 
+						autocomplete="username"
+					/>
+				</div>
+				<div *ngIf="form.get('email')!.invalid && form.get('email')!touched">
+					<div *ngIf="form.get('email')!.errors!required">
+						Email is required.
+					</div>
+					<div *ngIf="form.get('email')!.errors!email">
+						Please enter a valid email.
+					</div>
+				</div>
+
+
+
+				<!-- Calling SignIn Api from AuthService -->
+				<div class="form-group mb-4">
+					<button type="submit" 
+						class="button btn btn-success mpkButton btn-block btn-lg mb-4"
+						id="quickstart-sign-in" 
+						[disabled]="form.invalid"
+					>
+						Add New Food Item
+					</button>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>

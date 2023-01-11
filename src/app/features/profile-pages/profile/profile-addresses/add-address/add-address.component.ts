@@ -21,6 +21,8 @@ export class AddAddressComponent implements OnInit {
 	Addresses!: Address[];
 	user!: User;
 
+	address: any;
+
 	constructor(
 		private formBuilder: FormBuilder,
 		private router: Router,
@@ -100,8 +102,6 @@ export class AddAddressComponent implements OnInit {
 
 		}
 	}
-
-	address: any;
 
 	onSubmit() {
 		let o = "{";

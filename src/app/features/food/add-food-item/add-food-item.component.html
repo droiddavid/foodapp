@@ -1,0 +1,126 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+ 
+			<form #formData
+				class="form mt-4 formGroup box_shadow"
+				[formGroup]="form"
+				(ngSubmit)="onSubmit(formData)"
+				style="border: 1px solid #ccc; border-radius: 5px; padding: 16px;"
+			>
+ 
+				<h3 class="mb-4">Add a New Food Item</h3>
+ 
+				<!-- type -->
+				<div class="form-group mb-4">
+					<input #type
+						id="type"
+						type="text"
+						name="type"
+						formControlName="type"
+						class="form-control"
+						placeholder="Type"
+						autocomplete="off"
+					/>
+				</div>
+				<div *ngIf="form.get('type')!.invalid && form.get('type')!touched">
+					<div *ngIf="form.get('type')!.errors!required">
+						Type is required.
+					</div>
+				</div>
+
+
+
+				<!-- name -->
+				<div class="form-group mb-4">
+					<input #name
+						id="name"
+						type="text"
+						name="name"
+						formControlName="name"
+						class="form-control"
+						placeholder="Name"
+						autocomplete="off"
+					/>
+				</div>
+				<div *ngIf="form.get('name')!.invalid && form.get('name')!touched">
+					<div *ngIf="form.get('name')!.errors!required">
+						Name is required.
+					</div>
+				</div>
+
+
+
+				<!-- description -->
+				<div class="form-group mb-4">
+					<textarea #description
+						id="description"
+						name="description"
+						formControlName="description"
+						class="form-control"
+						placeholder="Description"
+						rows="4">
+					</textarea>
+				</div>
+				<div *ngIf="form.get('description')!.invalid && form.get('description')!touched">
+					<div *ngIf="form.get('description')!.errors!required">
+						Description is required.
+					</div>
+				</div>
+
+
+
+				<!-- price -->
+				<div class="form-group mb-4">
+					<input #price
+						id="price"
+						type="number"
+						name="price"
+						formControlName="price"
+						class="form-control"
+						placeholder="Price"
+						autocomplete="off"
+					/>
+				</div>
+				<div *ngIf="form.get('price')!.invalid && form.get('price')!touched">
+					<div *ngIf="form.get('price')!.errors!required">
+						Price is required.
+					</div>
+				</div>
+
+
+
+				<!-- image -->
+				<div class="form-group mb-4">
+					<select #image
+						id="image"
+						name="image"
+						formControlName="image"
+						class="form-control"
+					>
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+					</select>
+				</div>
+				<div *ngIf="form.get('image')!.invalid && form.get('image')!touched">
+					<div *ngIf="form.get('image')!.errors!required">
+						Image is required.
+					</div>
+				</div>
+
+
+
+				<div class="form-group mb-4">
+					<button type="submit"
+						class="button btn btn-success mpkButton btn-block btn-lg mb-4"
+						id="add-food-item"
+						[disabled]="form.invalid"
+					>
+						Add Food Item
+					</button>
+				</div>
+			</form>
+		</div>
+ 	</div>
+</div>
+ 

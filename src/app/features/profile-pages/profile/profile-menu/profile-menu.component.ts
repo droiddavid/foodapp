@@ -59,7 +59,7 @@ export class ProfileMenuComponent implements OnInit {
 		this.addMenuItem("emails", this.classes_success, this.styles, "fas fa-file-alt", "Emails", "Manage your emails.");
 		this.addMenuItem("addresses", this.classes_default, this.styles, "fas fa-utensils", "Addresses", "Manage your addresses.");
 		this.addMenuItem("hours", this.classes_success, this.styles, "fas fa-file-invoice", "Hours", "Manage your opening and closing times.");
-		this.addMenuItem("phonenumbers", this.classes_default, this.styles, "fas fa-file-invoice", "Phone Numbers", "Manage your phone numbers.");
+		this.addMenuItem("profilePhoneNumbers", this.classes_default, this.styles, "fas fa-file-invoice", "Phone Numbers", "Manage your phone numbers.");
 		this.addMenuItem("ecommerce", this.classes_success, this.styles, "fas fa-file-invoice", "E-commerce Setup", "Set up your ecommerce account to get paid.");
 	}
 	addMenuItem(url:string, classes:string, style:string, icon:string, heading:string, text:string) {

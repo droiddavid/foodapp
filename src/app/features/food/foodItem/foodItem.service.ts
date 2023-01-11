@@ -48,4 +48,10 @@ export class FoodItemService {
 
 		return JSON.parse(GlobalService.decode(_foodItems!));
 	}
+
+	// addFoodItem(foodItem: FoodItem): Observable<FoodItem> {
+	// 	return this.database.insert({
+	// 		this.table, foodItem
+	// 	});
+	// }
 }

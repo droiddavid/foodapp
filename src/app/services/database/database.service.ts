@@ -206,10 +206,10 @@ export class DatabaseService {
 			method: 'POST',
 			body: formData
 		})
-		.pipe(
-			retry(1),
-			catchError(error => this.errorHandler(error))
-		);
+		// .pipe(
+		// 	retry(1),
+		// 	catchError(error => this.errorHandler(error))
+		// );;
 		// return this.http.post<any>(
 		// 	this._fileMover,
 		// 	JSON.stringify(data), 
