@@ -213,20 +213,33 @@ export class SignupComponent implements OnInit {
 	}
 
 
-	async onSubmit() {
+	async onSubmit(_email: string, _password: string) {
 		//If successful, this will create a new account in Firebase.
 		//Firebase insert
-		await this.authService.SignUp(this._email, this._password)
+		//await this.authService.SignUp(this._email, this._password)
+		await this.authService.SignUp(_email, _password)
 			.then((data) => {
+				debugger;
+				console.table(data);
 				//if(!data.user) return;
 				
 				//this.authenticateUser(data.user);
 //				return data.user; //return firebase User
+
+/*
+					this.userData = {
+						uid: result.user!.uid,
+						email: result.user!.email,
+						displayName: result!.user!.displayName,
+						photoURL: result.user!.photoURL,
+						emailVerified: result.user!.emailVerified,
+						directory: ""
+					};*/
 			})
 	}
 	//is user.email in DB
 	authenticateUser(user:any) {
-		this.database.getData("users", "emailAddress", user.email)
+		this.database.getData("users", "email", user.email)
 			.subscribe((response) => {
 
 				if(!response.data) return;
@@ -240,7 +253,7 @@ export class SignupComponent implements OnInit {
 				if (response.data.length === 0) {
 					//insert into DB
 					this.database.insert({
-						"emailAddress": this._email,
+						"email": this._email,
 						"lastLogin": new Date(), "lastUpdate": Date.now(),
 						"message": 'Tell us something about yourself.',
 						"role": 2,
@@ -259,7 +272,7 @@ export class SignupComponent implements OnInit {
 				/* ************************************************/
 				return response;
 			});
-			//returns Observable<any>
+		//returns Observable<any>
 	}
 
 

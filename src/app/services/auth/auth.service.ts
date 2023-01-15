@@ -50,11 +50,19 @@ export class AuthService {
 	// Sign up with email/password
 	async SignUp(email: string, password: string) {
 		try {
-			const result = await this.afAuth
-				.createUserWithEmailAndPassword(email, password);
-			/* Call the SendVerificaitonMail() function when new user sign
-			up and returns promise */
-			this.SendVerificationMail();
+			await this.afAuth.createUserWithEmailAndPassword(email, password)
+				.then((result) => {
+					this.userData = {
+						uid: result.user!.uid,
+						email: result.user!.email,
+						displayName: result!.user!.displayName,
+						photoURL: result.user!.photoURL,
+						emailVerified: result.user!.emailVerified,
+						directory: ""
+					};
+					this.SendVerificationMail();
+					return this.userData;
+				});
 		} catch (error) {
 			//window.alert(error.message);
 		}
@@ -70,8 +78,12 @@ export class AuthService {
 
 	// Send email verfificaiton when new user sign up
 	async SendVerificationMail() {
+		if (!this.afAuth.currentUser) return new Error("No user");
+		
 		return this.afAuth.currentUser
-			.then((u: any) => u.sendEmailVerification())
+			.then((u: any) => {
+				u.sendEmailVerification()
+			})
 			.then(() => {
 				this.router.navigate(['verify-email-address']);
 			});

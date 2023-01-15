@@ -30,9 +30,8 @@
 				<!-- begin username -->
 				<!-- <div class="row">
 					<div class="col">
-						 label -->
 						<label for="username">Email Address</label>
-						<!-- input
+						input
 						<input 
 							type="email" 
 							[(ngModel)]="_username"
@@ -273,28 +272,28 @@
 				<h3>Sign Up</h3>
 				<div class="formGroup">
 					<input
-					type="email"
-					class="formControl"
-					placeholder="Email Address"
-					#userEmail
-					required
+						type="email"
+						class="formControl"
+						placeholder="Email Address"
+						#userEmail
+						required
 					/>
 				</div>
 				<div class="formGroup">
 					<input
-					type="password"
-					class="formControl"
-					placeholder="Password"
-					#userPwd
-					required
+						type="password"
+						class="formControl"
+						placeholder="Password"
+						#userPwd
+						required
 					/>
 				</div>
 				<div class="formGroup">
 					<input
-					type="button"
-					class="btn btnPrimary"
-					value="Sign Up"
-					(click)="authService.SignUp(userEmail.value, userPwd.value)"
+						type="button"
+						class="btn btn-success"
+						value="Sign Up"
+						(click)="onSubmit(userEmail.value, userPwd.value)"
 					/>
 				</div>
 				<div class="formGroup">
@@ -303,16 +302,16 @@
 				<!-- Continue with Google -->
 				<div class="formGroup">
 					<button
-					type="button"
-					class="btn googleBtn"
-					(click)="authService.GoogleAuth()"
+						type="button"
+						class="btn googleBtn"
+						(click)="authService.GoogleAuth()"
 					>
 					<i class="fab fa-google-plus-g"></i>
-					Continue with Google
+						Continue with Google
 					</button>
 				</div>
-				</div>
-				<div class="redirectToLogin">
+			</div>
+			<div class="redirectToLogin">
 				<span
 					>Already have an account?
 					<span class="redirect" routerLink="/sign-in">Log In</span></span
